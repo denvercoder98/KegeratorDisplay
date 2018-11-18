@@ -4,6 +4,8 @@
 #include <vector>
 #include "TemperatureReading.h"
 
+namespace KegeratorDisplay {
+
 class Temperature
 {
 public:
@@ -15,5 +17,7 @@ public:
 private:
     std::vector<int> m_lastReadings;
 };
+
+}
 
 #endif

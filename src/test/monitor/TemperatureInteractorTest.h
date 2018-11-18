@@ -4,10 +4,14 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+namespace KegeratorDisplay {
+
 class TemperatureInteractorTest : public ::testing::Test {
 public:
 	TemperatureInteractorTest();
 	virtual ~TemperatureInteractorTest();
 };
+
+}
 
 #endif

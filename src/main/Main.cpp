@@ -2,10 +2,12 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-#include "cliview/CliView.h"
+#include "view/CliView.h"
 #include "monitor/TemperatureInteractor.h"
 #include "presenter/PrintPresenter.h"
 #include "storage/BlackholeStorage.h"
+
+using namespace KegeratorDisplay;
 
 int main(int argc, char** argv)
 {

@@ -4,10 +4,14 @@
 #include "src/main/presenter/PrintView.h"
 #include "gmock/gmock.h"
 
+namespace KegeratorDisplay {
+
 class PrintViewMock : public PrintView
 {
 public:
 	MOCK_METHOD1(updateView, void(const PrintViewModel& viewModel));
 };
+
+}
 
 #endif

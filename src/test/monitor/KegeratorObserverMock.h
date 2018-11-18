@@ -4,10 +4,14 @@
 #include "src/main/monitor/KegeratorObserver.h"
 #include "gmock/gmock.h"
 
+namespace KegeratorDisplay {
+
 class KegeratorObserverMock : public KegeratorObserver
 {
 public:
     MOCK_METHOD1(update, void(const TemperatureUpdate& update));
 };
+
+}
 
 #endif

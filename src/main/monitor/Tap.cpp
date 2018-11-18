@@ -1,6 +1,9 @@
 #include "Tap.h"
 
-Tap::Tap()
+namespace KegeratorDisplay {
+
+Tap::Tap() : m_beer(0)
 {
+}
 
 }

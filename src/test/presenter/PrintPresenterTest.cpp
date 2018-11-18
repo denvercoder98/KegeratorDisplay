@@ -6,6 +6,8 @@
 using ::testing::NiceMock;
 using ::testing::_;
 
+namespace KegeratorDisplay {
+
 PrintPresenterTest::PrintPresenterTest()
 {
 }
@@ -42,4 +44,6 @@ TEST_F(PrintPresenterTest, UpdateTemperaturePrintView)
     EXPECT_CALL(printView, updateView(_))
         .Times(1);
     presenter.update(temperatureUpdate);
+}
+
 }

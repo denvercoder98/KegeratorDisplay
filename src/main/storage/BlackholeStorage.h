@@ -3,6 +3,8 @@
 
 #include "src/main/monitor/Storage.h"
 
+namespace KegeratorDisplay {
+
 class BlackholeStorage: public Storage {
 public:
 	BlackholeStorage();
@@ -10,5 +12,7 @@ public:
 
 	virtual Temperature* readTemperature();
 };
+
+}
 
 #endif /* SRC_MAIN_STORAGE_BLACKHOLESTORAGE_H_ */

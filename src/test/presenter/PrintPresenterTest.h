@@ -4,10 +4,14 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+namespace KegeratorDisplay {
+
 class PrintPresenterTest : public ::testing::Test {
 public:
 	PrintPresenterTest();
 	virtual ~PrintPresenterTest();
 };
+
+}
 
 #endif

@@ -1,5 +1,7 @@
 #include "Temperature.h"
 
+namespace KegeratorDisplay {
+
 #define NUMBER_OF_READINGS 3
 
 Temperature::Temperature() :
@@ -26,4 +28,6 @@ void Temperature::addReading(const int value)
         m_lastReadings[i] = m_lastReadings[i + 1];
     }
     m_lastReadings[NUMBER_OF_READINGS - 1] = value;
+}
+
 }

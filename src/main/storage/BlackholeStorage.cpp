@@ -1,6 +1,8 @@
 #include "BlackholeStorage.h"
 #include "src/main/monitor/Temperature.h"
 
+namespace KegeratorDisplay {
+
 BlackholeStorage::BlackholeStorage()
 {
 }
@@ -18,3 +20,4 @@ Temperature* BlackholeStorage::readTemperature()
 	return temperature;
 }
 
+}

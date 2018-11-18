@@ -3,6 +3,8 @@
 
 #include "src/main/presenter/PrintView.h"
 
+namespace KegeratorDisplay {
+
 class CliView: public PrintView {
 public:
 	CliView();
@@ -10,5 +12,7 @@ public:
 
 	virtual void updateView(const PrintViewModel& viewModel);
 };
+
+}
 
 #endif /* SRC_MAIN_CLIVIEW_CLIVIEW_H_ */

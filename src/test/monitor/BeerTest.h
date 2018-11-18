@@ -4,10 +4,23 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-class BeerTest : public ::testing::Test {
+namespace KegeratorDisplay {
+
+class Beer;
+
+class BeerTest: public ::testing::Test
+{
 public:
-	BeerTest();
-	virtual ~BeerTest();
+    BeerTest();
+    virtual ~BeerTest();
+
+protected:
+    void SetUp();
+    void TearDown();
+
+    Beer* m_beer;
 };
+
+}
 
 #endif

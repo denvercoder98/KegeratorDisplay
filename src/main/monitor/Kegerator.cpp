@@ -1,5 +1,11 @@
 #include "Kegerator.h"
 
-Kegerator::Kegerator(Tap* leftTap, Tap* rightTap)
+namespace KegeratorDisplay {
+
+Kegerator::Kegerator(Tap* leftTap, Tap* rightTap) :
+    m_leftTap(0),
+	m_rightTap(0)
 {
+}
+
 }

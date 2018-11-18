@@ -1,6 +1,8 @@
 #ifndef SRC_MAIN_MONITOR_TEMPERATUREUPDATE_H
 #define SRC_MAIN_MONITOR_TEMPERATUREUPDATE_H
 
+namespace KegeratorDisplay {
+
 class TemperatureUpdate
 {
 public:
@@ -22,5 +24,7 @@ public:
 private:
     int m_value;
 };
+
+}
 
 #endif

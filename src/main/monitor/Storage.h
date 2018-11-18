@@ -3,11 +3,15 @@
 
 #include "Temperature.h"
 
+namespace KegeratorDisplay {
+
 class Storage {
 public:
     virtual ~Storage() {};
 
     virtual Temperature* readTemperature() = 0;
 };
+
+}
 
 #endif

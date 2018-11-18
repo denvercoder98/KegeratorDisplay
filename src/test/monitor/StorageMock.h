@@ -4,10 +4,14 @@
 #include "src/main/monitor/Storage.h"
 #include "gmock/gmock.h"
 
+namespace KegeratorDisplay {
+
 class StorageMock : public Storage
 {
 public:
     MOCK_METHOD0(readTemperature, Temperature*(void));
 };
+
+}
 
 #endif

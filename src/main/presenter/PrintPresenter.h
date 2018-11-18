@@ -3,6 +3,8 @@
 
 #include "src/main/monitor/KegeratorObserver.h"
 
+namespace KegeratorDisplay {
+
 class PrintView;
 class PrintViewModel;
 
@@ -18,5 +20,7 @@ private:
     PrintView* m_view;
     PrintViewModel* m_viewModel;
 };
+
+}
 
 #endif

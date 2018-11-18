@@ -1,16 +1,17 @@
+#include "Temperature.h"
 #include "TemperatureInteractor.h"
 #include "TemperatureUpdate.h"
 #include "KegeratorObserver.h"
 #include "Storage.h"
+
+namespace KegeratorDisplay {
 
 TemperatureInteractor::TemperatureInteractor(KegeratorObserver* observer, Storage* storage) :
     m_temperature(storage->readTemperature()),
     m_kegeratorObserver(observer),
     m_storage(storage)
 {
-    int updatedValue = m_temperature->value();
-    TemperatureUpdate temperatureUpdate(updatedValue);
-    m_kegeratorObserver->update(temperatureUpdate);
+    updateObserver();
 }
 
 TemperatureInteractor::~TemperatureInteractor()
@@ -20,10 +21,21 @@ TemperatureInteractor::~TemperatureInteractor()
 
 void TemperatureInteractor::receiveTemperatureReading(const TemperatureReading& reading)
 {
-    int value = reading.value();
-    m_temperature->addReading(value);
+    addTemperatureReading(reading);
+    updateObserver();
+}
 
+void TemperatureInteractor::updateObserver()
+{
     int updatedValue = m_temperature->value();
     TemperatureUpdate temperatureUpdate(updatedValue);
     m_kegeratorObserver->update(temperatureUpdate);
+}
+
+void TemperatureInteractor::addTemperatureReading(const TemperatureReading& reading)
+{
+    int value = reading.value();
+    m_temperature->addReading(value);
+}
+
 }

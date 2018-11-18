@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace KegeratorDisplay {
+
 class PrintViewModel
 {
 public:
@@ -15,5 +17,7 @@ public:
 private:
     std::string m_temperature;
 };
+
+}
 
 #endif

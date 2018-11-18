@@ -4,6 +4,8 @@
 
 #include <sstream>
 
+namespace KegeratorDisplay {
+
 PrintPresenter::PrintPresenter(PrintView* view, PrintViewModel* viewModel) :
     m_view(view),
     m_viewModel(viewModel)
@@ -23,4 +25,6 @@ void PrintPresenter::update(const TemperatureUpdate& temperature)
     m_viewModel->setTemperature(ss.str());
     PrintViewModel view(*m_viewModel);
     m_view->updateView(view);
+}
+
 }

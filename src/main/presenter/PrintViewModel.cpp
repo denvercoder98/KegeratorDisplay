@@ -1,5 +1,7 @@
 #include "PrintViewModel.h"
 
+namespace KegeratorDisplay {
+
 PrintViewModel::PrintViewModel() :
     m_temperature("")
 {
@@ -17,4 +19,6 @@ void PrintViewModel::setTemperature(const std::string& temperature)
 std::string PrintViewModel::getTemperature() const
 {
     return m_temperature;
+}
+
 }

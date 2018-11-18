@@ -8,6 +8,8 @@ using ::testing::NiceMock;
 using ::testing::Eq;
 using ::testing::Return;
 
+namespace KegeratorDisplay {
+
 TemperatureInteractorTest::TemperatureInteractorTest()
 {
 }
@@ -83,4 +85,6 @@ TEST_F(TemperatureInteractorTest, UpdateTemperatureNotifiesObserverCorrectValue)
     TemperatureUpdate expectedUpdate(1);
     EXPECT_CALL(kegerator, update(Eq(expectedUpdate)));
     interactor.receiveTemperatureReading(reading);
+}
+
 }

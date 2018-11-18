@@ -3,6 +3,8 @@
 
 #include "PrintViewModel.h"
 
+namespace KegeratorDisplay {
+
 class PrintView
 {
 public:
@@ -10,5 +12,7 @@ public:
 
     virtual void updateView(const PrintViewModel& viewModel) = 0;
 };
+
+}
 
 #endif

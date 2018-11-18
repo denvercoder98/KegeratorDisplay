@@ -3,10 +3,16 @@
 
 #include "TemperatureReading.h"
 
-class TemperatureReadingObserver {
+namespace KegeratorDisplay {
+
+class TemperatureReadingObserver
+{
 public:
+    virtual ~TemperatureReadingObserver() {};
+
     virtual void receiveTemperatureReading(const TemperatureReading& reading) = 0;
 };
 
-#endif
+}
 
+#endif

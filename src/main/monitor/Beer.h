@@ -3,26 +3,38 @@
 
 #include "AlcoholByVolume.h"
 #include "InternationalBitternessUnits.h"
-#include "BrewDate.h"
-#include "VolumeLiters.h"
+#include "Date.h"
+#include "SpecificGravity.h"
 #include <string>
+
+namespace KegeratorDisplay {
 
 class Beer
 {
 public:
-    Beer(
-        const std::string& name,
-        const AlcoholByVolume& abv,
-        const InternationalBitternessUnits& ibu,
-        const BrewDate& brewDate,
-	VolumeLiters* volume);
+    Beer(const std::string& name,
+         const AlcoholByVolume& abv,
+         const InternationalBitternessUnits& ibu,
+         const Date& brewDate,
+         const Date& tapDate,
+         const SpecificGravity& finalGravity);
+
+    const std::string name() const;
+    const AlcoholByVolume alcoholByVolume() const;
+    const InternationalBitternessUnits internationalBitternessUnits() const;
+    const Date brewDate() const;
+    const Date tapDate() const;
+    const SpecificGravity finalGravity() const;
 
 private:
-    const std::string m_name; 
+    const std::string m_name;
     const AlcoholByVolume m_abv;
     const InternationalBitternessUnits m_ibu;
-    const BrewDate m_brewDate;
-    VolumeLiters* m_volumeLiters;
+    const Date m_brewDate;
+    const Date m_tapDate;
+    const SpecificGravity m_finalGravity;
 };
+
+}
 
 #endif
