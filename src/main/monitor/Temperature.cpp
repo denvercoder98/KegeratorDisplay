@@ -1,0 +1,29 @@
+#include "Temperature.h"
+
+#define NUMBER_OF_READINGS 3
+
+Temperature::Temperature() :
+    m_lastReadings(NUMBER_OF_READINGS)
+{
+    for (int i=0; i<NUMBER_OF_READINGS; i++) {
+        m_lastReadings.push_back(0);
+    }
+}
+
+int Temperature::value() const
+{
+    int sum = 0;
+    for (int i=0; i<NUMBER_OF_READINGS; ++i) {
+        sum += m_lastReadings[i];
+    }
+    int average = sum / NUMBER_OF_READINGS;
+    return average;
+}
+
+void Temperature::addReading(const int value)
+{
+    for (int i=0; i<NUMBER_OF_READINGS - 1; ++i) {
+        m_lastReadings[i] = m_lastReadings[i + 1];
+    }
+    m_lastReadings[NUMBER_OF_READINGS - 1] = value;
+}
