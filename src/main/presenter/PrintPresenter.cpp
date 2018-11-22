@@ -14,6 +14,8 @@ PrintPresenter::PrintPresenter(PrintView* view, PrintViewModel* viewModel) :
 
 PrintPresenter::~PrintPresenter()
 {
+    delete m_view;
+    delete m_viewModel;
 }
 
 void PrintPresenter::update(const TemperatureUpdate& temperature)
