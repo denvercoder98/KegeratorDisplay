@@ -33,8 +33,6 @@ TEST_F(TemperatureInteractorTest, ReadTemperatureFromStorage)
     Temperature *temperature = new Temperature();
     NiceMock<KegeratorObserverMock> kegerator;
     NiceMock<StorageMock> storage;
-    ON_CALL(storage, readTemperature())
-        .WillByDefault(Return(new Temperature()));
 
     TemperatureUpdate expectedUpdate(5);
     EXPECT_CALL(storage, readTemperature())

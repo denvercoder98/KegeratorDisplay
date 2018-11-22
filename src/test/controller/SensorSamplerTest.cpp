@@ -20,6 +20,7 @@ void SensorSamplerTest::SetUp()
 {
     m_sensorController = new NiceMock<SensorControllerMock>();
     m_sampler = new SensorSampler();
+    m_sampler->addSensorController(m_sensorController);
 }
 
 void SensorSamplerTest::TearDown()
@@ -33,8 +34,6 @@ TEST_F(SensorSamplerTest, Create)
 
 TEST_F(SensorSamplerTest, SampleSingleController)
 {
-    m_sampler->addSensorController(m_sensorController);
-
     EXPECT_CALL(*m_sensorController, process())
         .Times(1);
 
@@ -43,7 +42,6 @@ TEST_F(SensorSamplerTest, SampleSingleController)
 
 TEST_F(SensorSamplerTest, SampleMultipleControllers)
 {
-    m_sampler->addSensorController(m_sensorController);
     SensorControllerMock* anotherSensorController = new NiceMock<SensorControllerMock>();
     m_sampler->addSensorController(anotherSensorController);
 
