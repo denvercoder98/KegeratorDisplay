@@ -1,11 +1,11 @@
-#include "DS18B20TemperatureSensorController.h"
-#include "DS18B20TemperatureSensor.h"
 #include "InvalidDS18B20SensorReadingException.h"
 
 #include <iostream>
 #include <string>
 #include <math.h>
 #include <stdlib.h>
+#include "DS18B20SensorReader.h"
+#include "DS18B20Sensor.h"
 
 #define TEMPERATURE_READING_KEY "t="
 #define TEMPERATURE_READING_STRING_LENGTH 5
@@ -13,32 +13,30 @@
 
 namespace KegeratorDisplay {
 
-DS18B20TemperatureSensorController::DS18B20TemperatureSensorController(TemperatureReadingObserver* const observer,
-                                                                       DS18B20TemperatureSensor* const sensor) :
-    m_observer(observer),
-    m_sensor(sensor)
+DS18B20Sensor::DS18B20Sensor(DS18B20SensorReader* const sensorReader) :
+    m_sensorReader(sensorReader)
 {
 }
 
-DS18B20TemperatureSensorController::~DS18B20TemperatureSensorController()
+DS18B20Sensor::~DS18B20Sensor()
 {
-    delete m_sensor;
+    delete m_sensorReader;
 }
 
-void DS18B20TemperatureSensorController::process()
+int DS18B20Sensor::read()
 {
     std::string rawReading = readSensor();
     std::string rawTemperature = parseRawReadingToString(rawReading);
     int temperatureInteger = convertToRoundedInteger(rawTemperature);
-    notifyObserver(temperatureInteger);
+    return temperatureInteger;
 }
 
-std::string DS18B20TemperatureSensorController::readSensor()
+std::string DS18B20Sensor::readSensor()
 {
-    return m_sensor->read();
+    return m_sensorReader->read();
 }
 
-std::string DS18B20TemperatureSensorController::parseRawReadingToString(std::string& rawReading)
+std::string DS18B20Sensor::parseRawReadingToString(std::string& rawReading)
 {
     size_t pos = rawReading.find(TEMPERATURE_READING_KEY);
     if (pos == std::string::npos) {
@@ -54,25 +52,20 @@ std::string DS18B20TemperatureSensorController::parseRawReadingToString(std::str
     return rawTemperature;
 }
 
-bool DS18B20TemperatureSensorController::isPositiveInteger(const std::string& s) const
+bool DS18B20Sensor::isPositiveInteger(const std::string& s) const
 {
     std::string::const_iterator it = s.begin();
     while (it != s.end() && std::isdigit(*it)) ++it;
     return !s.empty() && it == s.end();
 }
 
-int DS18B20TemperatureSensorController::convertToRoundedInteger(std::string rawTemperature)
+int DS18B20Sensor::convertToRoundedInteger(std::string rawTemperature)
 {
     rawTemperature.insert(2, ".");
     double temperature = ::atof(rawTemperature.c_str());
     double temperatureRounded = round(temperature);
     int temperatureInteger = temperatureRounded;
     return temperatureInteger;
-}
-
-void DS18B20TemperatureSensorController::notifyObserver(int temperatureInteger)
-{
-    m_observer->receiveTemperatureReading(TemperatureReading(temperatureInteger));
 }
 
 }
