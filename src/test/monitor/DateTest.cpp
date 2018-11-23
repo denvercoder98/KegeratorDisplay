@@ -1,6 +1,6 @@
 #include "DateTest.h"
-#include "src/main/monitor/Date.h"
-#include "src/main/monitor/InvalidDateException.h"
+#include "monitor/Date.h"
+#include "monitor/InvalidDateException.h"
 
 namespace KegeratorDisplay {
 

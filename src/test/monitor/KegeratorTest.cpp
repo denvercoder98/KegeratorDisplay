@@ -1,6 +1,6 @@
 #include "KegeratorTest.h"
-#include "src/main/monitor/Kegerator.h"
-#include "src/main/monitor/Tap.h"
+#include "monitor/Kegerator.h"
+#include "monitor/Tap.h"
 
 namespace KegeratorDisplay {
 

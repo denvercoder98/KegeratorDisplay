@@ -1,7 +1,7 @@
 #include "SensorSampler.h"
 #include "TemperatureSensorController.h"
-#include "src/main/shared/DeadlineTimer.h"
-#include "src/main/shared/Mutex.h"
+#include "shared/DeadlineTimer.h"
+#include "shared/Mutex.h"
 #include <boost/bind.hpp>
 
 namespace KegeratorDisplay {

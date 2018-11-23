@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_CLIVIEW_CLIVIEW_H_
 #define SRC_MAIN_CLIVIEW_CLIVIEW_H_
 
-#include "src/main/presenter/PrintView.h"
+#include "presenter/PrintView.h"
 
 namespace KegeratorDisplay {
 

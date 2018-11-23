@@ -1,6 +1,6 @@
 #include "AlcoholByVolumeTest.h"
-#include "src/main/monitor/AlcoholByVolume.h"
-#include "src/main/monitor/InvalidAlcoholByVolumeException.h"
+#include "monitor/AlcoholByVolume.h"
+#include "monitor/InvalidAlcoholByVolumeException.h"
 
 namespace KegeratorDisplay {
 

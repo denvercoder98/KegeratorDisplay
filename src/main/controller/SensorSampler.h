@@ -2,7 +2,7 @@
 #define SRC_MAIN_CONTROLLER_SENSORSAMPLER_H_
 
 #include <vector>
-#include "src/main/shared/DeadlineTimer.h"
+#include "shared/DeadlineTimer.h"
 
 namespace KegeratorDisplay {
 

@@ -1,5 +1,5 @@
 #include "BlackholeStorage.h"
-#include "src/main/monitor/Temperature.h"
+#include "monitor/Temperature.h"
 
 namespace KegeratorDisplay {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 #define SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 
-#include "src/main/monitor/KegeratorObserver.h"
+#include "monitor/KegeratorObserver.h"
 
 namespace KegeratorDisplay {
 

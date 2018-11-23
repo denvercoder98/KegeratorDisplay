@@ -1,7 +1,7 @@
 #include "PrintPresenterTest.h"
 #include "PrintViewMock.h"
-#include "src/main/presenter/PrintPresenter.h"
-#include "src/main/presenter/PrintViewModel.h"
+#include "presenter/PrintPresenter.h"
+#include "presenter/PrintViewModel.h"
 
 using ::testing::NiceMock;
 using ::testing::_;

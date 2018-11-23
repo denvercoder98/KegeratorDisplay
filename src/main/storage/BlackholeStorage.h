@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_STORAGE_BLACKHOLESTORAGE_H_
 #define SRC_MAIN_STORAGE_BLACKHOLESTORAGE_H_
 
-#include "src/main/monitor/Storage.h"
+#include "monitor/Storage.h"
 
 namespace KegeratorDisplay {
 

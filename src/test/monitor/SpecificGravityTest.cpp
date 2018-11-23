@@ -1,6 +1,6 @@
 #include "SpecificGravityTest.h"
-#include "src/main/monitor/SpecificGravity.h"
-#include "src/main/monitor/InvalidSpecificGravityException.h"
+#include "monitor/SpecificGravity.h"
+#include "monitor/InvalidSpecificGravityException.h"
 
 namespace KegeratorDisplay {
 

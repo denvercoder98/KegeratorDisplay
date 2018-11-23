@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_PRESENTER_PRINTVIEWMOCK_H
 #define SRC_TEST_PRESENTER_PRINTVIEWMOCK_H
 
-#include "src/main/presenter/PrintView.h"
+#include "presenter/PrintView.h"
 #include "gmock/gmock.h"
 
 namespace KegeratorDisplay {

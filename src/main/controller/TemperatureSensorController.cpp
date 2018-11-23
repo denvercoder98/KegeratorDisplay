@@ -1,7 +1,7 @@
 #include "TemperatureSensorController.h"
 #include "TemperatureSensor.h"
-#include "src/main/monitor/TemperatureReading.h"
-#include "src/main/monitor/TemperatureReadingObserver.h"
+#include "monitor/TemperatureReading.h"
+#include "monitor/TemperatureReadingObserver.h"
 
 namespace KegeratorDisplay {
 

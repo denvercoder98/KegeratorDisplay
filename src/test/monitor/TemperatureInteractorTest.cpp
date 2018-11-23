@@ -1,7 +1,7 @@
 #include "TemperatureInteractorTest.h"
 #include "KegeratorObserverMock.h"
 #include "StorageMock.h"
-#include "src/main/monitor/TemperatureInteractor.h"
+#include "monitor/TemperatureInteractor.h"
 
 using ::testing::_;
 using ::testing::NiceMock;
