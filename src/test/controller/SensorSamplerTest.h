@@ -6,6 +6,8 @@
 
 namespace KegeratorDisplay {
 
+class DeadlineTimerMock;
+class MutexMock;
 class SensorSampler;
 class SensorControllerMock;
 
@@ -19,6 +21,8 @@ protected:
     void SetUp();
     void TearDown();
 
+    DeadlineTimerMock* m_timer;
+    MutexMock* m_mutex;
     SensorControllerMock* m_sensorController;
     SensorSampler* m_sampler;
 };

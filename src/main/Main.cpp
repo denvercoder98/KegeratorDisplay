@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include <iostream>
+#include <boost/thread.hpp>
 
 #include "view/CliView.h"
 
@@ -10,6 +11,9 @@
 
 #include "storage/BlackholeStorage.h"
 
+#include "shared/BoostDeadlineTimer.h"
+#include "shared/BoostMutex.h"
+
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"
 #include "controller/TemperatureSensor.h"
@@ -18,27 +22,57 @@
 
 using namespace KegeratorDisplay;
 
+boost::asio::io_service* m_ioService;
+
+void workerThread()
+{
+    try {
+        m_ioService->run();
+    }
+    catch (boost::thread_interrupted&) {
+
+    }
+    catch (std::exception& e) {
+        std::cout << "exception: " << e.what() << std::endl;
+    }
+}
+
 int main(int argc, char** argv)
 {
-	PrintView* view = new CliView();
-	PrintViewModel* viewModel = new PrintViewModel();
-	PrintPresenter* presenter = new PrintPresenter(view, viewModel);
+    std::cout << "Test run" << std::endl;
 
-	Storage* storage = new BlackholeStorage();
+    PrintView* view = new CliView();
+    PrintViewModel* viewModel = new PrintViewModel();
+    PrintPresenter* presenter = new PrintPresenter(view, viewModel);
 
-	TemperatureInteractor* interactor = new TemperatureInteractor(presenter, storage);
+    Storage* storage = new BlackholeStorage();
 
-	DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
-	TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
-	TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, interactor);
+    TemperatureInteractor* interactor = new TemperatureInteractor(presenter, storage);
 
-	SensorSampler* sensorSampler = new SensorSampler();
-	sensorSampler->addSensorController(temperatureSensorController);
-	sensorSampler->sample();
+    DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
+    TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
+    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, interactor);
 
-    std::cout << "main" << std::endl;
+    m_ioService = new boost::asio::io_service();
+    boost::asio::io_service::work* work = new boost::asio::io_service::work(*m_ioService);
+    boost::thread* thread = new boost::thread(&workerThread);
+    boost::asio::deadline_timer* boostDeadlineTimer = new boost::asio::deadline_timer(*m_ioService);
+    DeadlineTimer* timer = new BoostDeadlineTimer(boostDeadlineTimer);
+    Mutex* mutex = new BoostMutex();
+    SensorSampler* sensorSampler = new SensorSampler(1, timer, mutex);
+    sensorSampler->addSensorController(temperatureSensorController);
+    sensorSampler->start();
+
+    sleep(10);
+
+    m_ioService->stop();
+    thread->interrupt();
+    thread->join();
 
     delete sensorSampler;
+    delete thread;
+    delete work;
+    delete m_ioService;
     delete interactor;
     delete storage;
     delete presenter;
