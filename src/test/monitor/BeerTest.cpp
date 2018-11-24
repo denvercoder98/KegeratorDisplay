@@ -17,6 +17,7 @@ BeerTest::~BeerTest()
 void BeerTest::SetUp()
 {
     m_beer = new Beer("abc",
+            "Kalle Karlsson",
             AlcoholByVolume(5.2),
             InternationalBitternessUnits(40),
             Date(2018, 9, 1),
@@ -36,6 +37,11 @@ TEST_F(BeerTest, Create)
 TEST_F(BeerTest, GetName)
 {
     EXPECT_EQ("abc", m_beer->name());
+}
+
+TEST_F(BeerTest, GetBrewer)
+{
+    EXPECT_EQ("Kalle Karlsson", m_beer->brewerName());
 }
 
 TEST_F(BeerTest, GetABV)

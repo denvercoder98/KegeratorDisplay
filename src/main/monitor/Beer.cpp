@@ -3,12 +3,14 @@
 namespace KegeratorDisplay {
 
 Beer::Beer(const std::string& name,
+           const std::string& brewerName,
            const AlcoholByVolume& abv,
            const InternationalBitternessUnits& ibu,
            const Date& brewDate,
            const Date& tapDate,
            const SpecificGravity& finalGravity) :
     m_name(name),
+    m_brewerName(brewerName),
     m_abv(abv),
     m_ibu(ibu),
     m_brewDate(brewDate),
@@ -20,6 +22,11 @@ Beer::Beer(const std::string& name,
 const std::string Beer::name() const
 {
     return m_name;
+}
+
+const std::string Beer::brewerName() const
+{
+    return m_brewerName;
 }
 
 const AlcoholByVolume Beer::alcoholByVolume() const
