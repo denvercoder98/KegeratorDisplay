@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(KegeratorDisplay)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -ggdb -O0 -g --coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -ggdb -O0 -g --coverage")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -20,10 +20,12 @@ include_directories("src/test/")
 find_package(Boost 1.58 COMPONENTS date_time thread REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
-add_executable(kegeratorDisplay "src/main/Main.cpp" ${TARGET_SOURCES})
-add_executable(kegeratorDisplayUnitTest ${UNITTEST_SOURCES} ${TARGET_SOURCES})
-add_executable(kegeratorDisplayAcceptanceTest ${ACCEPTANCETEST_SOURCES} ${TARGET_SOURCES})
+add_library(KegeratorDisplayImplementation STATIC ${TARGET_SOURCES} )
 
-target_link_libraries(kegeratorDisplay ${Boost_LIBRARIES})
-target_link_libraries(kegeratorDisplayUnitTest gtest gmock pthread ${Boost_LIBRARIES})
-target_link_libraries(kegeratorDisplayAcceptanceTest gtest gmock pthread ${Boost_LIBRARIES})
+add_executable(kegeratorDisplay "src/main/Main.cpp")
+add_executable(kegeratorDisplayUnitTest ${UNITTEST_SOURCES})
+add_executable(kegeratorDisplayAcceptanceTest ${ACCEPTANCETEST_SOURCES})
+
+target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES})
+target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
+target_link_libraries(kegeratorDisplayAcceptanceTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
