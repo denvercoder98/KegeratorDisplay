@@ -11,7 +11,8 @@ public:
     virtual ~Storage() {};
 
     virtual Temperature* readTemperature() = 0;
-    virtual Tap* readTap() = 0;
+    virtual Tap* readLeftTap() = 0;
+    virtual Tap* readRightTap() = 0;
 };
 
 }

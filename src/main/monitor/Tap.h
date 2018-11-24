@@ -8,7 +8,10 @@ class Beer;
 class Tap
 {
 public:
-    Tap();
+    Tap(Beer* beer);
+    virtual ~Tap();
+
+    Beer* beer() const;
 
 private:
     Beer* m_beer;

@@ -11,7 +11,8 @@ public:
 	virtual ~BlackholeStorage();
 
 	virtual Temperature* readTemperature();
-    virtual Tap* readTap();
+    virtual Tap* readLeftTap();
+    virtual Tap* readRightTap();
 };
 
 }

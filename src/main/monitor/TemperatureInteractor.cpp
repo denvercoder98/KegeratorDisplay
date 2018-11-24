@@ -29,7 +29,7 @@ void TemperatureInteractor::updateObserver()
 {
     int updatedValue = m_temperature->value();
     TemperatureUpdate temperatureUpdate(updatedValue);
-    m_kegeratorObserver->update(temperatureUpdate);
+    m_kegeratorObserver->updateTemperature(temperatureUpdate);
 }
 
 void TemperatureInteractor::addTemperatureReading(const TemperatureReading& reading)

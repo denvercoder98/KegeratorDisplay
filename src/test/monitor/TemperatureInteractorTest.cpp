@@ -65,7 +65,7 @@ TEST_F(TemperatureInteractorTest, UpdateTemperatureNotifiesObserver)
     TemperatureInteractor interactor(&kegerator, &storage);
     TemperatureReading reading(3);
 
-    EXPECT_CALL(kegerator, update(_));
+    EXPECT_CALL(kegerator, updateTemperature(_));
     interactor.receiveTemperatureReading(reading);
 }
 
@@ -81,7 +81,7 @@ TEST_F(TemperatureInteractorTest, UpdateTemperatureNotifiesObserverCorrectValue)
     TemperatureReading reading(3);
 
     TemperatureUpdate expectedUpdate(1);
-    EXPECT_CALL(kegerator, update(Eq(expectedUpdate)));
+    EXPECT_CALL(kegerator, updateTemperature(Eq(expectedUpdate)));
     interactor.receiveTemperatureReading(reading);
 }
 

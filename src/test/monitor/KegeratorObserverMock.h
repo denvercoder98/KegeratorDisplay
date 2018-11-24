@@ -9,7 +9,8 @@ namespace KegeratorDisplay {
 class KegeratorObserverMock : public KegeratorObserver
 {
 public:
-    MOCK_METHOD1(update, void(const TemperatureUpdate& update));
+    MOCK_METHOD1(updateTemperature, void(const TemperatureUpdate& update));
+    MOCK_METHOD1(updateTap, void(const TapUpdate& update));
 };
 
 }

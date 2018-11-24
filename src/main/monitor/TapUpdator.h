@@ -3,16 +3,16 @@
 
 namespace KegeratorDisplay {
 
-class Tap;
+class KegeratorObserver;
 class Storage;
 
 class TapUpdator {
 public:
-	TapUpdator(Storage* stroage);
+	TapUpdator(KegeratorObserver* observer, Storage* storage);
 	virtual ~TapUpdator();
 
 private:
-	Tap* m_tap;
+	KegeratorObserver* m_observer;
 	Storage* m_storage;
 };
 

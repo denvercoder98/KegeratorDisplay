@@ -14,7 +14,8 @@ public:
     PrintPresenter(PrintView* view, PrintViewModel* viewModel);
     virtual ~PrintPresenter();
 
-    virtual void update(const TemperatureUpdate& temperature);
+    virtual void updateTemperature(const TemperatureUpdate& temperature);
+    virtual void updateTap(const TapUpdate& tap);
 
 private:
     PrintView* m_view;

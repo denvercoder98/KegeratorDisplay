@@ -23,9 +23,15 @@ Temperature* BlackholeStorage::readTemperature()
 	return temperature;
 }
 
-Tap* BlackholeStorage::readTap()
+Tap* BlackholeStorage::readLeftTap()
 {
     return NULL;
 }
+
+Tap* BlackholeStorage::readRightTap()
+{
+    return NULL;
+}
+
 
 }

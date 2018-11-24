@@ -14,7 +14,7 @@ KegeratorTest::~KegeratorTest()
 
 TEST_F(KegeratorTest, Create)
 {
-    Kegerator kegerator(new Tap(), new Tap());
+    Kegerator kegerator(new Tap(NULL), new Tap(NULL));
 }
 
 }

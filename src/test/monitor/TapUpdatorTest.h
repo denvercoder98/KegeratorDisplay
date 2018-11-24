@@ -6,7 +6,7 @@
 
 namespace KegeratorDisplay {
 
-class TapUpdator;
+class KegeratorObserverMock;
 class StorageMock;
 
 class TapUpdatorTest : public ::testing::Test
@@ -18,9 +18,10 @@ public:
 protected:
     void SetUp();
     void TearDown();
+    void prepareBeers();
 
+    KegeratorObserverMock* m_observer;
     StorageMock* m_storage;
-    TapUpdator* m_tapUpdator;
 };
 
 }

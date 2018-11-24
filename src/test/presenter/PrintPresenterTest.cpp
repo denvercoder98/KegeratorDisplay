@@ -29,7 +29,7 @@ TEST_F(PrintPresenterTest, UpdateTemperatureValue)
     NiceMock<PrintViewMock>* printView = new NiceMock<PrintViewMock>();
     PrintPresenter presenter(printView, viewModel);
     TemperatureUpdate temperatureUpdate(11);
-    presenter.update(temperatureUpdate);
+    presenter.updateTemperature(temperatureUpdate);
 
     EXPECT_EQ("Temperature is: 11", viewModel->getTemperature());
 }
@@ -43,7 +43,7 @@ TEST_F(PrintPresenterTest, UpdateTemperaturePrintView)
 
     EXPECT_CALL(*printView, updateView(_))
         .Times(1);
-    presenter.update(temperatureUpdate);
+    presenter.updateTemperature(temperatureUpdate);
 }
 
 }

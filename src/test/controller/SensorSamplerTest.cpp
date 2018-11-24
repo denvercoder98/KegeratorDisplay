@@ -57,15 +57,15 @@ void noop(boost::posix_time::seconds seconds,
 TEST_F(SensorSamplerTest, MissingDeadlineTimerThrows)
 {
     MutexMock* mutex = new NiceMock<MutexMock>();
-
     EXPECT_THROW(new SensorSampler(1, NULL, mutex), InvalidSensorSamplerArgumentException);
+    delete mutex;
 }
 
 TEST_F(SensorSamplerTest, MissingMutexThrows)
 {
     DeadlineTimerMock* timer = new NiceMock<DeadlineTimerMock>();
-
     EXPECT_THROW(new SensorSampler(1, timer, NULL), InvalidSensorSamplerArgumentException);
+    delete timer;
 }
 
 TEST_F(SensorSamplerTest, RunSingleControllerProcess)
