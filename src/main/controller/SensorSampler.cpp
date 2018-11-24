@@ -1,7 +1,9 @@
 #include "SensorSampler.h"
 #include "TemperatureSensorController.h"
+#include "InvalidSensorSamplerArgumentException.h"
 #include "shared/DeadlineTimer.h"
 #include "shared/Mutex.h"
+#include "shared/ScopedMutex.h"
 #include <boost/bind.hpp>
 
 namespace KegeratorDisplay {
@@ -13,6 +15,13 @@ SensorSampler::SensorSampler(unsigned int sampleRateSeconds,
     m_mutex(mutex),
     m_sensors()
 {
+    if (m_timer == NULL) {
+        throw InvalidSensorSamplerArgumentException("Missing DeadlineTimer dependency");
+    }
+
+    if (m_mutex == NULL) {
+        throw InvalidSensorSamplerArgumentException("Missing Mutex dependency");
+    }
 }
 
 SensorSampler::~SensorSampler()
@@ -30,9 +39,8 @@ SensorSampler::~SensorSampler()
 
 void SensorSampler::addSensorController(SensorController* sensorController)
 {
-    m_mutex->lock();
+    ScopedMutex lock(m_mutex);
     m_sensors.push_back(sensorController);
-    m_mutex->unlock();
 }
 
 void SensorSampler::start()
@@ -51,14 +59,13 @@ void SensorSampler::run(const boost::system::error_code& error)
 
 void SensorSampler::sample()
 {
-    m_mutex->lock();
+    ScopedMutex lock(m_mutex);
     std::vector<SensorController*>::iterator i;
     for (i = m_sensors.begin(); i != m_sensors.end(); ++i) {
         SensorController* controller = *i;
         controller->process();
     }
     scheduleNextSample();
-    m_mutex->unlock();
 }
 
 void SensorSampler::scheduleNextSample()

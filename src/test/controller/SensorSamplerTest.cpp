@@ -3,6 +3,7 @@
 #include "shared/DeadlineTimerMock.h"
 #include "shared/MutexMock.h"
 #include "controller/SensorSampler.h"
+#include "controller/InvalidSensorSamplerArgumentException.h"
 
 using ::testing::NiceMock;
 using ::testing::_;
@@ -26,9 +27,9 @@ void SensorSamplerTest::SetUp()
 {
     m_timer = new NiceMock<DeadlineTimerMock>();
     m_mutex = new NiceMock<MutexMock>();
-    m_sensorController = new NiceMock<SensorControllerMock>();
 
     m_sampler = new SensorSampler(1, m_timer, m_mutex);
+    m_sensorController = new NiceMock<SensorControllerMock>();
     m_sampler->addSensorController(m_sensorController);
 }
 
@@ -51,6 +52,20 @@ void runCallback(boost::posix_time::seconds seconds,
 void noop(boost::posix_time::seconds seconds,
            boost::function<void(const boost::system::error_code&)> callback)
 {
+}
+
+TEST_F(SensorSamplerTest, MissingDeadlineTimerThrows)
+{
+    MutexMock* mutex = new NiceMock<MutexMock>();
+
+    EXPECT_THROW(new SensorSampler(1, NULL, mutex), InvalidSensorSamplerArgumentException);
+}
+
+TEST_F(SensorSamplerTest, MissingMutexThrows)
+{
+    DeadlineTimerMock* timer = new NiceMock<DeadlineTimerMock>();
+
+    EXPECT_THROW(new SensorSampler(1, timer, NULL), InvalidSensorSamplerArgumentException);
 }
 
 TEST_F(SensorSamplerTest, RunSingleControllerProcess)
