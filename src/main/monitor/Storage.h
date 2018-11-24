@@ -2,6 +2,7 @@
 #define SRC_MAIN_MONITOR_STORAGE_H
 
 #include "Temperature.h"
+#include "Tap.h"
 
 namespace KegeratorDisplay {
 
@@ -10,6 +11,7 @@ public:
     virtual ~Storage() {};
 
     virtual Temperature* readTemperature() = 0;
+    virtual Tap* readTap() = 0;
 };
 
 }

@@ -1,5 +1,8 @@
 #include "BlackholeStorage.h"
 #include "monitor/Temperature.h"
+#include "monitor/Tap.h"
+
+#include <cstddef>
 
 namespace KegeratorDisplay {
 
@@ -18,6 +21,11 @@ Temperature* BlackholeStorage::readTemperature()
 	temperature->addReading(5);
 	temperature->addReading(5);
 	return temperature;
+}
+
+Tap* BlackholeStorage::readTap()
+{
+    return NULL;
 }
 
 }
