@@ -1,8 +1,8 @@
 #ifndef SRC_MAIN_CONTROLLER_SENSORSAMPLER_H_
 #define SRC_MAIN_CONTROLLER_SENSORSAMPLER_H_
 
+#include <thread/DeadlineTimer.h>
 #include <vector>
-#include "shared/DeadlineTimer.h"
 
 namespace KegeratorDisplay {
 

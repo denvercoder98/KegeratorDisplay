@@ -2,6 +2,8 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <boost/thread.hpp>
+#include <thread/BoostDeadlineTimer.h>
+#include <thread/BoostMutex.h>
 
 #include "view/CliView.h"
 
@@ -10,9 +12,6 @@
 #include "presenter/PrintPresenter.h"
 
 #include "storage/BlackholeStorage.h"
-
-#include "shared/BoostDeadlineTimer.h"
-#include "shared/BoostMutex.h"
 
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"

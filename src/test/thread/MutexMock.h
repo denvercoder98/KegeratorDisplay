@@ -1,7 +1,8 @@
-#ifndef SRC_TEST_SHARED_MUTEXMOCK_H_
-#define SRC_TEST_SHARED_MUTEXMOCK_H_
+#ifndef SRC_TEST_THREAD_MUTEXMOCK_H_
+#define SRC_TEST_THREAD_MUTEXMOCK_H_
 
-#include "shared/Mutex.h"
+#include <thread/Mutex.h>
+
 #include "gmock/gmock.h"
 
 namespace KegeratorDisplay {

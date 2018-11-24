@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_SHARED_DEADLINETIMER_H_
-#define SRC_MAIN_SHARED_DEADLINETIMER_H_
+#ifndef SRC_MAIN_THREAD_DEADLINETIMER_H_
+#define SRC_MAIN_THREAD_DEADLINETIMER_H_
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/asio.hpp>

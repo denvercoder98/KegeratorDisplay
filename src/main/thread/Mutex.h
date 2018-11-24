@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_SHARED_MUTEX_H_
-#define SRC_MAIN_SHARED_MUTEX_H_
+#ifndef SRC_MAIN_THREAD_MUTEX_H_
+#define SRC_MAIN_THREAD_MUTEX_H_
 
 namespace KegeratorDisplay {
 

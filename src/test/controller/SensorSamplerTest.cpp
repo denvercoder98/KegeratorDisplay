@@ -1,9 +1,9 @@
 #include "SensorSamplerTest.h"
 #include "SensorControllerMock.h"
-#include "shared/DeadlineTimerMock.h"
-#include "shared/MutexMock.h"
 #include "controller/SensorSampler.h"
 #include "controller/InvalidSensorSamplerArgumentException.h"
+#include "../thread/DeadlineTimerMock.h"
+#include "../thread/MutexMock.h"
 
 using ::testing::NiceMock;
 using ::testing::_;
