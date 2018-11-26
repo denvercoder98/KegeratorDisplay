@@ -4,11 +4,13 @@
 namespace KegeratorDisplay {
 
 Tap::Tap() :
+    m_empty(true),
     m_beer()
 {
 }
 
 Tap::Tap(Beer& beer) :
+    m_empty(false),
     m_beer(beer)
 {
 }

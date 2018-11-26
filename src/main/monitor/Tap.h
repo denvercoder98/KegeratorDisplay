@@ -19,6 +19,7 @@ public:
     void setBeer(Beer beer);
 
 private:
+    bool m_empty;
     Beer m_beer;
 };
 

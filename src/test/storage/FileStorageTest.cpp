@@ -179,4 +179,58 @@ TEST_F(FileStorageTest, ReadLeftTapCorrect)
     delete tap;
 }
 
+TEST_F(FileStorageTest, ReadRightTapCorrect)
+{
+    Beer beer(
+        "Beer",
+        "Kalle",
+        AlcoholByVolume(4),
+        InternationalBitternessUnits(20),
+        Date(2015, 2, 13),
+        Date(2015, 2, 13),
+        SpecificGravity(1.010));
+    Tap originalTap(beer);
+
+    ON_CALL(*m_reader, read("fileRight"))
+        .WillByDefault(Return(EXPECTED_SERIALIZED_TAP));
+    Tap* tap = m_storage->readRightTap();
+    EXPECT_EQ(originalTap, *tap);
+    delete tap;
+}
+
+TEST_F(FileStorageTest, ReadTemperatureEMpty)
+{
+    Temperature originalTemp;
+
+    ON_CALL(*m_reader, read("file"))
+        .WillByDefault(Return(""));
+    Temperature* temp = m_storage->readTemperature();
+    EXPECT_EQ(originalTemp, *temp);
+    delete temp;
+}
+
+TEST_F(FileStorageTest, ReadLeftTapEmpty)
+{
+    Beer beer;
+    Tap originalTap(beer);
+
+    ON_CALL(*m_reader, read("fileLeft"))
+        .WillByDefault(Return(""));
+    Tap* tap = m_storage->readLeftTap();
+    EXPECT_EQ(originalTap, *tap);
+    delete tap;
+}
+
+TEST_F(FileStorageTest, ReadRightTapEmpty)
+{
+    Beer beer;
+    Tap originalTap(beer);
+
+    ON_CALL(*m_reader, read("fileRight"))
+        .WillByDefault(Return(""));
+    Tap* tap = m_storage->readRightTap();
+    EXPECT_EQ(originalTap, *tap);
+    delete tap;
+}
+
 }

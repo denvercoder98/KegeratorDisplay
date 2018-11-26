@@ -12,7 +12,9 @@
 
 #include "presenter/PrintPresenter.h"
 
-#include "storage/BlackholeStorage.h"
+#include "storage/FileWriterImpl.h"
+#include "storage/FileReaderImpl.h"
+#include "storage/FileStorage.h"
 
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"
@@ -45,7 +47,9 @@ int main(int argc, char** argv)
     PrintViewModel* viewModel = new PrintViewModel();
     PrintPresenter* presenter = new PrintPresenter(view, viewModel);
 
-    Storage* storage = new BlackholeStorage();
+    FileWriter* fileWriter = new FileWriterImpl();
+    FileReader* fileReader = new FileReaderImpl();
+    Storage* storage = new FileStorage("temp", "left", "right", fileWriter, fileReader);
 
     TemperatureInteractor* temperatureUpdator = new TemperatureInteractor(presenter, storage);
     TapUpdator* tapUpdator = new TapUpdator(presenter, storage);

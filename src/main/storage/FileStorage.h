@@ -27,7 +27,17 @@ public:
 
     Tap* readRightTap();
     void writeRightTap(Tap*);
+
 private:
+    Temperature* createTemperatureFromString(const std::string& serialized);
+    Tap* createTapFromString(const std::string& serialized);
+
+    std::string readFile(const std::string& filename);
+    void writeFile(const std::string& filename, const std::string& data);
+
+    const std::string serializeTemperature(Temperature* temperature);
+    const std::string serializeTap(Tap* temperature);
+
     const std::string m_temperatureFilename;
     const std::string m_leftTapFilename;
     const std::string m_rightTapFilename;

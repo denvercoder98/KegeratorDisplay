@@ -34,7 +34,55 @@ FileStorage::~FileStorage()
 
 Temperature* FileStorage::readTemperature()
 {
-    std::string serialized = m_reader->read(m_temperatureFilename);
+    std::string serialized = readFile(m_temperatureFilename);
+    return createTemperatureFromString(serialized);
+}
+
+void FileStorage::writeTemperature(Temperature* temperature)
+{
+    const std::string serialized = serializeTemperature(temperature);
+    writeFile(m_temperatureFilename, serialized);
+}
+
+Tap* FileStorage::readLeftTap()
+{
+    std::string serialized = readFile(m_leftTapFilename);
+    return createTapFromString(serialized);
+}
+
+void FileStorage::writeLeftTap(Tap* tap)
+{
+    std::string serialized = serializeTap(tap);
+    writeFile(m_leftTapFilename, serialized);
+}
+
+Tap* FileStorage::readRightTap()
+{
+    std::string serialized = readFile(m_rightTapFilename);
+    return createTapFromString(serialized);
+}
+
+void FileStorage::writeRightTap(Tap* tap)
+{
+    std::string serialized = serializeTap(tap);
+    writeFile(m_rightTapFilename, serialized);
+}
+
+std::string FileStorage::readFile(const std::string& filename)
+{
+    return m_reader->read(filename);
+}
+
+void FileStorage::writeFile(const std::string& filename, const std::string& serialized)
+{
+    m_writer->truncateAndWrite(filename, serialized);
+}
+
+Temperature* FileStorage::createTemperatureFromString(const std::string& serialized)
+{
+    if (serialized.empty()) {
+        return new Temperature();
+    }
     std::istringstream ss(serialized);
     boost::archive::text_iarchive ia(ss);
     Temperature *t = new Temperature();
@@ -42,51 +90,35 @@ Temperature* FileStorage::readTemperature()
     return t;
 }
 
-void FileStorage::writeTemperature(Temperature* temperature)
+Tap* FileStorage::createTapFromString(const std::string& serialized)
+{
+    if (serialized.empty()) {
+        return new Tap();
+    }
+
+    std::istringstream ss(serialized);
+    boost::archive::text_iarchive ia(ss);
+    Tap *t = new Tap();
+    ia >> *t;
+    return t;
+}
+
+const std::string FileStorage::serializeTemperature(Temperature* temperature)
 {
     std::ostringstream ss;
     boost::archive::text_oarchive oa(ss);
     oa << *temperature;
     const std::string serialized = ss.str();
-    m_writer->truncateAndWrite(m_temperatureFilename, serialized);
+    return serialized;
 }
 
-Tap* FileStorage::readLeftTap()
-{
-    std::string serialized = m_reader->read(m_leftTapFilename);
-    std::istringstream ss(serialized);
-    boost::archive::text_iarchive ia(ss);
-    Tap *t = new Tap();
-    ia >> *t;
-    return t;
-}
-
-void FileStorage::writeLeftTap(Tap* tap)
+const std::string FileStorage::serializeTap(Tap* tap)
 {
     std::ostringstream ss;
     boost::archive::text_oarchive oa(ss);
     oa << *tap;
     const std::string serialized = ss.str();
-    m_writer->truncateAndWrite(m_leftTapFilename, serialized);
-}
-
-Tap* FileStorage::readRightTap()
-{
-    std::string serialized = m_reader->read(m_rightTapFilename);
-    std::istringstream ss(serialized);
-    boost::archive::text_iarchive ia(ss);
-    Tap *t = new Tap();
-    ia >> *t;
-    return t;
-}
-
-void FileStorage::writeRightTap(Tap* tap)
-{
-    std::ostringstream ss;
-    boost::archive::text_oarchive oa(ss);
-    oa << *tap;
-    const std::string serialized = ss.str();
-    m_writer->truncateAndWrite(m_rightTapFilename, serialized);
+    return serialized;
 }
 
 }
