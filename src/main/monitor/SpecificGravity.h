@@ -7,11 +7,14 @@ namespace KegeratorDisplay {
 
 class SpecificGravity {
 public:
+    SpecificGravity();
 	SpecificGravity(const float gravity);
 	virtual ~SpecificGravity();
 
 	const std::string value() const;
 	const bool operator==(const SpecificGravity& other) const;
+
+	void setSG(const float gravity);
 
 private:
 	void validateArgument(const float gravity);

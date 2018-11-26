@@ -3,19 +3,33 @@
 
 namespace KegeratorDisplay {
 
-Tap::Tap(Beer* beer) :
+Tap::Tap() :
+    m_beer()
+{
+}
+
+Tap::Tap(Beer& beer) :
     m_beer(beer)
 {
 }
 
 Tap::~Tap()
 {
-    delete m_beer;
 }
 
-Beer* Tap::beer() const
+bool Tap::operator==(const Tap& other) const
+{
+    return m_beer == other.m_beer;
+}
+
+Beer Tap::beer() const
 {
     return m_beer;
+}
+
+void Tap::setBeer(Beer beer)
+{
+    m_beer = beer;
 }
 
 }

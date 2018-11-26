@@ -35,14 +35,14 @@ void TapUpdatorTest::SetUp()
 
 void TapUpdatorTest::prepareBeers()
 {
-    Beer* beerA = new Beer("Beer A",
+    Beer beerA("Beer A",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
         Date(2018, 10, 1),
         Date(2018, 11, 1),
         SpecificGravity(1.010));
-    Beer* beerB = new Beer("Beer B",
+    Beer beerB("Beer B",
         "Sven Svensson",
         AlcoholByVolume(3.5),
         InternationalBitternessUnits(20),
@@ -81,14 +81,14 @@ TEST_F(TapUpdatorTest, MissingObserverThrows)
 TEST_F(TapUpdatorTest, ReadLeftTapStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
-    Beer* beerA = new Beer("Beer A",
+    Beer beerA("Beer A",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
         Date(2018, 10, 1),
         Date(2018, 11, 1),
         SpecificGravity(1.010));
-    Beer* beerB = new Beer("Beer B",
+    Beer beerB("Beer B",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
@@ -106,14 +106,14 @@ TEST_F(TapUpdatorTest, ReadLeftTapStorageOnCreation)
 TEST_F(TapUpdatorTest, ReadRightTapStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
-    Beer* beerA = new Beer("Beer A",
+    Beer beerA("Beer A",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
         Date(2018, 10, 1),
         Date(2018, 11, 1),
         SpecificGravity(1.010));
-    Beer* beerB = new Beer("Beer B",
+    Beer beerB("Beer B",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
@@ -131,14 +131,14 @@ TEST_F(TapUpdatorTest, ReadRightTapStorageOnCreation)
 TEST_F(TapUpdatorTest, UpdateTapFromStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
-    Beer* beerA = new Beer("Beer A",
+    Beer beerA("Beer A",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),
         Date(2018, 10, 1),
         Date(2018, 11, 1),
         SpecificGravity(1.010));
-    Beer* beerB = new Beer("Beer B",
+    Beer beerB("Beer B",
         "Kalle Karlsson",
         AlcoholByVolume(5.2),
         InternationalBitternessUnits(40),

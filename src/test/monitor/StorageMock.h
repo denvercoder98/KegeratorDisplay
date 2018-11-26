@@ -10,8 +10,11 @@ class StorageMock : public Storage
 {
 public:
     MOCK_METHOD0(readTemperature, Temperature*(void));
+    MOCK_METHOD1(writeTemperature, void(Temperature*));
     MOCK_METHOD0(readLeftTap, Tap*(void));
+    MOCK_METHOD1(writeLeftTap, void(Tap*));
     MOCK_METHOD0(readRightTap, Tap*(void));
+    MOCK_METHOD1(writeRightTap, void(Tap*));
 };
 
 }

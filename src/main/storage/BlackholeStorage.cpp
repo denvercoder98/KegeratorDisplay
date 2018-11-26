@@ -24,30 +24,43 @@ Temperature* BlackholeStorage::readTemperature()
 	return temperature;
 }
 
+void BlackholeStorage::writeTemperature(Temperature*)
+{
+
+}
+
 Tap* BlackholeStorage::readLeftTap()
 {
-    return new Tap(
-        new Beer(
-            "Beer A",
-            "Kalle Karlsson",
-            AlcoholByVolume(5.2),
-            InternationalBitternessUnits(40),
-            Date(2018, 10, 1),
-            Date(2018, 11, 1),
-            SpecificGravity(1.015)));
+    Beer beer("Beer A",
+        "Kalle Karlsson",
+        AlcoholByVolume(5.2),
+        InternationalBitternessUnits(40),
+        Date(2018, 10, 1),
+        Date(2018, 11, 1),
+        SpecificGravity(1.015));
+    return new Tap(beer);
 }
 
 Tap* BlackholeStorage::readRightTap()
 {
-    return new Tap(
-        new Beer(
-            "Beer B",
-            "Sven Svensson",
-            AlcoholByVolume(3.5),
-            InternationalBitternessUnits(20),
-            Date(2018, 10, 1),
-            Date(2018, 11, 1),
-            SpecificGravity(1.012)));
+    Beer beer("Beer B",
+        "Sven Svensson",
+        AlcoholByVolume(3.5),
+        InternationalBitternessUnits(20),
+        Date(2018, 10, 1),
+        Date(2018, 11, 1),
+        SpecificGravity(1.012));
+    return new Tap(beer);
+}
+
+void BlackholeStorage::writeLeftTap(Tap*)
+{
+
+}
+
+void BlackholeStorage::writeRightTap(Tap*)
+{
+
 }
 
 

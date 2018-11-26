@@ -5,14 +5,24 @@
 
 namespace KegeratorDisplay {
 
+AlcoholByVolume::AlcoholByVolume() :
+    m_value("0.000")
+{
+}
+
 AlcoholByVolume::AlcoholByVolume(const float value)
 {
-    validateArgument(value);
-    setStringValueFromFloat(value);
+    setAbv(value);
 }
 
 AlcoholByVolume::~AlcoholByVolume()
 {
+}
+
+void AlcoholByVolume::setAbv(const float value)
+{
+    validateArgument(value);
+    setStringValueFromFloat(value);
 }
 
 void AlcoholByVolume::validateArgument(const float value)

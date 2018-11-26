@@ -1,20 +1,25 @@
 #ifndef SRC_MAIN_MONITOR_TAP_H
 #define SRC_MAIN_MONITOR_TAP_H
 
-namespace KegeratorDisplay {
+#include "Beer.h"
 
-class Beer;
+namespace KegeratorDisplay {
 
 class Tap
 {
 public:
-    Tap(Beer* beer);
+    Tap();
+    Tap(Beer& beer);
     virtual ~Tap();
 
-    Beer* beer() const;
+    bool operator==(const Tap& other) const;
+
+    Beer beer() const;
+
+    void setBeer(Beer beer);
 
 private:
-    Beer* m_beer;
+    Beer m_beer;
 };
 
 }

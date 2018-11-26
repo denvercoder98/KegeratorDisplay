@@ -22,28 +22,28 @@ TapUpdator::TapUpdator(KegeratorObserver* observer, Storage* storage) :
     }
 
     Tap* leftTap = m_storage->readLeftTap();
-    Beer* beer = leftTap->beer();
-    BeerUpdate beerUpdate(beer->name(),
-                          beer->brewerName(),
-                          beer->alcoholByVolume().value(),
-                          beer->internationalBitternessUnits().value(),
-                          beer->brewDate().value(),
-                          beer->tapDate().value(),
-                          beer->finalGravity().value());
+    Beer beer = leftTap->beer();
+    BeerUpdate beerUpdate(beer.name(),
+                          beer.brewerName(),
+                          beer.alcoholByVolume().value(),
+                          beer.internationalBitternessUnits().value(),
+                          beer.brewDate().value(),
+                          beer.tapDate().value(),
+                          beer.finalGravity().value());
 
     TapUpdate leftTapUpdate(TAP_LEFT, beerUpdate);
     m_observer->updateTap(leftTapUpdate);
     delete leftTap;
 
     Tap* rightTap = m_storage->readRightTap();
-    Beer* beer2 = rightTap->beer();
-    BeerUpdate beerUpdate2(beer2->name(),
-                          beer2->brewerName(),
-                          beer2->alcoholByVolume().value(),
-                          beer2->internationalBitternessUnits().value(),
-                          beer2->brewDate().value(),
-                          beer2->tapDate().value(),
-                          beer2->finalGravity().value());
+    Beer beer2 = rightTap->beer();
+    BeerUpdate beerUpdate2(beer2.name(),
+                          beer2.brewerName(),
+                          beer2.alcoholByVolume().value(),
+                          beer2.internationalBitternessUnits().value(),
+                          beer2.brewDate().value(),
+                          beer2.tapDate().value(),
+                          beer2.finalGravity().value());
 
     TapUpdate rightTapUpdate(TAP_RIGHT, beerUpdate2);
     m_observer->updateTap(rightTapUpdate);

@@ -12,16 +12,25 @@ class FileReader;
 class FileStorage : public Storage
 {
 public:
-    FileStorage(const std::string& temperatureFilename, FileWriter* writer, FileReader* reader);
+    FileStorage(const std::string& temperatureFilename,
+                const std::string& leftTapFilename,
+                const std::string& rightTapFilename,
+                FileWriter* writer,
+                FileReader* reader);
     virtual ~FileStorage();
 
     virtual Temperature* readTemperature();
     void writeTemperature(Temperature* temperature);
 
-    virtual Tap* readLeftTap();
-    virtual Tap* readRightTap();
+    Tap* readLeftTap();
+    void writeLeftTap(Tap*);
+
+    Tap* readRightTap();
+    void writeRightTap(Tap*);
 private:
     const std::string m_temperatureFilename;
+    const std::string m_leftTapFilename;
+    const std::string m_rightTapFilename;
     FileWriter* m_writer;
     FileReader* m_reader;
 };

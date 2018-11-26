@@ -5,15 +5,26 @@
 
 namespace KegeratorDisplay {
 
+SpecificGravity::SpecificGravity() :
+    m_value("")
+{
+    setSG(0);
+}
+
 SpecificGravity::SpecificGravity(const float gravity) :
     m_value("")
 {
-    validateArgument(gravity);
-    setValue(gravity);
+    setSG(gravity);
 }
 
 SpecificGravity::~SpecificGravity()
 {
+}
+
+void SpecificGravity::setSG(const float gravity)
+{
+    validateArgument(gravity);
+    setValue(gravity);
 }
 
 const std::string SpecificGravity::value() const
