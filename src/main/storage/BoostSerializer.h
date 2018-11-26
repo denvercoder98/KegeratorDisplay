@@ -1,127 +1,10 @@
-#include <storage/FileStorage.h>
-#include "storage/FileWriter.h"
-#include "storage/FileReader.h"
-#include "monitor/Tap.h"
 #include "monitor/Temperature.h"
+#include "monitor/Tap.h"
 
-#include <sstream>
-#include <string>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/split_member.hpp>
-
-namespace KegeratorDisplay {
-
-FileStorage::FileStorage(const std::string& temperatureFilename,
-                         const std::string& leftTapFilename,
-                         const std::string& rightTapFilename,
-                         FileWriter* writer,
-                         FileReader* reader) :
-    m_temperatureFilename(temperatureFilename),
-    m_leftTapFilename(leftTapFilename),
-    m_rightTapFilename(rightTapFilename),
-    m_reader(reader),
-    m_writer(writer)
-{
-}
-
-FileStorage::~FileStorage()
-{
-    delete m_writer;
-    delete m_reader;
-}
-
-Temperature* FileStorage::readTemperature()
-{
-    std::string serialized = readFile(m_temperatureFilename);
-    return createTemperatureFromString(serialized);
-}
-
-void FileStorage::writeTemperature(Temperature* temperature)
-{
-    const std::string serialized = serializeTemperature(temperature);
-    writeFile(m_temperatureFilename, serialized);
-}
-
-Tap* FileStorage::readLeftTap()
-{
-    std::string serialized = readFile(m_leftTapFilename);
-    return createTapFromString(serialized);
-}
-
-void FileStorage::writeLeftTap(Tap* tap)
-{
-    std::string serialized = serializeTap(tap);
-    writeFile(m_leftTapFilename, serialized);
-}
-
-Tap* FileStorage::readRightTap()
-{
-    std::string serialized = readFile(m_rightTapFilename);
-    return createTapFromString(serialized);
-}
-
-void FileStorage::writeRightTap(Tap* tap)
-{
-    std::string serialized = serializeTap(tap);
-    writeFile(m_rightTapFilename, serialized);
-}
-
-std::string FileStorage::readFile(const std::string& filename)
-{
-    return m_reader->read(filename);
-}
-
-void FileStorage::writeFile(const std::string& filename, const std::string& serialized)
-{
-    m_writer->truncateAndWrite(filename, serialized);
-}
-
-Temperature* FileStorage::createTemperatureFromString(const std::string& serialized)
-{
-    if (serialized.empty()) {
-        return new Temperature();
-    }
-    std::istringstream ss(serialized);
-    boost::archive::text_iarchive ia(ss);
-    Temperature *t = new Temperature();
-    ia >> *t;
-    return t;
-}
-
-Tap* FileStorage::createTapFromString(const std::string& serialized)
-{
-    if (serialized.empty()) {
-        return new Tap();
-    }
-
-    std::istringstream ss(serialized);
-    boost::archive::text_iarchive ia(ss);
-    Tap *t = new Tap();
-    ia >> *t;
-    return t;
-}
-
-const std::string FileStorage::serializeTemperature(Temperature* temperature)
-{
-    std::ostringstream ss;
-    boost::archive::text_oarchive oa(ss);
-    oa << *temperature;
-    const std::string serialized = ss.str();
-    return serialized;
-}
-
-const std::string FileStorage::serializeTap(Tap* tap)
-{
-    std::ostringstream ss;
-    boost::archive::text_oarchive oa(ss);
-    oa << *tap;
-    const std::string serialized = ss.str();
-    return serialized;
-}
-
-}
 
 BOOST_SERIALIZATION_SPLIT_FREE(KegeratorDisplay::Temperature)
 BOOST_SERIALIZATION_SPLIT_FREE(KegeratorDisplay::Tap)
@@ -293,5 +176,5 @@ void load(Archive & ar, KegeratorDisplay::Beer& b, const unsigned int version)
     b.setFinalGravity(finalGravity);
 }
 
-} // namespace serialization
-} // namespace boost
+}
+}

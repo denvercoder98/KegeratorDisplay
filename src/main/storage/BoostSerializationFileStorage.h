@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_STORAGE_FILESTORAGE_H_
-#define SRC_MAIN_STORAGE_FILESTORAGE_H_
+#ifndef SRC_MAIN_STORAGE_BOOSTSERIALIZATIONFILESTORAGE_H_
+#define SRC_MAIN_STORAGE_BOOSTSERIALIZATIONFILESTORAGE_H_
 
 #include <monitor/Storage.h>
 #include <string>
@@ -9,15 +9,15 @@ namespace KegeratorDisplay {
 class FileWriter;
 class FileReader;
 
-class FileStorage : public Storage
+class BoostSerializationFileStorage : public Storage
 {
 public:
-    FileStorage(const std::string& temperatureFilename,
+    BoostSerializationFileStorage(const std::string& temperatureFilename,
                 const std::string& leftTapFilename,
                 const std::string& rightTapFilename,
                 FileWriter* writer,
                 FileReader* reader);
-    virtual ~FileStorage();
+    virtual ~BoostSerializationFileStorage();
 
     virtual Temperature* readTemperature();
     void writeTemperature(Temperature* temperature);

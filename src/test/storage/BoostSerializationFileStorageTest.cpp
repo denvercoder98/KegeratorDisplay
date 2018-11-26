@@ -1,7 +1,8 @@
+#include <storage/BoostSerializationFileStorage.h>
+
 #include "FileStorageTest.h"
 #include "FileWriterMock.h"
 #include "FileReaderMock.h"
-#include "storage/FileStorage.h"
 #include "monitor/Beer.h"
 
 using ::testing::NiceMock;
@@ -29,7 +30,7 @@ void FileStorageTest::SetUp()
 {
     m_writer = new NiceMock<FileWriterMock>();
     m_reader = new NiceMock<FileReaderMock>();
-    m_storage = new FileStorage("file", "fileLeft", "fileRight", m_writer, m_reader);
+    m_storage = new BoostSerializationFileStorage("file", "fileLeft", "fileRight", m_writer, m_reader);
 }
 
 void FileStorageTest::TearDown()

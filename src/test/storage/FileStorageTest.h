@@ -8,7 +8,7 @@ namespace KegeratorDisplay {
 
 class FileWriterMock;
 class FileReaderMock;
-class FileStorage;
+class BoostSerializationFileStorage;
 
 class FileStorageTest : public testing::Test
 {
@@ -22,7 +22,7 @@ protected:
 
     FileWriterMock* m_writer;
     FileReaderMock* m_reader;
-    FileStorage* m_storage;
+    BoostSerializationFileStorage* m_storage;
 };
 
 }

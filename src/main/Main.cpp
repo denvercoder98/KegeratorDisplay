@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <boost/thread.hpp>
+#include <storage/BoostSerializationFileStorage.h>
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>
 
@@ -14,8 +15,6 @@
 
 #include "storage/FileWriterImpl.h"
 #include "storage/FileReaderImpl.h"
-#include "storage/FileStorage.h"
-
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"
 #include "controller/TemperatureSensor.h"
@@ -49,7 +48,7 @@ int main(int argc, char** argv)
 
     FileWriter* fileWriter = new FileWriterImpl();
     FileReader* fileReader = new FileReaderImpl();
-    Storage* storage = new FileStorage("temp", "left", "right", fileWriter, fileReader);
+    Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader);
 
     TemperatureInteractor* temperatureUpdator = new TemperatureInteractor(presenter, storage);
     TapUpdator* tapUpdator = new TapUpdator(presenter, storage);
