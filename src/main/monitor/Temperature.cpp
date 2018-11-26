@@ -30,4 +30,19 @@ void Temperature::addReading(const int value)
     m_lastReadings[NUMBER_OF_READINGS - 1] = value;
 }
 
+bool Temperature::operator==(const Temperature& other) const
+{
+    return m_lastReadings == other.m_lastReadings;
+}
+
+std::vector<int> Temperature::getReadings() const
+{
+    return m_lastReadings;
+}
+
+void Temperature::setReadings(const std::vector<int> readings)
+{
+    m_lastReadings = readings;
+}
+
 }

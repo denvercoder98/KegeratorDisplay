@@ -7,7 +7,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TARGET_SOURCES "src/main/monitor/*.cpp" "src/main/presenter/*.cpp" "src/main/view/*.cpp" "src/main/storage/*.cpp" "src/main/controller/*.cpp" "src/main/thread/*.cpp")
-file(GLOB UNITTEST_SOURCES "src/test/UnitTest.cpp" "src/test/monitor/*.cpp" "src/test/presenter/*.cpp" "src/test/controller/*.cpp")
+file(GLOB UNITTEST_SOURCES "src/test/UnitTest.cpp" "src/test/monitor/*.cpp" "src/test/presenter/*.cpp" "src/test/controller/*.cpp" "src/test/storage/*.cpp")
 file(GLOB ACCEPTANCETEST_SOURCES "src/test/AcceptanceTest.cpp")
 
 link_directories("lib/googletest-release-1.8.1/build/googlemock/gtest/")
@@ -17,7 +17,7 @@ include_directories("lib/googletest-release-1.8.1/googlemock/include/")
 include_directories("src/main/")
 include_directories("src/test/")
 
-find_package(Boost 1.58 COMPONENTS date_time thread REQUIRED)
+find_package(Boost 1.58 COMPONENTS date_time thread serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 add_library(KegeratorDisplayImplementation STATIC ${TARGET_SOURCES} )
