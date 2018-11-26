@@ -46,4 +46,43 @@ TEST_F(PrintPresenterTest, UpdateTemperaturePrintView)
     presenter.updateTemperature(temperatureUpdate);
 }
 
+TEST_F(PrintPresenterTest, UpdateLeftTapValue)
+{
+    PrintViewModel* viewModel = new PrintViewModel();
+    NiceMock<PrintViewMock>* printView = new NiceMock<PrintViewMock>();
+    PrintPresenter presenter(printView, viewModel);
+    BeerUpdate beerUpdate("Beer A", "Kalle Karlsson", "1", 1, "1", "1", "1.015");
+    TapUpdate tapUpdate(TAP_LEFT, beerUpdate);
+    presenter.updateTap(tapUpdate);
+
+    std::string expected = "Left tap:\n\tName: Beer A\n\tBrewer name: Kalle Karlsson\n";
+    EXPECT_EQ(expected, viewModel->getLeftTapBeerInfo());
+}
+
+TEST_F(PrintPresenterTest, UpdateRightTapValue)
+{
+    PrintViewModel* viewModel = new PrintViewModel();
+    NiceMock<PrintViewMock>* printView = new NiceMock<PrintViewMock>();
+    PrintPresenter presenter(printView, viewModel);
+    BeerUpdate beerUpdate("Beer B", "Kalle Karlsson", "1", 1, "1", "1", "1.015");
+    TapUpdate tapUpdate(TAP_RIGHT, beerUpdate);
+    presenter.updateTap(tapUpdate);
+
+    std::string expected = "Right tap:\n\tName: Beer B\n\tBrewer name: Kalle Karlsson\n";
+    EXPECT_EQ(expected, viewModel->getRightTapBeerInfo());
+}
+
+TEST_F(PrintPresenterTest, UpdateTapPrintView)
+{
+    PrintViewModel* viewModel = new PrintViewModel();
+    NiceMock<PrintViewMock>* printView = new NiceMock<PrintViewMock>();
+    PrintPresenter presenter(printView, viewModel);
+    BeerUpdate beerUpdate("Beer B", "Kalle Karlsson", "1", 1, "1", "1", "1.015");
+    TapUpdate tapUpdate(TAP_RIGHT, beerUpdate);
+
+    EXPECT_CALL(*printView, updateView(_))
+        .Times(1);
+    presenter.updateTap(tapUpdate);
+}
+
 }

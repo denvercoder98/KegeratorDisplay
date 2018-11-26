@@ -21,24 +21,24 @@ std::string PrintViewModel::getTemperature() const
     return m_temperature;
 }
 
-void PrintViewModel::setLeftTapName(const std::string& name)
+void PrintViewModel::setLeftTapBeerInfo(const std::string& info)
 {
-    m_leftTapName = name;
+    m_leftTapBeerInfo = info;
 }
 
-void PrintViewModel::setLeftTapBrewerName(const std::string& brewerName)
+std::string PrintViewModel::getLeftTapBeerInfo() const
 {
-    m_leftTapBrewerName = brewerName;
+    return m_leftTapBeerInfo;
 }
 
-void PrintViewModel::setRightTapName(const std::string& name)
+void PrintViewModel::setRightTapBeerInfo(const std::string& info)
 {
-    m_rightTapName = name;
+    m_rightTapBeerInfo = info;
 }
 
-void PrintViewModel::setRightTapBrewerName(const std::string& brewerName)
+std::string PrintViewModel::getRightTapBeerInfo() const
 {
-    m_rightTapBrewerName = brewerName;
+    return m_rightTapBeerInfo;
 }
 
 }

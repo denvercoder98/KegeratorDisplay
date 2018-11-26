@@ -18,6 +18,11 @@ public:
     virtual void updateTap(const TapUpdate& tap);
 
 private:
+    void formatTapHeader(std::stringstream& ss, const TapSide beer);
+    void formatTapInformation(std::stringstream& ss, const BeerUpdate& beer);
+    void setTapInformation(const TapUpdate& tap, const std::stringstream& ss);
+    void updateViewModel();
+
     PrintView* m_view;
     PrintViewModel* m_viewModel;
 };

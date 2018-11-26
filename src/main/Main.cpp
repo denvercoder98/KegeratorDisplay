@@ -8,6 +8,7 @@
 #include "view/CliView.h"
 
 #include "monitor/TemperatureInteractor.h"
+#include "monitor/TapUpdator.h"
 
 #include "presenter/PrintPresenter.h"
 
@@ -46,11 +47,12 @@ int main(int argc, char** argv)
 
     Storage* storage = new BlackholeStorage();
 
-    TemperatureInteractor* interactor = new TemperatureInteractor(presenter, storage);
+    TemperatureInteractor* temperatureUpdator = new TemperatureInteractor(presenter, storage);
+    TapUpdator* tapUpdator = new TapUpdator(presenter, storage);
 
     DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
     TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
-    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, interactor);
+    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdator);
 
     m_ioService = new boost::asio::io_service();
     boost::asio::io_service::work* work = new boost::asio::io_service::work(*m_ioService);
@@ -72,7 +74,8 @@ int main(int argc, char** argv)
     delete thread;
     delete work;
     delete m_ioService;
-    delete interactor;
+    delete tapUpdator;
+    delete temperatureUpdator;
     delete storage;
     delete presenter;
 
