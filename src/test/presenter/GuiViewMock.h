@@ -1,0 +1,17 @@
+#ifndef SRC_TEST_PRESENTER_GUIVIEWMOCK_H_
+#define SRC_TEST_PRESENTER_GUIVIEWMOCK_H_
+
+#include <presenter/GuiView.h>
+#include <gmock/gmock.h>
+
+namespace KegeratorDisplay {
+
+class GuiViewMock : public GuiView
+{
+public:
+    MOCK_METHOD1(updateView, void(const GuiViewModel&));
+};
+
+}
+
+#endif
