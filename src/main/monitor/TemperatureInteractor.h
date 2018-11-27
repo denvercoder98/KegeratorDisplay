@@ -20,6 +20,7 @@ public:
 private:
     void addTemperatureReading(const TemperatureReading& reading);
     void updateObserver();
+    void updateStorage();
 
     Temperature* m_temperature;
     KegeratorObserver* m_kegeratorObserver;

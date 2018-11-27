@@ -6,6 +6,9 @@
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>
 
+#include <QtWidgets/qapplication.h>
+#include <QtQml/qqmlapplicationengine.h>
+
 #include "view/CliView.h"
 
 #include "monitor/TemperatureInteractor.h"
@@ -67,7 +70,10 @@ int main(int argc, char** argv)
     sensorSampler->addSensorController(temperatureSensorController);
     sensorSampler->start();
 
-    sleep(10);
+    QApplication app(argc, argv);
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:main.qml")));
+    app.exec();
 
     m_ioService->stop();
     thread->interrupt();

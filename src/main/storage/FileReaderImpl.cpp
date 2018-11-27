@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 namespace KegeratorDisplay {
 
@@ -20,9 +21,9 @@ std::string FileReaderImpl::read(const std::string& filename)
     std::ostringstream fileContentsStream;
     std::string fileContents = "";
 
-    file.open(filename);
     if (file.is_open()) {
-        while (getline(file, line)) {
+        while (file.good()) {
+            getline(file, line);
             fileContentsStream << line << std::endl;
         }
         file.close();

@@ -17,15 +17,24 @@ include_directories("lib/googletest-release-1.8.1/googlemock/include/")
 include_directories("src/main/")
 include_directories("src/test/")
 
+find_package(Qt5 COMPONENTS Widgets Qml Quick REQUIRED)
+include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
+add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
+qt5_add_resources(QT_RESOURCES src/main/view/qml.qrc)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 find_package(Boost 1.58 COMPONENTS date_time thread serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 add_library(KegeratorDisplayImplementation STATIC ${TARGET_SOURCES} )
 
-add_executable(kegeratorDisplay "src/main/Main.cpp")
+add_executable(kegeratorDisplay src/main/Main.cpp ${QT_RESOURCES})
 add_executable(kegeratorDisplayUnitTest ${UNITTEST_SOURCES})
 add_executable(kegeratorDisplayAcceptanceTest ${ACCEPTANCETEST_SOURCES})
 
-target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES})
+target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick)
 target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
 target_link_libraries(kegeratorDisplayAcceptanceTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)

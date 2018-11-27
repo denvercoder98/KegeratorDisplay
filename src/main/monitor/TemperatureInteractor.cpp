@@ -23,6 +23,7 @@ void TemperatureInteractor::receiveTemperatureReading(const TemperatureReading& 
 {
     addTemperatureReading(reading);
     updateObserver();
+    updateStorage();
 }
 
 void TemperatureInteractor::updateObserver()
@@ -30,6 +31,11 @@ void TemperatureInteractor::updateObserver()
     int updatedValue = m_temperature->value();
     TemperatureUpdate temperatureUpdate(updatedValue);
     m_kegeratorObserver->updateTemperature(temperatureUpdate);
+}
+
+void TemperatureInteractor::updateStorage()
+{
+    m_storage->writeTemperature(m_temperature);
 }
 
 void TemperatureInteractor::addTemperatureReading(const TemperatureReading& reading)

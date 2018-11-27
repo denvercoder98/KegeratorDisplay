@@ -85,4 +85,19 @@ TEST_F(TemperatureInteractorTest, UpdateTemperatureNotifiesObserverCorrectValue)
     interactor.receiveTemperatureReading(reading);
 }
 
+TEST_F(TemperatureInteractorTest, UpdateTemperatureWritesToStorage)
+{
+    NiceMock<KegeratorObserverMock> kegerator;
+
+    NiceMock<StorageMock> storage;
+    ON_CALL(storage, readTemperature())
+        .WillByDefault(Return(new Temperature()));
+
+    TemperatureInteractor interactor(&kegerator, &storage);
+    TemperatureReading reading(3);
+
+    EXPECT_CALL(storage, writeTemperature(_));
+    interactor.receiveTemperatureReading(reading);
+}
+
 }
