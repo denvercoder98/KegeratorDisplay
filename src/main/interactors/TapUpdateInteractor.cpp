@@ -10,14 +10,14 @@
 namespace KegeratorDisplay {
 
 TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage) :
-    m_observer(presenter),
+    m_presenter(presenter),
     m_storage(storage)
 {
     if (m_storage == NULL) {
         throw InvalidTapUpdateInteractorArgumentException("Missing Storage dependency");
     }
 
-    if (m_observer == NULL) {
+    if (m_presenter == NULL) {
         throw InvalidTapUpdateInteractorArgumentException("Missing KegeratorObserver dependency");
     }
 
@@ -32,7 +32,7 @@ TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage)
                           beer.finalGravity().value());
 
     TapUpdateResponse leftTapUpdate(TAP_LEFT, beerUpdate);
-    m_observer->updateTap(leftTapUpdate);
+    m_presenter->updateTap(leftTapUpdate);
     delete leftTap;
 
     Tap* rightTap = m_storage->readRightTap();
@@ -46,11 +46,15 @@ TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage)
                           beer2.finalGravity().value());
 
     TapUpdateResponse rightTapUpdate(TAP_RIGHT, beerUpdate2);
-    m_observer->updateTap(rightTapUpdate);
+    m_presenter->updateTap(rightTapUpdate);
     delete rightTap;
 }
 
 TapUpdateInteractor::~TapUpdateInteractor()
+{
+}
+
+void TapUpdateInteractor::updateTap(const TapUpdateRequest& request)
 {
 }
 

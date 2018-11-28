@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_INTERACTORS_TEMPERATUREREADINGOBSERVER_H
 #define SRC_MAIN_INTERACTORS_TEMPERATUREREADINGOBSERVER_H
 
-#include <interactors/TemperatureUpdateRequest.h>
+#include "TemperatureUpdateRequest.h"
 
 namespace KegeratorDisplay {
 
