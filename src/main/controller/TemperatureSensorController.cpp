@@ -1,12 +1,12 @@
+#include <monitor/TemperatureUpdateRequest.h>
+#include <monitor/TemperatureUpdateRequestObserver.h>
 #include "TemperatureSensorController.h"
 #include "TemperatureSensor.h"
-#include "monitor/TemperatureReading.h"
-#include "monitor/TemperatureReadingObserver.h"
 
 namespace KegeratorDisplay {
 
 TemperatureSensorController::TemperatureSensorController(TemperatureSensor* const sensor,
-                                                         TemperatureReadingObserver* const observer) :
+                                                         TemperatureUpdateRequestObserver* const observer) :
     m_sensor(sensor),
     m_observer(observer)
 {
@@ -30,7 +30,7 @@ int TemperatureSensorController::readSensor()
 
 void TemperatureSensorController::notifyObserver(int temperature)
 {
-    m_observer->receiveTemperatureReading(TemperatureReading(temperature));
+    m_observer->receiveTemperatureReading(TemperatureUpdateRequest(temperature));
 }
 
 }

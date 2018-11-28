@@ -3,10 +3,10 @@
 
 namespace KegeratorDisplay {
 
-class TemperatureUpdate
+class TemperatureUpdateResponse
 {
 public:
-    TemperatureUpdate(int value) :
+    TemperatureUpdateResponse(int value) :
         m_value(value)
     {
     }
@@ -16,7 +16,7 @@ public:
         return m_value;
     }
 
-    bool operator==(const TemperatureUpdate& update) const
+    bool operator==(const TemperatureUpdateResponse& update) const
     {
         return m_value == update.value();
     }

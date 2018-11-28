@@ -1,21 +1,21 @@
 #ifndef SRC_MAIN_PRESENTER_GUIPRESENTER_H_
 #define SRC_MAIN_PRESENTER_GUIPRESENTER_H_
 
-#include <monitor/KegeratorObserver.h>
+#include <monitor/Presenter.h>
 
 namespace KegeratorDisplay {
 
 class GuiView;
 class GuiViewModel;
 
-class GuiPresenter: public KegeratorObserver
+class GuiPresenter: public Presenter
 {
 public:
     GuiPresenter(GuiView* view, GuiViewModel* viewModel);
     virtual ~GuiPresenter();
 
-    void updateTemperature(const TemperatureUpdate& temperature);
-    void updateTap(const TapUpdate& tap);
+    void updateTemperature(const TemperatureUpdateResponse& temperature);
+    void updateTap(const TapUpdateResponse& tap);
 
 private:
     GuiView* m_view;

@@ -1,6 +1,8 @@
 #include "GuiPresenterTest.h"
+
+#include <monitor/BeerUpdateResponse.h>
+
 #include "GuiViewMock.h"
-#include "monitor/BeerUpdate.h"
 #include "presenter/GuiPresenter.h"
 
 using testing::NiceMock;
@@ -41,7 +43,7 @@ TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModel)
 {
     EXPECT_CALL(*m_view, updateView(_))
         .Times(1);
-    m_presenter->updateTemperature(TemperatureUpdate(11));
+    m_presenter->updateTemperature(TemperatureUpdateResponse(11));
 }
 
 
@@ -50,7 +52,7 @@ TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModelValue)
     GuiViewModel viewModel;
     ON_CALL(*m_view, updateView(_))
         .WillByDefault( SaveArg<0>(&viewModel) );
-    m_presenter->updateTemperature(TemperatureUpdate(11));
+    m_presenter->updateTemperature(TemperatureUpdateResponse(11));
 
     EXPECT_EQ("11", viewModel.temperature);
 }
@@ -59,13 +61,13 @@ TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 {
     EXPECT_CALL(*m_view, updateView(_))
         .Times(1);
-    BeerUpdate beerUpdate("A",
+    BeerUpdateResponse beerUpdate("A",
                           "B",
                           "4,1", 30,
                           "2018-01-01",
                           "2018-01-14",
                           "1.010");
-    TapUpdate tapUpdate(TAP_LEFT, beerUpdate);
+    TapUpdateResponse tapUpdate(TAP_LEFT, beerUpdate);
     m_presenter->updateTap(tapUpdate);
 }
 
@@ -84,13 +86,13 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
     ON_CALL(*m_view, updateView(_))
         .WillByDefault( SaveArg<0>(&viewModel) );
 
-    BeerUpdate beerUpdate("A",
+    BeerUpdateResponse beerUpdate("A",
                           "B",
                           "4,1", 30,
                           "2018-01-01",
                           "2018-01-14",
                           "1.010");
-    TapUpdate tapUpdate(TAP_LEFT, beerUpdate);
+    TapUpdateResponse tapUpdate(TAP_LEFT, beerUpdate);
     m_presenter->updateTap(tapUpdate);
 
     EXPECT_EQ(expectedViewModel, viewModel);
@@ -111,13 +113,13 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     ON_CALL(*m_view, updateView(_))
         .WillByDefault( SaveArg<0>(&viewModel) );
 
-    BeerUpdate beerUpdate("A",
+    BeerUpdateResponse beerUpdate("A",
                           "B",
                           "4,1", 30,
                           "2018-01-01",
                           "2018-01-14",
                           "1.010");
-    TapUpdate tapUpdate(TAP_RIGHT, beerUpdate);
+    TapUpdateResponse tapUpdate(TAP_RIGHT, beerUpdate);
     m_presenter->updateTap(tapUpdate);
 
     EXPECT_EQ(expectedViewModel, viewModel);

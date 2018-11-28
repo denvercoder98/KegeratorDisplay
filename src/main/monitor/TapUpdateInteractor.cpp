@@ -1,7 +1,7 @@
-#include "TapUpdator.h"
-#include "KegeratorObserver.h"
+#include <monitor/Presenter.h>
+#include <monitor/TapUpdateInteractor.h>
+#include <monitor/TapUpdateResponse.h>
 #include "Storage.h"
-#include "TapUpdate.h"
 #include "Beer.h"
 #include "InvalidTapUpdatorArgumentException.h"
 
@@ -9,8 +9,8 @@
 
 namespace KegeratorDisplay {
 
-TapUpdator::TapUpdator(KegeratorObserver* observer, Storage* storage) :
-    m_observer(observer),
+TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage) :
+    m_observer(presenter),
     m_storage(storage)
 {
     if (m_storage == NULL) {
@@ -23,7 +23,7 @@ TapUpdator::TapUpdator(KegeratorObserver* observer, Storage* storage) :
 
     Tap* leftTap = m_storage->readLeftTap();
     Beer beer = leftTap->beer();
-    BeerUpdate beerUpdate(beer.name(),
+    BeerUpdateResponse beerUpdate(beer.name(),
                           beer.brewerName(),
                           beer.alcoholByVolume().value(),
                           beer.internationalBitternessUnits().value(),
@@ -31,13 +31,13 @@ TapUpdator::TapUpdator(KegeratorObserver* observer, Storage* storage) :
                           beer.tapDate().value(),
                           beer.finalGravity().value());
 
-    TapUpdate leftTapUpdate(TAP_LEFT, beerUpdate);
+    TapUpdateResponse leftTapUpdate(TAP_LEFT, beerUpdate);
     m_observer->updateTap(leftTapUpdate);
     delete leftTap;
 
     Tap* rightTap = m_storage->readRightTap();
     Beer beer2 = rightTap->beer();
-    BeerUpdate beerUpdate2(beer2.name(),
+    BeerUpdateResponse beerUpdate2(beer2.name(),
                           beer2.brewerName(),
                           beer2.alcoholByVolume().value(),
                           beer2.internationalBitternessUnits().value(),
@@ -45,12 +45,12 @@ TapUpdator::TapUpdator(KegeratorObserver* observer, Storage* storage) :
                           beer2.tapDate().value(),
                           beer2.finalGravity().value());
 
-    TapUpdate rightTapUpdate(TAP_RIGHT, beerUpdate2);
+    TapUpdateResponse rightTapUpdate(TAP_RIGHT, beerUpdate2);
     m_observer->updateTap(rightTapUpdate);
     delete rightTap;
 }
 
-TapUpdator::~TapUpdator()
+TapUpdateInteractor::~TapUpdateInteractor()
 {
 }
 

@@ -1,14 +1,15 @@
-#include "TapUpdatorTest.h"
-#include "monitor/TapUpdator.h"
+#include <monitor/TapUpdateInteractor.h>
+#include <monitor/TapUpdateResponse.h>
+
 #include "monitor/Beer.h"
 #include "monitor/AlcoholByVolume.h"
 #include "monitor/InternationalBitternessUnits.h"
 #include "monitor/Date.h"
 #include "monitor/SpecificGravity.h"
 #include "monitor/InvalidTapUpdatorArgumentException.h"
-#include "monitor/TapUpdate.h"
+#include "PresenterMock.h"
 #include "StorageMock.h"
-#include "KegeratorObserverMock.h"
+#include "TapUpdateInteractorTest.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -17,23 +18,23 @@ using ::testing::Eq;
 
 namespace KegeratorDisplay {
 
-TapUpdatorTest::TapUpdatorTest() :
+TapUpdateInteractorTest::TapUpdateInteractorTest() :
     m_observer(NULL),
     m_storage(NULL)
 {
 }
 
-TapUpdatorTest::~TapUpdatorTest()
+TapUpdateInteractorTest::~TapUpdateInteractorTest()
 {
 }
 
-void TapUpdatorTest::SetUp()
+void TapUpdateInteractorTest::SetUp()
 {
-    m_observer = new NiceMock<KegeratorObserverMock>();
+    m_observer = new NiceMock<PresenterMock>();
     m_storage = new NiceMock<StorageMock>();
 }
 
-void TapUpdatorTest::prepareBeers()
+void TapUpdateInteractorTest::prepareBeers()
 {
     Beer beerA("Beer A",
         "Kalle Karlsson",
@@ -56,29 +57,29 @@ void TapUpdatorTest::prepareBeers()
         .WillByDefault(Return(new Tap(beerB)));
 }
 
-void TapUpdatorTest::TearDown()
+void TapUpdateInteractorTest::TearDown()
 {
     delete m_storage;
     delete m_observer;
 }
 
-TEST_F(TapUpdatorTest, Create)
+TEST_F(TapUpdateInteractorTest, Create)
 {
     prepareBeers();
-    TapUpdator(m_observer, m_storage);
+    TapUpdateInteractor(m_observer, m_storage);
 }
 
-TEST_F(TapUpdatorTest, MissingStorageThrows)
+TEST_F(TapUpdateInteractorTest, MissingStorageThrows)
 {
-    EXPECT_THROW(TapUpdator(m_observer, NULL), InvalidTapUpdatorArgumentException);
+    EXPECT_THROW(TapUpdateInteractor(m_observer, NULL), InvalidTapUpdatorArgumentException);
 }
 
-TEST_F(TapUpdatorTest, MissingObserverThrows)
+TEST_F(TapUpdateInteractorTest, MissingObserverThrows)
 {
-    EXPECT_THROW(TapUpdator(NULL, m_storage), InvalidTapUpdatorArgumentException);
+    EXPECT_THROW(TapUpdateInteractor(NULL, m_storage), InvalidTapUpdatorArgumentException);
 }
 
-TEST_F(TapUpdatorTest, ReadLeftTapStorageOnCreation)
+TEST_F(TapUpdateInteractorTest, ReadLeftTapStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
     Beer beerA("Beer A",
@@ -100,10 +101,10 @@ TEST_F(TapUpdatorTest, ReadLeftTapStorageOnCreation)
     ON_CALL(storage, readRightTap)
         .WillByDefault(Return(new Tap(beerB)));
 
-    TapUpdator updator(m_observer, &storage);
+    TapUpdateInteractor updator(m_observer, &storage);
 }
 
-TEST_F(TapUpdatorTest, ReadRightTapStorageOnCreation)
+TEST_F(TapUpdateInteractorTest, ReadRightTapStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
     Beer beerA("Beer A",
@@ -125,10 +126,10 @@ TEST_F(TapUpdatorTest, ReadRightTapStorageOnCreation)
     EXPECT_CALL(storage, readRightTap)
         .WillOnce(Return(new Tap(beerB)));
 
-    TapUpdator updator(m_observer, &storage);
+    TapUpdateInteractor updator(m_observer, &storage);
 }
 
-TEST_F(TapUpdatorTest, UpdateTapFromStorageOnCreation)
+TEST_F(TapUpdateInteractorTest, UpdateTapFromStorageOnCreation)
 {
     NiceMock<StorageMock> storage;
     Beer beerA("Beer A",
@@ -150,16 +151,16 @@ TEST_F(TapUpdatorTest, UpdateTapFromStorageOnCreation)
     ON_CALL(storage, readRightTap)
         .WillByDefault(Return(new Tap(beerB)));
 
-    BeerUpdate expectedLeftBeer("Beer A", "Kalle Karlsson", "5,2", 40, "2018-10-01", "2018-11-01", "1.010");
-    TapUpdate expectedLeftTap(TAP_LEFT, expectedLeftBeer);
-    BeerUpdate expectedRightBeer("Beer B", "Kalle Karlsson", "5,2", 40, "2018-10-01", "2018-11-01", "1.010");
-    TapUpdate expectedRightTap(TAP_RIGHT, expectedRightBeer);
+    BeerUpdateResponse expectedLeftBeer("Beer A", "Kalle Karlsson", "5,2", 40, "2018-10-01", "2018-11-01", "1.010");
+    TapUpdateResponse expectedLeftTap(TAP_LEFT, expectedLeftBeer);
+    BeerUpdateResponse expectedRightBeer("Beer B", "Kalle Karlsson", "5,2", 40, "2018-10-01", "2018-11-01", "1.010");
+    TapUpdateResponse expectedRightTap(TAP_RIGHT, expectedRightBeer);
 
     EXPECT_CALL(*m_observer, updateTap(Eq(expectedLeftTap))).
         Times(1);
     EXPECT_CALL(*m_observer, updateTap(Eq(expectedRightTap))).
         Times(1);
-    TapUpdator updator(m_observer, &storage);
+    TapUpdateInteractor updator(m_observer, &storage);
 }
 
 }

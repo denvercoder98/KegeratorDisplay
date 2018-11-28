@@ -61,7 +61,7 @@ TEST_F(TemperatureSensorControllerTest, ProcessUpdatesTemperatureSensorObserverW
     ON_CALL(*m_sensor, read())
         .WillByDefault(Return(10));
 
-    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureReading(10)))
+    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(10)))
         .Times(1);
 
     m_controller->process();
@@ -72,7 +72,7 @@ TEST_F(TemperatureSensorControllerTest, ProcessUpdatesTemperatureSensorObserverW
     ON_CALL(*m_sensor, read())
         .WillByDefault(Return(11));
 
-    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureReading(11)))
+    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(11)))
         .Times(1);
 
     m_controller->process();

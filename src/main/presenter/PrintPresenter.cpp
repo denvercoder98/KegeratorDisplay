@@ -18,7 +18,7 @@ PrintPresenter::~PrintPresenter()
     delete m_viewModel;
 }
 
-void PrintPresenter::updateTemperature(const TemperatureUpdate& temperature)
+void PrintPresenter::updateTemperature(const TemperatureUpdateResponse& temperature)
 {
     int value = temperature.value();
     std::stringstream ss;
@@ -28,7 +28,7 @@ void PrintPresenter::updateTemperature(const TemperatureUpdate& temperature)
     updateViewModel();
 }
 
-void PrintPresenter::setTapInformation(const TapUpdate& tap,
+void PrintPresenter::setTapInformation(const TapUpdateResponse& tap,
                                        const std::stringstream& ss)
 {
     if (tap.side() == TAP_LEFT)
@@ -40,9 +40,9 @@ void PrintPresenter::setTapInformation(const TapUpdate& tap,
     }
 }
 
-void PrintPresenter::updateTap(const TapUpdate& tap)
+void PrintPresenter::updateTap(const TapUpdateResponse& tap)
 {
-    BeerUpdate beer = tap.beer();
+    BeerUpdateResponse beer = tap.beer();
 
     std::stringstream ss;
     formatTapHeader(ss, tap.side());
@@ -61,7 +61,7 @@ void PrintPresenter::formatTapHeader(std::stringstream& ss, const TapSide side)
     }
 }
 
-void PrintPresenter::formatTapInformation(std::stringstream& ss, const BeerUpdate& beer)
+void PrintPresenter::formatTapInformation(std::stringstream& ss, const BeerUpdateResponse& beer)
 {
     ss << "\tName: " << beer.name() << std::endl;
     ss << "\tBrewer name: " << beer.brewerName() << std::endl;

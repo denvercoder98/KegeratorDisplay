@@ -1,14 +1,14 @@
-#ifndef SRC_MAIN_MONITOR_BEERUPDATE_H
-#define SRC_MAIN_MONITOR_BEERUPDATE_H
+#ifndef SRC_MAIN_MONITOR_BEERUPDATERESPONSE_H
+#define SRC_MAIN_MONITOR_BEERUPDATERESPONSE_H
 
 #include <string>
 
 namespace KegeratorDisplay {
 
-class BeerUpdate
+class BeerUpdateResponse
 {
 public:
-    BeerUpdate(const std::string& name,
+    BeerUpdateResponse(const std::string& name,
                const std::string& brewerName,
                const std::string& abv,
                const unsigned int ibu,
@@ -60,7 +60,7 @@ public:
         return m_finalGravity;
     }
 
-    bool operator==(const BeerUpdate& update) const
+    bool operator==(const BeerUpdateResponse& update) const
     {
         return m_name == update.m_name &&
         m_brewerName == update.m_brewerName &&

@@ -6,12 +6,12 @@
 namespace KegeratorDisplay {
 
 class TemperatureSensor;
-class TemperatureReadingObserver;
+class TemperatureUpdateRequestObserver;
 
 class TemperatureSensorController: public SensorController
 {
 public:
-    TemperatureSensorController(TemperatureSensor* const sensor, TemperatureReadingObserver* const observer);
+    TemperatureSensorController(TemperatureSensor* const sensor, TemperatureUpdateRequestObserver* const observer);
     virtual ~TemperatureSensorController();
 
     virtual void process();
@@ -21,7 +21,7 @@ private:
     void notifyObserver(int temperatureInteger);
 
     TemperatureSensor* const m_sensor;
-    TemperatureReadingObserver* const m_observer;
+    TemperatureUpdateRequestObserver* const m_observer;
 };
 
 }

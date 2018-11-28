@@ -18,7 +18,7 @@ GuiPresenter::~GuiPresenter()
     delete m_viewModel;
 }
 
-void GuiPresenter::updateTemperature(const TemperatureUpdate& temperature)
+void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperature)
 {
     std::stringstream ss;
     ss << temperature.value();
@@ -26,9 +26,9 @@ void GuiPresenter::updateTemperature(const TemperatureUpdate& temperature)
     m_view->updateView(*m_viewModel);
 }
 
-void GuiPresenter::updateTap(const TapUpdate& tap)
+void GuiPresenter::updateTap(const TapUpdateResponse& tap)
 {
-    BeerUpdate beer = tap.beer();
+    BeerUpdateResponse beer = tap.beer();
     if (tap.side() == TAP_LEFT) {
         m_viewModel->leftTapBeerName = beer.name();
         m_viewModel->leftTapBrewerName = beer.brewerName();

@@ -2,15 +2,14 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <boost/thread.hpp>
+#include <monitor/TapUpdateInteractor.h>
+#include <monitor/TemperatureUpdateInteractor.h>
 #include <storage/BoostSerializationFileStorage.h>
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>
 
 #include "view/CliView.h"
 #include "view/QtGuiView.h"
-
-#include "monitor/TemperatureInteractor.h"
-#include "monitor/TapUpdator.h"
 
 #include "presenter/PrintPresenter.h"
 #include "presenter/GuiPresenter.h"
@@ -45,7 +44,7 @@ int main(int argc, char** argv)
     std::cout << "Test run" << std::endl;
 
     // VIEW
-    KegeratorObserver* presenter;
+    Presenter* presenter;
     View* view;
     bool printView = false;
     if (printView) {
@@ -67,8 +66,8 @@ int main(int argc, char** argv)
     Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader);
 
     // INTERACTORS
-    TemperatureInteractor* temperatureUpdator = new TemperatureInteractor(presenter, storage);
-    TapUpdator* tapUpdator = new TapUpdator(presenter, storage);
+    TemperatureUpdateInteractor* temperatureUpdator = new TemperatureUpdateInteractor(presenter, storage);
+    TapUpdateInteractor* tapUpdator = new TapUpdateInteractor(presenter, storage);
 
     // CONTROLLERS
     DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
