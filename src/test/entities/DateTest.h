@@ -1,5 +1,5 @@
-#ifndef SRC_TEST_MONITOR_DATETEST_H_
-#define SRC_TEST_MONITOR_DATETEST_H_
+#ifndef SRC_TEST_ENTITIES_DATETEST_H_
+#define SRC_TEST_ENTITIES_DATETEST_H_
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
