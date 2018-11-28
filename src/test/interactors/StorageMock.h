@@ -1,7 +1,8 @@
-#ifndef SRC_TEST_MONITOR_STORAGEMOCK_H
-#define SRC_TEST_MONITOR_STORAGEMOCK_H
+#ifndef SRC_TEST_INTERACTORS_STORAGEMOCK_H
+#define SRC_TEST_INTERACTORS_STORAGEMOCK_H
 
-#include "monitor/Storage.h"
+#include <interactors/Storage.h>
+
 #include <gmock/gmock.h>
 
 namespace KegeratorDisplay {

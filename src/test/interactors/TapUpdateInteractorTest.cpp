@@ -1,14 +1,16 @@
-#include "TapUpdateInteractorTest.h"
-#include "PresenterMock.h"
-#include "StorageMock.h"
-#include "monitor/TapUpdateInteractor.h"
-#include "monitor/TapUpdateResponse.h"
-#include "monitor/InvalidTapUpdateInteractorArgumentException.h"
+#include "../interactors/TapUpdateInteractorTest.h"
+
+#include <interactors/InvalidTapUpdateInteractorArgumentException.h>
+#include <interactors/TapUpdateInteractor.h>
+#include <interactors/TapUpdateResponse.h>
+
 #include "entities/Beer.h"
 #include "entities/AlcoholByVolume.h"
 #include "entities/InternationalBitternessUnits.h"
 #include "entities/Date.h"
 #include "entities/SpecificGravity.h"
+#include "../interactors/PresenterMock.h"
+#include "../interactors/StorageMock.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;

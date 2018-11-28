@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TARGET_SOURCES
 	"src/main/entities/*.cpp"
-	"src/main/monitor/*.cpp"
+	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
 	"src/main/view/*.cpp"
 	"src/main/view/Q*.h"
@@ -18,7 +18,7 @@ file(GLOB TARGET_SOURCES
 file(GLOB UNITTEST_SOURCES
 	"src/test/UnitTest.cpp"
 	"src/test/entities/*.cpp"
-	"src/test/monitor/*.cpp"
+	"src/test/interactors/*.cpp"
 	"src/test/presenter/*.cpp"
 	"src/test/controller/*.cpp"
 	"src/test/storage/*.cpp")

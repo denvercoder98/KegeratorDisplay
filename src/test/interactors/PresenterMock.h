@@ -1,7 +1,7 @@
-#ifndef SRC_TEST_MONITOR_PRESENTERMOCK_H
-#define SRC_TEST_MONITOR_PRESENTERMOCK_H
+#ifndef SRC_TEST_INTERACTORS_PRESENTERMOCK_H
+#define SRC_TEST_INTERACTORS_PRESENTERMOCK_H
 
-#include "monitor/Presenter.h"
+#include <interactors/Presenter.h>
 
 #include "gmock/gmock.h"
 

@@ -1,7 +1,7 @@
 #include "TemperatureSensorControllerTest.h"
 #include "TemperatureSensorMock.h"
-#include "monitor/TemperatureReadingObserverMock.h"
 #include "controller/TemperatureSensorController.h"
+#include "../interactors/TemperatureReadingObserverMock.h"
 
 using ::testing::Return;
 using ::testing::_;

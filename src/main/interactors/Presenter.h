@@ -1,8 +1,8 @@
-#ifndef SRC_MAIN_MONITOR_PRESENTER_H
-#define SRC_MAIN_MONITOR_PRESENTER_H
+#ifndef SRC_MAIN_INTERACTORS_PRESENTER_H
+#define SRC_MAIN_INTERACTORS_PRESENTER_H
 
-#include "monitor/TapUpdateResponse.h"
-#include "monitor/TemperatureUpdateResponse.h"
+#include <interactors/TapUpdateResponse.h>
+#include <interactors/TemperatureUpdateResponse.h>
 
 namespace KegeratorDisplay {
 

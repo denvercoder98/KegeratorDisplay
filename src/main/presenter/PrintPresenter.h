@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 #define SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 
-#include <monitor/Presenter.h>
+#include <interactors/Presenter.h>
 
 namespace KegeratorDisplay {
 

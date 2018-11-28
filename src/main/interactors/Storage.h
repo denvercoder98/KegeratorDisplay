@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_MONITOR_STORAGE_H
-#define SRC_MAIN_MONITOR_STORAGE_H
+#ifndef SRC_MAIN_INTERACTORS_STORAGE_H
+#define SRC_MAIN_INTERACTORS_STORAGE_H
 
 #include "entities/Temperature.h"
 #include "entities/Tap.h"

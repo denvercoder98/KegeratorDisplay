@@ -1,5 +1,5 @@
-#include <monitor/TemperatureUpdateRequest.h>
-#include <monitor/TemperatureUpdateRequestObserver.h>
+#include <interactors/TemperatureUpdateRequest.h>
+#include <interactors/TemperatureUpdateRequestObserver.h>
 #include "TemperatureSensorController.h"
 #include "TemperatureSensor.h"
 

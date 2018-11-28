@@ -1,9 +1,9 @@
-#include "TemperatureUpdateInteractorTest.h"
+#include "../interactors/TemperatureUpdateInteractorTest.h"
 
-#include "monitor/TemperatureUpdateInteractor.h"
+#include <interactors/TemperatureUpdateInteractor.h>
 
-#include "StorageMock.h"
-#include "PresenterMock.h"
+#include "../interactors/PresenterMock.h"
+#include "../interactors/StorageMock.h"
 
 using ::testing::_;
 using ::testing::NiceMock;

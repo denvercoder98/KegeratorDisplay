@@ -1,8 +1,8 @@
-#include "Presenter.h"
-#include "TapUpdateInteractor.h"
-#include "TapUpdateResponse.h"
-#include "Storage.h"
-#include "InvalidTapUpdateInteractorArgumentException.h"
+#include <interactors/InvalidTapUpdateInteractorArgumentException.h>
+#include <interactors/Presenter.h>
+#include <interactors/Storage.h>
+#include <interactors/TapUpdateInteractor.h>
+#include <interactors/TapUpdateResponse.h>
 #include "entities/Beer.h"
 
 #include <iostream>

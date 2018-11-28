@@ -2,8 +2,8 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <boost/thread.hpp>
-#include <monitor/TapUpdateInteractor.h>
-#include <monitor/TemperatureUpdateInteractor.h>
+#include <interactors/TapUpdateInteractor.h>
+#include <interactors/TemperatureUpdateInteractor.h>
 #include <storage/BoostSerializationFileStorage.h>
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>

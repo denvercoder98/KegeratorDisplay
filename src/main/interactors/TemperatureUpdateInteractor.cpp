@@ -1,9 +1,9 @@
-#include "Presenter.h"
-#include "TemperatureUpdateInteractor.h"
-#include "TemperatureUpdateResponse.h"
+#include <interactors/Presenter.h>
+#include <interactors/Presenter.h>
+#include <interactors/Storage.h>
+#include <interactors/TemperatureUpdateInteractor.h>
+#include <interactors/TemperatureUpdateResponse.h>
 #include "entities/Temperature.h"
-#include "Storage.h"
-#include "Presenter.h"
 
 namespace KegeratorDisplay {
 
