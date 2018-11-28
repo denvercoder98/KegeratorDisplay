@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_MONITOR_DATE_H
-#define SRC_MAIN_MONITOR_DATE_H
+#ifndef SRC_MAIN_ENTITIES_DATE_H
+#define SRC_MAIN_ENTITIES_DATE_H
 
 #include <string>
 

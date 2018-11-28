@@ -1,5 +1,5 @@
-#include "monitor/Temperature.h"
-#include "monitor/Tap.h"
+#include "entities/Temperature.h"
+#include "entities/Tap.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>

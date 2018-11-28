@@ -1,7 +1,7 @@
-#ifndef SRC_MAIN_MONITOR_TEMPERATURE_H
-#define SRC_MAIN_MONITOR_TEMPERATURE_H
+#ifndef SRC_MAIN_ENTITIES_TEMPERATURE_H
+#define SRC_MAIN_ENTITIES_TEMPERATURE_H
 
-#include <monitor/TemperatureUpdateRequest.h>
+#include "monitor/TemperatureUpdateRequest.h"
 #include <vector>
 
 namespace KegeratorDisplay {

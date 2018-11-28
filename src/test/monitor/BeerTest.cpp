@@ -1,7 +1,7 @@
 #include "BeerTest.h"
-#include "monitor/Beer.h"
-#include "monitor/AlcoholByVolume.h"
-#include "monitor/InternationalBitternessUnits.h"
+#include "entities/Beer.h"
+#include "entities/AlcoholByVolume.h"
+#include "entities/InternationalBitternessUnits.h"
 
 namespace KegeratorDisplay {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_STORAGE_FILEWRITERMOCK_H_
 #define SRC_TEST_STORAGE_FILEWRITERMOCK_H_
 
-#include <storage/FileWriter.h>
+#include "storage/FileWriter.h"
 
 namespace KegeratorDisplay {
 

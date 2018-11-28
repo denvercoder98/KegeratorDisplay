@@ -1,7 +1,7 @@
-#include <monitor/Presenter.h>
-#include <monitor/TemperatureUpdateInteractor.h>
-#include <monitor/TemperatureUpdateResponse.h>
-#include "Temperature.h"
+#include "Presenter.h"
+#include "TemperatureUpdateInteractor.h"
+#include "TemperatureUpdateResponse.h"
+#include "entities/Temperature.h"
 #include "Storage.h"
 #include "Presenter.h"
 

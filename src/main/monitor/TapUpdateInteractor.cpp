@@ -1,9 +1,9 @@
-#include <monitor/Presenter.h>
-#include <monitor/TapUpdateInteractor.h>
-#include <monitor/TapUpdateResponse.h>
+#include "Presenter.h"
+#include "TapUpdateInteractor.h"
+#include "TapUpdateResponse.h"
 #include "Storage.h"
-#include "Beer.h"
-#include "InvalidTapUpdatorArgumentException.h"
+#include "InvalidTapUpdateInteractorArgumentException.h"
+#include "entities/Beer.h"
 
 #include <iostream>
 
@@ -14,11 +14,11 @@ TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage)
     m_storage(storage)
 {
     if (m_storage == NULL) {
-        throw InvalidTapUpdatorArgumentException("Missing Storage dependency");
+        throw InvalidTapUpdateInteractorArgumentException("Missing Storage dependency");
     }
 
     if (m_observer == NULL) {
-        throw InvalidTapUpdatorArgumentException("Missing KegeratorObserver dependency");
+        throw InvalidTapUpdateInteractorArgumentException("Missing KegeratorObserver dependency");
     }
 
     Tap* leftTap = m_storage->readLeftTap();

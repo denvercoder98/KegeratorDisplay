@@ -1,9 +1,8 @@
 #ifndef SRC_TEST_THREAD_DEADLINETIMERMOCK_H_
 #define SRC_TEST_THREAD_DEADLINETIMERMOCK_H_
 
-#include <thread/DeadlineTimer.h>
-
-#include "gmock/gmock.h"
+#include "thread/DeadlineTimer.h"
+#include <gmock/gmock.h>
 
 namespace KegeratorDisplay {
 

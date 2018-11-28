@@ -2,8 +2,8 @@
 #include "storage/FileReader.h"
 #include "storage/BoostSerializationFileStorage.h"
 #include "storage/BoostSerializer.h"
-#include "monitor/Tap.h"
-#include "monitor/Temperature.h"
+#include "entities/Tap.h"
+#include "entities/Temperature.h"
 
 #include <sstream>
 #include <string>

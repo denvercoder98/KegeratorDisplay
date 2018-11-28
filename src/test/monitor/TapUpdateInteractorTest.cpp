@@ -1,15 +1,14 @@
-#include <monitor/TapUpdateInteractor.h>
-#include <monitor/TapUpdateResponse.h>
-
-#include "monitor/Beer.h"
-#include "monitor/AlcoholByVolume.h"
-#include "monitor/InternationalBitternessUnits.h"
-#include "monitor/Date.h"
-#include "monitor/SpecificGravity.h"
-#include "monitor/InvalidTapUpdatorArgumentException.h"
+#include "TapUpdateInteractorTest.h"
 #include "PresenterMock.h"
 #include "StorageMock.h"
-#include "TapUpdateInteractorTest.h"
+#include "monitor/TapUpdateInteractor.h"
+#include "monitor/TapUpdateResponse.h"
+#include "monitor/InvalidTapUpdateInteractorArgumentException.h"
+#include "entities/Beer.h"
+#include "entities/AlcoholByVolume.h"
+#include "entities/InternationalBitternessUnits.h"
+#include "entities/Date.h"
+#include "entities/SpecificGravity.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -71,12 +70,12 @@ TEST_F(TapUpdateInteractorTest, Create)
 
 TEST_F(TapUpdateInteractorTest, MissingStorageThrows)
 {
-    EXPECT_THROW(TapUpdateInteractor(m_observer, NULL), InvalidTapUpdatorArgumentException);
+    EXPECT_THROW(TapUpdateInteractor(m_observer, NULL), InvalidTapUpdateInteractorArgumentException);
 }
 
 TEST_F(TapUpdateInteractorTest, MissingObserverThrows)
 {
-    EXPECT_THROW(TapUpdateInteractor(NULL, m_storage), InvalidTapUpdatorArgumentException);
+    EXPECT_THROW(TapUpdateInteractor(NULL, m_storage), InvalidTapUpdateInteractorArgumentException);
 }
 
 TEST_F(TapUpdateInteractorTest, ReadLeftTapStorageOnCreation)

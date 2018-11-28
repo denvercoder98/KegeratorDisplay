@@ -1,6 +1,6 @@
 #include "TemperatureUpdateInteractorTest.h"
 
-#include <monitor/TemperatureUpdateInteractor.h>
+#include "monitor/TemperatureUpdateInteractor.h"
 
 #include "StorageMock.h"
 #include "PresenterMock.h"

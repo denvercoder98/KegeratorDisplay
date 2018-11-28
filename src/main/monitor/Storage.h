@@ -1,8 +1,8 @@
 #ifndef SRC_MAIN_MONITOR_STORAGE_H
 #define SRC_MAIN_MONITOR_STORAGE_H
 
-#include "Temperature.h"
-#include "Tap.h"
+#include "entities/Temperature.h"
+#include "entities/Tap.h"
 
 namespace KegeratorDisplay {
 

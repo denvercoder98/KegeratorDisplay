@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_MONITOR_TAPUPDATE_H
 #define SRC_MAIN_MONITOR_TAPUPDATE_H
 
-#include <monitor/BeerUpdateResponse.h>
+#include "BeerUpdateResponse.h"
 
 namespace KegeratorDisplay {
 

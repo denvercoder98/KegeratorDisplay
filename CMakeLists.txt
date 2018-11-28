@@ -15,7 +15,13 @@ file(GLOB TARGET_SOURCES
 	"src/main/storage/*.cpp"
 	"src/main/controller/*.cpp"
 	"src/main/thread/*.cpp")
-file(GLOB UNITTEST_SOURCES "src/test/UnitTest.cpp" "src/test/monitor/*.cpp" "src/test/presenter/*.cpp" "src/test/controller/*.cpp" "src/test/storage/*.cpp")
+file(GLOB UNITTEST_SOURCES
+    "src/test/UnitTest.cpp"
+    "src/test/entities/*.cpp"
+    "src/test/monitor/*.cpp"
+    "src/test/presenter/*.cpp"
+    "src/test/controller/*.cpp"
+    "src/test/storage/*.cpp")
 file(GLOB ACCEPTANCETEST_SOURCES "src/test/AcceptanceTest.cpp")
 
 link_directories("lib/googletest-release-1.8.1/build/googlemock/gtest/")

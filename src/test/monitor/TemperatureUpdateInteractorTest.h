@@ -1,8 +1,8 @@
 #ifndef STC_TEST_MONITOR_TEMPERATUREUPDATEINTERACTORTEST_H_
 #define STC_TEST_MONITOR_TEMPERATUREUPDATEINTERACTORTEST_H_
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 namespace KegeratorDisplay {
 

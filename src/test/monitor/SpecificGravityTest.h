@@ -1,8 +1,8 @@
 #ifndef SRC_TEST_MONITOR_SPECIFICGRAVITYTEST_H_
 #define SRC_TEST_MONITOR_SPECIFICGRAVITYTEST_H_
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 namespace KegeratorDisplay {
 

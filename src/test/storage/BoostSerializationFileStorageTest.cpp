@@ -1,9 +1,8 @@
-#include <storage/BoostSerializationFileStorage.h>
-
-#include "FileStorageTest.h"
+#include "BoostSerializationFileStorageTest.h"
 #include "FileWriterMock.h"
 #include "FileReaderMock.h"
-#include "monitor/Beer.h"
+#include "storage/BoostSerializationFileStorage.h"
+#include "entities/Beer.h"
 
 using ::testing::NiceMock;
 using ::testing::_;
@@ -15,34 +14,34 @@ using ::testing::Return;
 
 namespace KegeratorDisplay {
 
-FileStorageTest::FileStorageTest() :
+BoostSerializationFileStorageTest::BoostSerializationFileStorageTest() :
     m_writer(NULL),
     m_reader(NULL),
     m_storage(NULL)
 {
 }
 
-FileStorageTest::~FileStorageTest()
+BoostSerializationFileStorageTest::~BoostSerializationFileStorageTest()
 {
 }
 
-void FileStorageTest::SetUp()
+void BoostSerializationFileStorageTest::SetUp()
 {
     m_writer = new NiceMock<FileWriterMock>();
     m_reader = new NiceMock<FileReaderMock>();
     m_storage = new BoostSerializationFileStorage("file", "fileLeft", "fileRight", m_writer, m_reader);
 }
 
-void FileStorageTest::TearDown()
+void BoostSerializationFileStorageTest::TearDown()
 {
     delete m_storage;
 }
 
-TEST_F(FileStorageTest, Create)
+TEST_F(BoostSerializationFileStorageTest, Create)
 {
 }
 
-TEST_F(FileStorageTest, WriteTemperatureWritesToFile)
+TEST_F(BoostSerializationFileStorageTest, WriteTemperatureWritesToFile)
 {
     Temperature originalTemperature;
     originalTemperature.addReading(1);
@@ -54,7 +53,7 @@ TEST_F(FileStorageTest, WriteTemperatureWritesToFile)
     m_storage->writeTemperature(&originalTemperature);
 }
 
-TEST_F(FileStorageTest, ReadTemperatureReadsFromFile)
+TEST_F(BoostSerializationFileStorageTest, ReadTemperatureReadsFromFile)
 {
     EXPECT_CALL(*m_reader, read("file"))
         .Times(1)
@@ -63,7 +62,7 @@ TEST_F(FileStorageTest, ReadTemperatureReadsFromFile)
     delete temperature;
 }
 
-TEST_F(FileStorageTest, WriteTemperatureCorrect)
+TEST_F(BoostSerializationFileStorageTest, WriteTemperatureCorrect)
 {
     Temperature originalTemperature;
     originalTemperature.addReading(3);
@@ -77,7 +76,7 @@ TEST_F(FileStorageTest, WriteTemperatureCorrect)
 }
 
 
-TEST_F(FileStorageTest, ReadTemperatureCorrect)
+TEST_F(BoostSerializationFileStorageTest, ReadTemperatureCorrect)
 {
     Temperature originalTemperature;
     originalTemperature.addReading(3);
@@ -91,7 +90,7 @@ TEST_F(FileStorageTest, ReadTemperatureCorrect)
     delete temperature;
 }
 
-TEST_F(FileStorageTest, WriteLeftTapWritesToFile)
+TEST_F(BoostSerializationFileStorageTest, WriteLeftTapWritesToFile)
 {
     Beer beer(
         "Beer",
@@ -108,7 +107,7 @@ TEST_F(FileStorageTest, WriteLeftTapWritesToFile)
     m_storage->writeLeftTap(&tap);
 }
 
-TEST_F(FileStorageTest, ReadLeftTapReadsFromFile)
+TEST_F(BoostSerializationFileStorageTest, ReadLeftTapReadsFromFile)
 {
     EXPECT_CALL(*m_reader, read("fileLeft"))
         .Times(1)
@@ -117,7 +116,7 @@ TEST_F(FileStorageTest, ReadLeftTapReadsFromFile)
     delete tap;
 }
 
-TEST_F(FileStorageTest, WriteRightTapWritesToFile)
+TEST_F(BoostSerializationFileStorageTest, WriteRightTapWritesToFile)
 {
     Beer beer(
         "Beer",
@@ -134,7 +133,7 @@ TEST_F(FileStorageTest, WriteRightTapWritesToFile)
     m_storage->writeRightTap(&tap);
 }
 
-TEST_F(FileStorageTest, ReadRightTapReadsFromFile)
+TEST_F(BoostSerializationFileStorageTest, ReadRightTapReadsFromFile)
 {
     EXPECT_CALL(*m_reader, read("fileRight"))
         .Times(1)
@@ -143,7 +142,7 @@ TEST_F(FileStorageTest, ReadRightTapReadsFromFile)
     delete tap;
 }
 
-TEST_F(FileStorageTest, WriteLeftTapCorrect)
+TEST_F(BoostSerializationFileStorageTest, WriteLeftTapCorrect)
 {
     Beer beer(
         "Beer",
@@ -161,7 +160,7 @@ TEST_F(FileStorageTest, WriteLeftTapCorrect)
     m_storage->writeLeftTap(&originalTap);
 }
 
-TEST_F(FileStorageTest, ReadLeftTapCorrect)
+TEST_F(BoostSerializationFileStorageTest, ReadLeftTapCorrect)
 {
     Beer beer(
         "Beer",
@@ -180,7 +179,7 @@ TEST_F(FileStorageTest, ReadLeftTapCorrect)
     delete tap;
 }
 
-TEST_F(FileStorageTest, ReadRightTapCorrect)
+TEST_F(BoostSerializationFileStorageTest, ReadRightTapCorrect)
 {
     Beer beer(
         "Beer",
@@ -199,7 +198,7 @@ TEST_F(FileStorageTest, ReadRightTapCorrect)
     delete tap;
 }
 
-TEST_F(FileStorageTest, ReadTemperatureEMpty)
+TEST_F(BoostSerializationFileStorageTest, ReadTemperatureEMpty)
 {
     Temperature originalTemp;
 
@@ -210,7 +209,7 @@ TEST_F(FileStorageTest, ReadTemperatureEMpty)
     delete temp;
 }
 
-TEST_F(FileStorageTest, ReadLeftTapEmpty)
+TEST_F(BoostSerializationFileStorageTest, ReadLeftTapEmpty)
 {
     Beer beer;
     Tap originalTap(beer);
@@ -222,7 +221,7 @@ TEST_F(FileStorageTest, ReadLeftTapEmpty)
     delete tap;
 }
 
-TEST_F(FileStorageTest, ReadRightTapEmpty)
+TEST_F(BoostSerializationFileStorageTest, ReadRightTapEmpty)
 {
     Beer beer;
     Tap originalTap(beer);

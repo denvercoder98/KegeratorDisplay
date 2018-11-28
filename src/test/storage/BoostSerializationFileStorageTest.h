@@ -1,5 +1,5 @@
-#ifndef SRC_TEST_STORAGE_FILESTORAGETEST_H_
-#define SRC_TEST_STORAGE_FILESTORAGETEST_H_
+#ifndef SRC_TEST_STORAGE_BOOSTSERIALIZATIONFILESTORAGETEST_H_
+#define SRC_TEST_STORAGE_BOOSTSERIALIZATIONFILESTORAGETEST_H_
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
@@ -10,11 +10,11 @@ class FileWriterMock;
 class FileReaderMock;
 class BoostSerializationFileStorage;
 
-class FileStorageTest : public testing::Test
+class BoostSerializationFileStorageTest : public testing::Test
 {
 public:
-    FileStorageTest();
-    virtual ~FileStorageTest();
+    BoostSerializationFileStorageTest();
+    virtual ~BoostSerializationFileStorageTest();
 
 protected:
     void SetUp();

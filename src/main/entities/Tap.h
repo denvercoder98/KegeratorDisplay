@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_MONITOR_TAP_H
-#define SRC_MAIN_MONITOR_TAP_H
+#ifndef SRC_MAIN_ENTITIES_TAP_H
+#define SRC_MAIN_ENTITIES_TAP_H
 
 #include "Beer.h"
 

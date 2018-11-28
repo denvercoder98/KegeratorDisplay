@@ -1,6 +1,6 @@
 #include "InternationalBitternessUnitsTest.h"
-#include "monitor/InternationalBitternessUnits.h"
-#include "monitor/InvalidInternationalBitternessUnitsException.h"
+#include "entities/InternationalBitternessUnits.h"
+#include "entities/InvalidInternationalBitternessUnitsException.h"
 
 namespace KegeratorDisplay {
 

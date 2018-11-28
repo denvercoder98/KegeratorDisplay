@@ -1,5 +1,5 @@
-#ifndef SRC_MAIN_MONITOR_BEER_H
-#define SRC_MAIN_MONITOR_BEER_H
+#ifndef SRC_MAIN_ENTITIES_BEER_H
+#define SRC_MAIN_ENTITIES_BEER_H
 
 #include "AlcoholByVolume.h"
 #include "InternationalBitternessUnits.h"
