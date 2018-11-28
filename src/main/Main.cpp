@@ -6,15 +6,14 @@
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>
 
-#include <QtWidgets/qapplication.h>
-#include <QtQml/qqmlapplicationengine.h>
-
 #include "view/CliView.h"
+#include "view/QtGuiView.h"
 
 #include "monitor/TemperatureInteractor.h"
 #include "monitor/TapUpdator.h"
 
 #include "presenter/PrintPresenter.h"
+#include "presenter/GuiPresenter.h"
 
 #include "storage/FileWriterImpl.h"
 #include "storage/FileReaderImpl.h"
@@ -45,17 +44,33 @@ int main(int argc, char** argv)
 {
     std::cout << "Test run" << std::endl;
 
-    PrintView* view = new CliView();
-    PrintViewModel* viewModel = new PrintViewModel();
-    PrintPresenter* presenter = new PrintPresenter(view, viewModel);
+    // VIEW
+    KegeratorObserver* presenter;
+    View* view;
+    bool printView = false;
+    if (printView) {
+        PrintView* printView = new CliView();
+        PrintViewModel* viewModel = new PrintViewModel();
+        presenter = new PrintPresenter(printView, viewModel);
+        view = dynamic_cast<View*>(printView);
+    }
+    else {
+        GuiView* guiView = new QtGuiView(argc, argv);
+        GuiViewModel* viewModel = new GuiViewModel();
+        presenter = new GuiPresenter(guiView, viewModel);
+        view = dynamic_cast<View*>(guiView);
+    }
 
+    // STORAGE
     FileWriter* fileWriter = new FileWriterImpl();
     FileReader* fileReader = new FileReaderImpl();
     Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader);
 
+    // INTERACTORS
     TemperatureInteractor* temperatureUpdator = new TemperatureInteractor(presenter, storage);
     TapUpdator* tapUpdator = new TapUpdator(presenter, storage);
 
+    // CONTROLLERS
     DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
     TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
     TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdator);
@@ -70,10 +85,7 @@ int main(int argc, char** argv)
     sensorSampler->addSensorController(temperatureSensorController);
     sensorSampler->start();
 
-    QApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:main.qml")));
-    app.exec();
+    view->run(argc, argv);
 
     m_ioService->stop();
     thread->interrupt();

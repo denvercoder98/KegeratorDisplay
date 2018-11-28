@@ -75,7 +75,7 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
     expectedViewModel.leftTapBeerName = "A";
     expectedViewModel.leftTapBrewerName = "B";
     expectedViewModel.leftTapAbv = "4,1";
-    expectedViewModel.leftTapIbu = 30;
+    expectedViewModel.leftTapIbu = "30";
     expectedViewModel.leftTapBrewDate = "2018-01-01";
     expectedViewModel.leftTapTapDate = "2018-01-14";
     expectedViewModel.leftTapFg = "1.010";
@@ -102,7 +102,7 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     expectedViewModel.rightTapBeerName = "A";
     expectedViewModel.rightTapBrewerName = "B";
     expectedViewModel.rightTapAbv = "4,1";
-    expectedViewModel.rightTapIbu = 30;
+    expectedViewModel.rightTapIbu = "30";
     expectedViewModel.rightTapBrewDate = "2018-01-01";
     expectedViewModel.rightTapTapDate = "2018-01-14";
     expectedViewModel.rightTapFg = "1.010";

@@ -1,12 +1,19 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(KegeratorDisplay)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -ggdb -O0 -g --coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -ggdb -O0 -g --coverage -fPIC")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-file(GLOB TARGET_SOURCES "src/main/monitor/*.cpp" "src/main/presenter/*.cpp" "src/main/view/*.cpp" "src/main/storage/*.cpp" "src/main/controller/*.cpp" "src/main/thread/*.cpp")
+file(GLOB TARGET_SOURCES
+	"src/main/monitor/*.cpp"
+	"src/main/presenter/*.cpp"
+	"src/main/view/*.cpp"
+	"src/main/view/Q*.h"
+	"src/main/storage/*.cpp"
+	"src/main/controller/*.cpp"
+	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES "src/test/UnitTest.cpp" "src/test/monitor/*.cpp" "src/test/presenter/*.cpp" "src/test/controller/*.cpp" "src/test/storage/*.cpp")
 file(GLOB ACCEPTANCETEST_SOURCES "src/test/AcceptanceTest.cpp")
 
@@ -17,7 +24,7 @@ include_directories("lib/googletest-release-1.8.1/googlemock/include/")
 include_directories("src/main/")
 include_directories("src/test/")
 
-find_package(Qt5 COMPONENTS Widgets Qml Quick REQUIRED)
+find_package(Qt5 5.7 COMPONENTS Widgets Qml Quick QuickControls2 REQUIRED)
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
 qt5_add_resources(QT_RESOURCES src/main/view/qml.qrc)
@@ -35,6 +42,6 @@ add_executable(kegeratorDisplay src/main/Main.cpp ${QT_RESOURCES})
 add_executable(kegeratorDisplayUnitTest ${UNITTEST_SOURCES})
 add_executable(kegeratorDisplayAcceptanceTest ${ACCEPTANCETEST_SOURCES})
 
-target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick)
+target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick Qt5::QuickControls2)
 target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
 target_link_libraries(kegeratorDisplayAcceptanceTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)

@@ -3,6 +3,7 @@
 #include "GuiView.h"
 
 #include <sstream>
+#include <string>
 
 namespace KegeratorDisplay {
 
@@ -27,23 +28,21 @@ void GuiPresenter::updateTemperature(const TemperatureUpdate& temperature)
 
 void GuiPresenter::updateTap(const TapUpdate& tap)
 {
-    std::stringstream ss;
+    BeerUpdate beer = tap.beer();
     if (tap.side() == TAP_LEFT) {
-        BeerUpdate beer = tap.beer();
         m_viewModel->leftTapBeerName = beer.name();
         m_viewModel->leftTapBrewerName = beer.brewerName();
         m_viewModel->leftTapAbv = beer.abv();
-        m_viewModel->leftTapIbu = beer.ibu();
+        m_viewModel->leftTapIbu = std::to_string(beer.ibu());
         m_viewModel->leftTapBrewDate = beer.brewDate();
         m_viewModel->leftTapTapDate = beer.tapDate();
         m_viewModel->leftTapFg = beer.finalGravity();
     }
     else if (tap.side() == TAP_RIGHT) {
-        BeerUpdate beer = tap.beer();
         m_viewModel->rightTapBeerName = beer.name();
         m_viewModel->rightTapBrewerName = beer.brewerName();
         m_viewModel->rightTapAbv = beer.abv();
-        m_viewModel->rightTapIbu = beer.ibu();
+        m_viewModel->rightTapIbu = std::to_string(beer.ibu());
         m_viewModel->rightTapBrewDate = beer.brewDate();
         m_viewModel->rightTapTapDate = beer.tapDate();
         m_viewModel->rightTapFg = beer.finalGravity();
