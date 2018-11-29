@@ -24,9 +24,11 @@ public:
 
     Tap* readLeftTap();
     void writeLeftTap(Tap*);
+    void clearLeftTap() {};
 
     Tap* readRightTap();
     void writeRightTap(Tap*);
+    void clearRightTap() {};
 
 private:
     Temperature* createTemperatureFromString(const std::string& serialized);

@@ -2,8 +2,9 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <boost/thread.hpp>
-#include <interactors/TapUpdateInteractor.h>
-#include <interactors/TemperatureUpdateInteractor.h>
+#include "interactors/TapUpdateInteractor.h"
+#include "interactors/TapClearInteractor.h"
+#include "interactors/TemperatureUpdateInteractor.h"
 #include <storage/BoostSerializationFileStorage.h>
 #include <thread/BoostDeadlineTimer.h>
 #include <thread/BoostMutex.h>
@@ -66,13 +67,14 @@ int main(int argc, char** argv)
     Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader);
 
     // INTERACTORS
-    TemperatureUpdateInteractor* temperatureUpdator = new TemperatureUpdateInteractor(presenter, storage);
-    TapUpdateInteractor* tapUpdator = new TapUpdateInteractor(presenter, storage);
+    TemperatureUpdateInteractor* temperatureUpdateInteractor = new TemperatureUpdateInteractor(presenter, storage);
+    TapUpdateInteractor* tapUpdateInteractor = new TapUpdateInteractor(presenter, storage);
+    TapClearInteractor* tapDeleteInteractor = new TapClearInteractor(presenter, storage);
 
     // CONTROLLERS
     DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
     TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
-    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdator);
+    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
 
     m_ioService = new boost::asio::io_service();
     boost::asio::io_service::work* work = new boost::asio::io_service::work(*m_ioService);
@@ -94,8 +96,8 @@ int main(int argc, char** argv)
     delete thread;
     delete work;
     delete m_ioService;
-    delete tapUpdator;
-    delete temperatureUpdator;
+    delete tapUpdateInteractor;
+    delete temperatureUpdateInteractor;
     delete storage;
     delete presenter;
 

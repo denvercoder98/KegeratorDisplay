@@ -15,9 +15,11 @@ public:
 
     virtual Tap* readLeftTap() = 0;
     virtual void writeLeftTap(Tap*) = 0;
+    virtual void clearLeftTap() = 0;
 
     virtual Tap* readRightTap() = 0;
     virtual void writeRightTap(Tap*) = 0;
+    virtual void clearRightTap() = 0;
 };
 
 }

@@ -1,11 +1,10 @@
 #ifndef SRC_MAIN_INTERACTORS_TAPUPDATE_H
 #define SRC_MAIN_INTERACTORS_TAPUPDATE_H
 
-#include <interactors/BeerUpdateResponse.h>
+#include "BeerUpdateResponse.h"
+#include "TapSide.h"
 
 namespace KegeratorDisplay {
-
-typedef enum {TAP_LEFT, TAP_RIGHT} TapSide;
 
 class TapUpdateResponse
 {

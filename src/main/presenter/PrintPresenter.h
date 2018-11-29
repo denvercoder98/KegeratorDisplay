@@ -1,7 +1,8 @@
 #ifndef SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 #define SRC_MAIN_PRESENTER_PRINTPRESENTER_H
 
-#include <interactors/Presenter.h>
+#include "interactors/Presenter.h"
+#include "interactors/TapSide.h"
 
 namespace KegeratorDisplay {
 
@@ -14,8 +15,9 @@ public:
     PrintPresenter(PrintView* view, PrintViewModel* viewModel);
     virtual ~PrintPresenter();
 
-    virtual void updateTemperature(const TemperatureUpdateResponse& temperature);
-    virtual void updateTap(const TapUpdateResponse& tap);
+    void updateTemperature(const TemperatureUpdateResponse& temperature);
+    void updateTap(const TapUpdateResponse& tap);
+    void clearTap(const TapClearResponse& tap) {};
 
 private:
     void formatTapHeader(std::stringstream& ss, const TapSide beer);

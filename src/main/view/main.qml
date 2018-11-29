@@ -82,6 +82,16 @@ ApplicationWindow
                     text: qsTr("Final gravity: ") + leftTap.finalGravity;
                     font.pixelSize: stuff.textSize;
                 }
+                RowLayout {
+                    Button {
+                        text: qsTr("Edit");
+                        font.pixelSize: stuff.textSize;
+                    }
+                    Button {
+                        text: qsTr("Clear");
+                        font.pixelSize: stuff.textSize;
+                    }
+                }
             }
         
             ColumnLayout {
@@ -116,7 +126,17 @@ ApplicationWindow
                 Text {
                     text: qsTr("Final gravity: ") + leftTap.finalGravity;
                     font.pixelSize: stuff.textSize;
-                }            
+                }
+                RowLayout {
+                    Button {
+                        text: qsTr("Edit");
+                        font.pixelSize: stuff.textSize;
+                    }
+                    Button {
+                        text: qsTr("Clear");
+                        font.pixelSize: stuff.textSize;
+                    }
+                }         
             }
         }
     }

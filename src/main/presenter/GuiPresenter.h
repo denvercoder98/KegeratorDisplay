@@ -16,6 +16,7 @@ public:
 
     void updateTemperature(const TemperatureUpdateResponse& temperature);
     void updateTap(const TapUpdateResponse& tap);
+    void clearTap(const TapClearResponse& tap) {};
 
 private:
     GuiView* m_view;

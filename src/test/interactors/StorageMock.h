@@ -14,8 +14,10 @@ public:
     MOCK_METHOD1(writeTemperature, void(Temperature*));
     MOCK_METHOD0(readLeftTap, Tap*(void));
     MOCK_METHOD1(writeLeftTap, void(Tap*));
+    MOCK_METHOD0(clearLeftTap, void());
     MOCK_METHOD0(readRightTap, Tap*(void));
     MOCK_METHOD1(writeRightTap, void(Tap*));
+    MOCK_METHOD0(clearRightTap, void());
 };
 
 }
