@@ -1,6 +1,7 @@
 #include "BoostSerializationFileStorageTest.h"
 #include "FileWriterMock.h"
 #include "FileReaderMock.h"
+#include "FileRemoverMock.h"
 #include "storage/BoostSerializationFileStorage.h"
 #include "entities/Beer.h"
 
@@ -17,6 +18,7 @@ namespace KegeratorDisplay {
 BoostSerializationFileStorageTest::BoostSerializationFileStorageTest() :
     m_writer(NULL),
     m_reader(NULL),
+    m_remover(NULL),
     m_storage(NULL)
 {
 }
@@ -29,7 +31,8 @@ void BoostSerializationFileStorageTest::SetUp()
 {
     m_writer = new NiceMock<FileWriterMock>();
     m_reader = new NiceMock<FileReaderMock>();
-    m_storage = new BoostSerializationFileStorage("file", "fileLeft", "fileRight", m_writer, m_reader);
+    m_remover = new NiceMock<FileRemoverMock>();
+    m_storage = new BoostSerializationFileStorage("file", "fileLeft", "fileRight", m_writer, m_reader, m_remover);
 }
 
 void BoostSerializationFileStorageTest::TearDown()
@@ -231,6 +234,20 @@ TEST_F(BoostSerializationFileStorageTest, ReadRightTapEmpty)
     Tap* tap = m_storage->readRightTap();
     EXPECT_EQ(originalTap, *tap);
     delete tap;
+}
+
+TEST_F(BoostSerializationFileStorageTest, ClearLeftTapRemovesFile)
+{
+    EXPECT_CALL(*m_remover, removeFile("fileLeft"))
+        .Times(1);
+    m_storage->clearLeftTap();
+}
+
+TEST_F(BoostSerializationFileStorageTest, ClearRightTapRemovesFile)
+{
+    EXPECT_CALL(*m_remover, removeFile("fileRight"))
+        .Times(1);
+    m_storage->clearRightTap();
 }
 
 }

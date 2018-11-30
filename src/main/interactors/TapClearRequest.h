@@ -13,6 +13,8 @@ public:
 
     const TapSide tapSide() const;
 
+    bool operator==(const TapClearRequest& other) const;
+
 private:
     const TapSide m_tapSide;
 };

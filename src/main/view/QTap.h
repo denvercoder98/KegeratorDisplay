@@ -9,6 +9,7 @@ class QTap : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QString estVolume READ estVolume WRITE setEstVolume NOTIFY estVolumeChanged)
     Q_PROPERTY(QString brewer READ brewer WRITE setBrewer NOTIFY brewerChanged)
     Q_PROPERTY(QString abv READ abv WRITE setAbv NOTIFY abvChanged)
     Q_PROPERTY(QString ibu READ ibu WRITE setIbu NOTIFY ibuChanged)
@@ -28,6 +29,19 @@ public:
     QString name() const
     {
         return m_name;
+    }
+
+    void setEstVolume(const QString &a)
+    {
+        if (a != m_estVolume) {
+            m_estVolume = a;
+            emit estVolumeChanged();
+        }
+    }
+
+    QString estVolume() const
+    {
+        return m_estVolume;
     }
 
     void setBrewer(const QString &a)
@@ -110,6 +124,7 @@ public:
 
 signals:
     void nameChanged();
+    void estVolumeChanged();
     void brewerChanged();
     void abvChanged();
     void ibuChanged();
@@ -119,6 +134,7 @@ signals:
 
 private:
     QString m_name;
+    QString m_estVolume;
     QString m_brewer;
     QString m_abv;
     QString m_ibu;

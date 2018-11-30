@@ -1,5 +1,6 @@
 #include "storage/FileWriter.h"
 #include "storage/FileReader.h"
+#include "storage/FileRemover.h"
 #include "storage/BoostSerializationFileStorage.h"
 #include "storage/BoostSerializer.h"
 #include "entities/Tap.h"
@@ -14,12 +15,14 @@ BoostSerializationFileStorage::BoostSerializationFileStorage(const std::string& 
                          const std::string& leftTapFilename,
                          const std::string& rightTapFilename,
                          FileWriter* writer,
-                         FileReader* reader) :
+                         FileReader* reader,
+                         FileRemover* remover) :
     m_temperatureFilename(temperatureFilename),
     m_leftTapFilename(leftTapFilename),
     m_rightTapFilename(rightTapFilename),
     m_reader(reader),
-    m_writer(writer)
+    m_writer(writer),
+    m_remover(remover)
 {
 }
 
@@ -27,6 +30,7 @@ BoostSerializationFileStorage::~BoostSerializationFileStorage()
 {
     delete m_writer;
     delete m_reader;
+    delete m_remover;
 }
 
 Temperature* BoostSerializationFileStorage::readTemperature()
@@ -116,6 +120,16 @@ const std::string BoostSerializationFileStorage::serializeTap(Tap* tap)
     oa << *tap;
     const std::string serialized = ss.str();
     return serialized;
+}
+
+void BoostSerializationFileStorage::clearLeftTap()
+{
+    m_remover->removeFile(m_leftTapFilename);
+}
+
+void BoostSerializationFileStorage::clearRightTap()
+{
+    m_remover->removeFile(m_rightTapFilename);
 }
 
 }

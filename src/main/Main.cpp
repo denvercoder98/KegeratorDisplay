@@ -17,11 +17,14 @@
 
 #include "storage/FileWriterImpl.h"
 #include "storage/FileReaderImpl.h"
+#include "storage/FileRemoverImpl.h"
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"
 #include "controller/TemperatureSensor.h"
 #include "controller/TemperatureSensorController.h"
 #include "controller/SensorSampler.h"
+#include "controller/UserInputController.h"
+#include "devices/QtQmlInputDevice.h"
 
 using namespace KegeratorDisplay;
 
@@ -44,7 +47,10 @@ int main(int argc, char** argv)
 {
     std::cout << "Test run" << std::endl;
 
-    // VIEW
+    QApplication* m_qApplication = new QApplication(argc, argv);
+    QQmlApplicationEngine* m_qEngine = new QQmlApplicationEngine();
+
+    // VIEW and PRESENTER TODO sort out
     Presenter* presenter;
     View* view;
     bool printView = false;
@@ -55,7 +61,7 @@ int main(int argc, char** argv)
         view = dynamic_cast<View*>(printView);
     }
     else {
-        GuiView* guiView = new QtGuiView(argc, argv);
+        GuiView* guiView = new QtGuiView(m_qApplication, m_qEngine);
         GuiViewModel* viewModel = new GuiViewModel();
         presenter = new GuiPresenter(guiView, viewModel);
         view = dynamic_cast<View*>(guiView);
@@ -64,17 +70,22 @@ int main(int argc, char** argv)
     // STORAGE
     FileWriter* fileWriter = new FileWriterImpl();
     FileReader* fileReader = new FileReaderImpl();
-    Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader);
+    FileRemover* fileRemover = new FileRemoverImpl();
+    Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader, fileRemover);
 
     // INTERACTORS
     TemperatureUpdateInteractor* temperatureUpdateInteractor = new TemperatureUpdateInteractor(presenter, storage);
     TapUpdateInteractor* tapUpdateInteractor = new TapUpdateInteractor(presenter, storage);
-    TapClearInteractor* tapDeleteInteractor = new TapClearInteractor(presenter, storage);
+    TapClearInteractor* tapClearInteractor = new TapClearInteractor(presenter, storage);
 
     // CONTROLLERS
     DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
     TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
     TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
+    UserInputController* userInputController = new KegeratorDisplay::UserInputController(tapClearInteractor);
+
+    // DEVICES
+    QtQmlInputDevice* keyboardInputDevice = new QtQmlInputDevice(m_qEngine, userInputController); //TODO turn controller into interface?
 
     m_ioService = new boost::asio::io_service();
     boost::asio::io_service::work* work = new boost::asio::io_service::work(*m_ioService);
@@ -100,6 +111,8 @@ int main(int argc, char** argv)
     delete temperatureUpdateInteractor;
     delete storage;
     delete presenter;
+    delete m_qEngine;
+    delete m_qApplication;
 
     return 0;
 }

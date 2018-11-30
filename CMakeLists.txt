@@ -14,6 +14,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/view/Q*.h"
 	"src/main/storage/*.cpp"
 	"src/main/controller/*.cpp"
+	"src/main/devices/*cpp"
 	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES
 	"src/test/UnitTest.cpp"

@@ -125,4 +125,42 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     EXPECT_EQ(expectedViewModel, viewModel);
 }
 
+TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
+{
+    m_viewModel->leftTapBeerName = "A";
+    m_viewModel->leftTapBrewerName = "B";
+    m_viewModel->leftTapAbv = "4,1";
+    m_viewModel->leftTapIbu = "30";
+    m_viewModel->leftTapBrewDate = "2018-01-01";
+    m_viewModel->leftTapTapDate = "2018-01-14";
+    m_viewModel->leftTapFg = "1.010";
+
+    m_viewModel->rightTapAbv = "5,0";
+
+    GuiViewModel expectedViewModel;
+    expectedViewModel.rightTapAbv = "5,0";
+    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+        .Times(1);
+    m_presenter->clearTap(TapClearResponse(TAP_LEFT));
+}
+
+TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
+{
+    m_viewModel->rightTapBeerName = "A";
+    m_viewModel->rightTapBrewerName = "B";
+    m_viewModel->rightTapAbv = "4,1";
+    m_viewModel->rightTapIbu = "30";
+    m_viewModel->rightTapBrewDate = "2018-01-01";
+    m_viewModel->rightTapTapDate = "2018-01-14";
+    m_viewModel->rightTapFg = "1.010";
+
+    m_viewModel->leftTapAbv = "5,0";
+
+    GuiViewModel expectedViewModel;
+    expectedViewModel.leftTapAbv = "5,0";
+    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+        .Times(1);
+    m_presenter->clearTap(TapClearResponse(TAP_RIGHT));
+}
+
 }

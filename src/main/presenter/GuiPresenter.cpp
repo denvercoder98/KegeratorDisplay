@@ -50,4 +50,26 @@ void GuiPresenter::updateTap(const TapUpdateResponse& tap)
     m_view->updateView(*m_viewModel);
 }
 
+void GuiPresenter::clearTap(const TapClearResponse& tap) {
+    if (tap.side() == TAP_LEFT) {
+        m_viewModel->leftTapBeerName = "";
+        m_viewModel->leftTapBrewerName = "";
+        m_viewModel->leftTapAbv = "";
+        m_viewModel->leftTapIbu = "";
+        m_viewModel->leftTapBrewDate =  "";
+        m_viewModel->leftTapTapDate =  "";
+        m_viewModel->leftTapFg =  "";
+    }
+    else if (tap.side() == TAP_RIGHT) {
+        m_viewModel->rightTapBeerName = "";
+        m_viewModel->rightTapBrewerName = "";
+        m_viewModel->rightTapAbv = "";
+        m_viewModel->rightTapIbu = "";
+        m_viewModel->rightTapBrewDate =  "";
+        m_viewModel->rightTapTapDate =  "";
+        m_viewModel->rightTapFg =  "";
+    }
+    m_view->updateView(*m_viewModel);
+}
+
 }

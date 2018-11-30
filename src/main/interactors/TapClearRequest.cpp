@@ -16,4 +16,9 @@ const TapSide TapClearRequest::tapSide() const
     return m_tapSide;
 }
 
+bool TapClearRequest::operator ==(const TapClearRequest& other) const
+{
+    return m_tapSide == other.m_tapSide;
+}
+
 }

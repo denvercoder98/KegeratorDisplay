@@ -1,6 +1,7 @@
 #ifndef SRC_MAIN_INTERACTORS_TAPCLEARINTERACTOR_H_
 #define SRC_MAIN_INTERACTORS_TAPCLEARINTERACTOR_H_
 
+#include "TapClearRequestObserver.h"
 #include "TapClearRequest.h"
 
 namespace KegeratorDisplay {
@@ -8,7 +9,7 @@ namespace KegeratorDisplay {
 class Presenter;
 class Storage;
 
-class TapClearInteractor
+class TapClearInteractor : public TapClearRequestObserver
 {
 public:
     TapClearInteractor(Presenter* presenter, Storage* storage);

@@ -8,6 +8,7 @@ namespace KegeratorDisplay {
 
 class FileWriter;
 class FileReader;
+class FileRemover;
 
 class BoostSerializationFileStorage : public Storage
 {
@@ -16,7 +17,8 @@ public:
                 const std::string& leftTapFilename,
                 const std::string& rightTapFilename,
                 FileWriter* writer,
-                FileReader* reader);
+                FileReader* reader,
+                FileRemover* remover);
     virtual ~BoostSerializationFileStorage();
 
     virtual Temperature* readTemperature();
@@ -24,11 +26,11 @@ public:
 
     Tap* readLeftTap();
     void writeLeftTap(Tap*);
-    void clearLeftTap() {};
+    void clearLeftTap();
 
     Tap* readRightTap();
     void writeRightTap(Tap*);
-    void clearRightTap() {};
+    void clearRightTap();
 
 private:
     Temperature* createTemperatureFromString(const std::string& serialized);
@@ -45,6 +47,7 @@ private:
     const std::string m_rightTapFilename;
     FileWriter* m_writer;
     FileReader* m_reader;
+    FileRemover* m_remover;
 };
 
 }
