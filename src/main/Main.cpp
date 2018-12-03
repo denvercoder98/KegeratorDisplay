@@ -26,6 +26,8 @@
 #include "controller/UserInputController.h"
 #include "devices/QtQmlInputDevice.h"
 
+//TODO exception safety
+
 using namespace KegeratorDisplay;
 
 boost::asio::io_service* m_ioService;
@@ -43,6 +45,34 @@ void workerThread()
     }
 }
 
+Storage* createStorage()
+{
+    FileWriter* fileWriter = new FileWriterImpl();
+    FileReader* fileReader = new FileReaderImpl();
+    FileRemover* fileRemover = new FileRemoverImpl();
+    Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader, fileRemover);
+    return storage;
+}
+
+TemperatureSensorController* createTemperatureSensorController(TemperatureUpdateInteractor* temperatureUpdateInteractor)
+{
+    // CONTROLLERS
+    DS18B20SensorReader* ds18bSensorReader =
+        new DS18B20SensorReaderStaticValue();
+    TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
+    TemperatureSensorController* temperatureSensorController =
+        new TemperatureSensorController(temperatureSensor,
+            temperatureUpdateInteractor);
+    return temperatureSensorController;
+}
+
+UserInputController* createUserInputController(TapClearInteractor* tapClearInteractor)
+{
+    UserInputController* userInputController =
+        new KegeratorDisplay::UserInputController(tapClearInteractor);
+    return userInputController;
+}
+
 int main(int argc, char** argv)
 {
     std::cout << "Test run" << std::endl;
@@ -50,7 +80,7 @@ int main(int argc, char** argv)
     QApplication* m_qApplication = new QApplication(argc, argv);
     QQmlApplicationEngine* m_qEngine = new QQmlApplicationEngine();
 
-    // VIEW and PRESENTER TODO sort out
+    // VIEW and PRESENTER
     Presenter* presenter;
     View* view;
     bool printView = false;
@@ -67,11 +97,7 @@ int main(int argc, char** argv)
         view = dynamic_cast<View*>(guiView);
     }
 
-    // STORAGE
-    FileWriter* fileWriter = new FileWriterImpl();
-    FileReader* fileReader = new FileReaderImpl();
-    FileRemover* fileRemover = new FileRemoverImpl();
-    Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader, fileRemover);
+    Storage* storage = createStorage();
 
     // INTERACTORS
     TemperatureUpdateInteractor* temperatureUpdateInteractor = new TemperatureUpdateInteractor(presenter, storage);
@@ -79,10 +105,8 @@ int main(int argc, char** argv)
     TapClearInteractor* tapClearInteractor = new TapClearInteractor(presenter, storage);
 
     // CONTROLLERS
-    DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
-    TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
-    TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
-    UserInputController* userInputController = new KegeratorDisplay::UserInputController(tapClearInteractor);
+    TemperatureSensorController* temperatureSensorController = createTemperatureSensorController(temperatureUpdateInteractor);
+    UserInputController* userInputController = createUserInputController(tapClearInteractor);
 
     // DEVICES
     QtQmlInputDevice* keyboardInputDevice = new QtQmlInputDevice(m_qEngine, userInputController); //TODO turn controller into interface?
