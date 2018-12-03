@@ -7,6 +7,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TARGET_SOURCES
+    "src/main/Kegerator.cpp"
 	"src/main/entities/*.cpp"
 	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
@@ -23,12 +24,15 @@ file(GLOB UNITTEST_SOURCES
 	"src/test/presenter/*.cpp"
 	"src/test/controller/*.cpp"
 	"src/test/storage/*.cpp")
-file(GLOB ACCEPTANCETEST_SOURCES "src/test/AcceptanceTest.cpp")
+file(GLOB ACCEPTANCETEST_SOURCES
+    "src/main/Kegerator.cpp"
+    "src/test/acceptance/features/step_definitions/*.cpp")
 
 link_directories("lib/googletest-release-1.8.1/build/googlemock/gtest/")
 link_directories("lib/googletest-release-1.8.1/build/googlemock/")
 include_directories("lib/googletest-release-1.8.1/googletest/include/")
 include_directories("lib/googletest-release-1.8.1/googlemock/include/")
+include_directories("/include/")
 include_directories("src/main/")
 include_directories("src/test/")
 
@@ -41,15 +45,25 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Boost 1.58 COMPONENTS date_time thread serialization REQUIRED)
+find_package(Boost 1.58 COMPONENTS
+	date_time
+	thread
+	serialization
+	regex
+	program_options
+	filesystem
+	REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 add_library(KegeratorDisplayImplementation STATIC ${TARGET_SOURCES} )
 
-add_executable(kegeratorDisplay src/main/Main.cpp ${QT_RESOURCES})
+add_executable(kegeratorDisplay
+    src/main/Main.cpp
+    src/main/GuiKegerator.cpp
+    ${QT_RESOURCES})
 add_executable(kegeratorDisplayUnitTest ${UNITTEST_SOURCES})
 add_executable(kegeratorDisplayAcceptanceTest ${ACCEPTANCETEST_SOURCES})
 
 target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick Qt5::QuickControls2)
 target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
-target_link_libraries(kegeratorDisplayAcceptanceTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
+target_link_libraries(kegeratorDisplayAcceptanceTest KegeratorDisplayImplementation cucumber-cpp ${Boost_LIBRARIES} gtest gmock pthread)
