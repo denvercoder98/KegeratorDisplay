@@ -56,6 +56,7 @@ void Kegerator::start(int &argc, char** argv)
     createStorage();
     createInteractors();
     createControllers();
+    createDevices();
 
     //TODO move to function
     m_sensorSampler->start();
