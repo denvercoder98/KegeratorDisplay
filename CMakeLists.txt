@@ -18,14 +18,14 @@ file(GLOB TARGET_SOURCES
 	"src/main/devices/*cpp"
 	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES
-	"src/test/UnitTest.cpp"
-	"src/test/entities/*.cpp"
-	"src/test/interactors/*.cpp"
-	"src/test/presenter/*.cpp"
-	"src/test/controller/*.cpp"
-	"src/test/storage/*.cpp")
+	"src/test/unit/TestRunner.cpp"
+	"src/test/unit/entities/*.cpp"
+	"src/test/unit/interactors/*.cpp"
+	"src/test/unit/presenter/*.cpp"
+	"src/test/unit/controller/*.cpp"
+	"src/test/unit/storage/*.cpp")
 file(GLOB ACCEPTANCETEST_SOURCES
-    "src/main/Kegerator.cpp"
+    #"src/main/Kegerator.cpp"
     "src/test/acceptance/features/step_definitions/*.cpp")
 
 link_directories("lib/googletest-release-1.8.1/build/googlemock/gtest/")

@@ -1,5 +1,5 @@
 #include "UserInputControllerTest.h"
-#include "interactors/TapClearRequestObserverMock.h"
+#include "unit/interactors/TapClearRequestObserverMock.h"
 #include "controller/UserInputController.h"
 #include "controller/InvalidUserInputControllerArgumentException.h"
 

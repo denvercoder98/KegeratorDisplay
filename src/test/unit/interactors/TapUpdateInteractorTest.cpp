@@ -9,8 +9,8 @@
 #include "entities/InternationalBitternessUnits.h"
 #include "entities/Date.h"
 #include "entities/SpecificGravity.h"
-#include "../interactors/PresenterMock.h"
-#include "../interactors/StorageMock.h"
+#include "unit/interactors/PresenterMock.h"
+#include "unit/interactors/StorageMock.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;
