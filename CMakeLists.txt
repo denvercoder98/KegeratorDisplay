@@ -33,7 +33,7 @@ link_directories("lib/googletest-release-1.8.1/build/googlemock/")
 include_directories("lib/googletest-release-1.8.1/googletest/include/")
 include_directories("lib/googletest-release-1.8.1/googlemock/include/")
 
-#link_directories("lib/cucumber-cpp-0.5/build")
+link_directories("lib/cucumber-cpp-0.5/build/lib")
 include_directories("lib/cucumber-cpp-0.5/build/include")
 
 include_directories("src/main/")
