@@ -26,7 +26,7 @@ public:
     Kegerator();
     virtual ~Kegerator();
 
-    void start(int &argc, char** argv);
+    void startAndRun(int &argc, char** argv);
     void stop();
 
 protected:
@@ -47,7 +47,16 @@ protected:
 private:
     TemperatureSensorController* createTemperatureSensorController(TemperatureUpdateInteractor* temperatureUpdateInteractor);
     UserInputController* createUserInputController(TapClearInteractor* tapClearInteractor);
+    void startControllers();
     void workerThread();
+
+    void setStarted();
+    bool wasStarted() const;
+    void create(int& argc, char** argv);
+    void start();
+    void doCreate(int& argc, char** argv);
+    void cleanUp();
+    void createApplicationThread();
 
     Presenter* m_presenter;
     Storage* m_storage;

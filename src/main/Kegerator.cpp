@@ -39,38 +39,68 @@ Kegerator::Kegerator() :
 
 Kegerator::~Kegerator()
 {
-    if (m_started) {
-        delete m_sensorSampler;
-        delete m_thread;
-        delete m_work;
-        delete m_ioService;
-        delete m_userInputController;
-        delete m_temperatureSensorController;
-        delete m_tapClearInteractor;
-        delete m_tapUpdateInteractor;
-        delete m_temperatureUpdateInteractor;
-        delete m_storage;
-        delete m_presenter;
-        delete p_view;
+    cleanUp();
+}
+
+void Kegerator::startAndRun(int &argc, char** argv)
+{
+    create(argc, argv);
+    start();
+    run();
+}
+
+void Kegerator::create(int& argc, char** argv)
+{
+    try {
+        doCreate(argc, argv);
+    }
+    catch(std::exception& ex) {
+        std::cerr << "Unable to start kegerator: " << ex.what() << std::endl;
+        cleanUp();
     }
 }
 
-void Kegerator::start(int &argc, char** argv)
+void Kegerator::doCreate(int& argc, char** argv)
 {
-    //TODO exception safety
+    createApplicationThread();
     createView(argc, argv);
     createPresenter();
     createStorage();
     createInteractors();
     createControllers();
     createDevices();
+}
 
+void Kegerator::cleanUp()
+{
+    if (m_sensorSampler) delete m_sensorSampler;
+    if (m_thread) delete m_thread;
+    if (m_work) delete m_work;
+    if (m_ioService) delete m_ioService;
+    if (m_userInputController) delete m_userInputController;
+    if (m_temperatureSensorController) delete m_temperatureSensorController;
+    if (m_tapClearInteractor) delete m_tapClearInteractor;
+    if (m_tapUpdateInteractor) delete m_tapUpdateInteractor;
+    if (m_temperatureUpdateInteractor) delete m_temperatureUpdateInteractor;
+    if (m_storage) delete m_storage;
+    if (m_presenter) delete m_presenter;
+    if (p_view) delete p_view;
+}
+
+void Kegerator::start()
+{
+    startControllers();
+    setStarted();
+}
+
+void Kegerator::setStarted()
+{
     m_started = true;
+}
 
-    //TODO move to function
-    m_sensorSampler->start();
-
-    run();
+bool Kegerator::wasStarted() const
+{
+    return m_started;
 }
 
 void Kegerator::stop()
@@ -102,15 +132,17 @@ void Kegerator::createInteractors()
     m_tapClearInteractor = new TapClearInteractor(m_presenter, m_storage);
 }
 
+void Kegerator::createApplicationThread()
+{
+    m_ioService = new boost::asio::io_service();
+    m_work = new boost::asio::io_service::work(*m_ioService);
+    m_thread = new boost::thread(&Kegerator::workerThread, this);
+}
+
 void Kegerator::createControllers()
 {
     m_temperatureSensorController = createTemperatureSensorController(m_temperatureUpdateInteractor);
     m_userInputController = createUserInputController(m_tapClearInteractor);
-
-    //TODO move to generic function
-    m_ioService = new boost::asio::io_service();
-    m_work = new boost::asio::io_service::work(*m_ioService);
-    m_thread = new boost::thread(&Kegerator::workerThread, this);
 
     boost::asio::deadline_timer* boostDeadlineTimer = new boost::asio::deadline_timer(*m_ioService);
     DeadlineTimer* timer = new BoostDeadlineTimer(boostDeadlineTimer);
@@ -118,6 +150,11 @@ void Kegerator::createControllers()
 
     m_sensorSampler = new SensorSampler(1, timer, mutex);
     m_sensorSampler->addSensorController(m_temperatureSensorController);
+}
+
+void Kegerator::startControllers()
+{
+    m_sensorSampler->start();
 }
 
 TemperatureSensorController* Kegerator::createTemperatureSensorController(TemperatureUpdateInteractor* temperatureUpdateInteractor)

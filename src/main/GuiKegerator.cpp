@@ -13,8 +13,15 @@ GuiKegerator::GuiKegerator() :
 
 GuiKegerator::~GuiKegerator()
 {
-    delete m_qEngine;
-    delete m_qApplication;
+    if (m_qEngine) {
+        delete m_qEngine;
+    }
+    if (m_qApplication) {
+        delete m_qApplication;
+    }
+    if (m_qmlInputDevice) {
+        delete m_qmlInputDevice;
+    }
 }
 
 void GuiKegerator::createView(int &argc, char** argv)
