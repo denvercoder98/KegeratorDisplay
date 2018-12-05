@@ -1,3 +1,4 @@
+#include <controller/UserInputControllerImpl.h>
 #include "Kegerator.h"
 
 #include "presenter/GuiPresenter.h"
@@ -11,7 +12,6 @@
 #include "controller/DS18B20SensorReaderStaticValue.h"
 #include "controller/DS18B20Sensor.h"
 #include "controller/TemperatureSensor.h"
-#include "controller/UserInputController.h"
 #include "controller/SensorSampler.h"
 
 #include "interactors/Presenter.h"
@@ -166,7 +166,7 @@ TemperatureSensorController* Kegerator::createTemperatureSensorController(Temper
 
 UserInputController* Kegerator::createUserInputController(TapClearInteractor* tapClearInteractor)
 {
-    return new KegeratorDisplay::UserInputController(tapClearInteractor);
+    return new UserInputControllerImpl(tapClearInteractor);
 }
 
 UserInputController* Kegerator::getUserInputController() const

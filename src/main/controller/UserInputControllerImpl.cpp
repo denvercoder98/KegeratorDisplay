@@ -1,9 +1,9 @@
-#include "UserInputController.h"
+#include <controller/UserInputControllerImpl.h>
 #include "InvalidUserInputControllerArgumentException.h"
 
 namespace KegeratorDisplay {
 
-UserInputController::UserInputController(TapClearRequestObserver* observer) :
+UserInputControllerImpl::UserInputControllerImpl(TapClearRequestObserver* observer) :
     m_tapClearObserver(observer)
 {
     if (observer == NULL)
@@ -12,11 +12,11 @@ UserInputController::UserInputController(TapClearRequestObserver* observer) :
     }
 }
 
-UserInputController::~UserInputController()
+UserInputControllerImpl::~UserInputControllerImpl()
 {
 }
 
-void UserInputController::clearTap(const std::string& side)
+void UserInputControllerImpl::clearTap(const std::string& side)
 {
     TapSide tapSide;
     if (side == "left") {

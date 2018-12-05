@@ -1,5 +1,5 @@
+#include <controller/UserInputControllerImpl.h>
 #include "devices/AcceptanceTestInputDevice.h"
-#include "controller/UserInputController.h"
 
 namespace KegeratorDisplay {
 

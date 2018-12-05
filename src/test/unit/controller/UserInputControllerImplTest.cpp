@@ -1,6 +1,7 @@
+#include <controller/UserInputControllerImpl.h>
+
 #include "UserInputControllerTest.h"
 #include "unit/interactors/TapClearRequestObserverMock.h"
-#include "controller/UserInputController.h"
 #include "controller/InvalidUserInputControllerArgumentException.h"
 
 using ::testing::NiceMock;
@@ -28,17 +29,17 @@ void UserInputControllerTest::TearDown()
 
 TEST_F(UserInputControllerTest, Create)
 {
-    UserInputController controller(m_clearObserver);
+    UserInputControllerImpl controller(m_clearObserver);
 }
 
 TEST_F(UserInputControllerTest, ThrowsOnMissingClearTapObserver)
 {
-    EXPECT_THROW(UserInputController(NULL), InvalidUserInputControllerArgumentException);
+    EXPECT_THROW(UserInputControllerImpl(NULL), InvalidUserInputControllerArgumentException);
 }
 
 TEST_F(UserInputControllerTest, ClearLeftTapButtonInvokesInteractor)
 {
-    UserInputController controller(m_clearObserver);
+    UserInputControllerImpl controller(m_clearObserver);
     TapClearRequest expectedRequest(TAP_LEFT);
     EXPECT_CALL(*m_clearObserver, handleRequest(expectedRequest))
         .Times(1);
@@ -47,7 +48,7 @@ TEST_F(UserInputControllerTest, ClearLeftTapButtonInvokesInteractor)
 
 TEST_F(UserInputControllerTest, ClearRightTapButtonInvokesInteractor)
 {
-    UserInputController controller(m_clearObserver);
+    UserInputControllerImpl controller(m_clearObserver);
     TapClearRequest expectedRequest(TAP_RIGHT);
     EXPECT_CALL(*m_clearObserver, handleRequest(expectedRequest))
         .Times(1);

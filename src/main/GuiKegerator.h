@@ -9,7 +9,7 @@
 namespace KegeratorDisplay {
 
 class Presenter;
-class QtQmlInputDevice;
+class QmlInputDevice;
 
 class GuiKegerator : public Kegerator
 {
@@ -26,7 +26,7 @@ protected:
 private:
     QApplication* m_qApplication;
     QQmlApplicationEngine* m_qEngine;
-    QtQmlInputDevice* m_qmlInputDevice;
+    QmlInputDevice* m_qmlInputDevice;
 
 };
 

@@ -1,5 +1,5 @@
+#include <devices/QmlInputDevice.h>
 #include <GuiKegerator.h>
-#include "devices/QtQmlInputDevice.h"
 
 namespace KegeratorDisplay {
 
@@ -34,7 +34,7 @@ void GuiKegerator::createView(int &argc, char** argv)
 void GuiKegerator::createDevices()
 {
     UserInputController* userInputController = getUserInputController();
-    m_qmlInputDevice = new QtQmlInputDevice(m_qEngine, userInputController); //TODO turn controller into interface?
+    m_qmlInputDevice = new QmlInputDevice(m_qEngine, userInputController);
 }
 
 void GuiKegerator::run()

@@ -1,9 +1,9 @@
-#include <devices/QtQmlInputDevice.h>
+#include <devices/QmlInputDevice.h>
 #include "controller/UserInputController.h"
 
 namespace KegeratorDisplay {
 
-QtQmlInputDevice::QtQmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
+QmlInputDevice::QmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
                                    UserInputController* userInputController) :
     m_buttonHandler(userInputController),
     m_userInputController(userInputController)
@@ -11,7 +11,7 @@ QtQmlInputDevice::QtQmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
     qQmlApplicationEngine->rootContext()->setContextProperty("buttonHandler", &m_buttonHandler);
 }
 
-QtQmlInputDevice::~QtQmlInputDevice()
+QmlInputDevice::~QmlInputDevice()
 {
 }
 

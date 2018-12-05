@@ -17,6 +17,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/storage/*.cpp"
 	"src/main/controller/*.cpp"
 	"src/main/devices/*.cpp"
+	"src/main/devices/Qml*.h"
 	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES
 	"src/test/unit/TestRunner.cpp"

@@ -5,7 +5,6 @@
 #include "QTap.h"
 #include "QTemperature.h"
 #include "QPressure.h"
-#include "QButtonHandler.h"
 #include <QtWidgets/qapplication.h>
 #include <QtQml/qqmlapplicationengine.h>
 
