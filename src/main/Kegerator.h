@@ -8,6 +8,7 @@
 #include "thread/BoostDeadlineTimer.h"
 #include "thread/BoostMutex.h"
 
+#include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
 
 namespace KegeratorDisplay {
@@ -17,6 +18,7 @@ class Presenter;
 class View;
 class UserInputController;
 class SensorSampler;
+class GuiView;
 
 class Kegerator
 {
@@ -29,7 +31,8 @@ public:
 
 protected:
     virtual void createStorage();
-    virtual void createViewAndPresenter(int &argc, char** argv) = 0;
+    virtual void createView(int &argc, char** argv) = 0;
+    virtual void createPresenter();
     virtual void createInteractors();
     virtual void createControllers();
     virtual void createDevices() = 0;
@@ -37,7 +40,9 @@ protected:
     UserInputController* getUserInputController() const;
     void setPresenter(Presenter* presenter);
 
-    virtual void run(int argc, char** argv) = 0;
+    virtual void run() = 0;
+
+    GuiView* p_view;
 
 private:
     TemperatureSensorController* createTemperatureSensorController(TemperatureUpdateInteractor* temperatureUpdateInteractor);
@@ -55,6 +60,7 @@ private:
     boost::asio::io_service::work* m_work;
     boost::thread* m_thread;
     SensorSampler* m_sensorSampler;
+    bool m_started;
 };
 
 }

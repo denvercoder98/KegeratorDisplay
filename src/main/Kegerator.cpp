@@ -1,6 +1,7 @@
-#include <Kegerator.h>
+#include "Kegerator.h"
 
-//#include "view/CliView.h"
+#include "presenter/GuiPresenter.h"
+#include "presenter/GuiView.h"
 
 #include "storage/FileWriterImpl.h"
 #include "storage/FileReaderImpl.h"
@@ -15,6 +16,7 @@
 
 #include "interactors/Presenter.h"
 
+#include <iostream>
 
 namespace KegeratorDisplay {
 
@@ -29,39 +31,46 @@ Kegerator::Kegerator() :
     m_ioService(NULL),
     m_work(NULL),
     m_thread(NULL),
-    m_sensorSampler(NULL)
+    m_sensorSampler(NULL),
+    p_view(NULL),
+    m_started(false)
 {
 }
 
 Kegerator::~Kegerator()
 {
-    delete m_sensorSampler;
-    delete m_thread;
-    delete m_work;
-    delete m_ioService;
-    delete m_userInputController;
-    delete m_temperatureSensorController;
-    delete m_tapClearInteractor;
-    delete m_tapUpdateInteractor;
-    delete m_temperatureUpdateInteractor;
-    delete m_storage;
-    delete m_presenter;
+    if (m_started) {
+        delete m_sensorSampler;
+        delete m_thread;
+        delete m_work;
+        delete m_ioService;
+        delete m_userInputController;
+        delete m_temperatureSensorController;
+        delete m_tapClearInteractor;
+        delete m_tapUpdateInteractor;
+        delete m_temperatureUpdateInteractor;
+        delete m_storage;
+        delete m_presenter;
+        delete p_view;
+    }
 }
 
 void Kegerator::start(int &argc, char** argv)
 {
     //TODO exception safety
-    //TODO refactor, create AcceptanceTestKegerator
-    createViewAndPresenter(argc, argv);
+    createView(argc, argv);
+    createPresenter();
     createStorage();
     createInteractors();
     createControllers();
     createDevices();
 
+    m_started = true;
+
     //TODO move to function
     m_sensorSampler->start();
 
-    run(argc, argv);
+    run();
 }
 
 void Kegerator::stop()
@@ -69,6 +78,13 @@ void Kegerator::stop()
     m_ioService->stop();
     m_thread->interrupt();
     m_thread->join();
+}
+
+void Kegerator::createPresenter()
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    Presenter* presenter = new GuiPresenter(p_view, viewModel);
+    setPresenter(presenter);
 }
 
 void Kegerator::createStorage()

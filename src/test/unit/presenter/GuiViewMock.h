@@ -10,6 +10,7 @@ class GuiViewMock : public GuiView
 {
 public:
     MOCK_METHOD1(updateView, void(const GuiViewModel&));
+    MOCK_METHOD0(run, void(void));
 };
 
 }

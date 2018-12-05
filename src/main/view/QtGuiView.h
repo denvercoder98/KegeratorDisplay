@@ -2,7 +2,6 @@
 #define SRC_MAIN_VIEW_QTGUIVIEW_H_
 
 #include "presenter/GuiView.h"
-#include "View.h"
 #include "QTap.h"
 #include "QTemperature.h"
 #include "QPressure.h"
@@ -12,14 +11,14 @@
 
 namespace KegeratorDisplay {
 
-class QtGuiView : public GuiView, public View
+class QtGuiView : public GuiView
 {
 public:
     QtGuiView(QApplication* qApplication, QQmlApplicationEngine* qQmlApplicationEngine);
     virtual ~QtGuiView();
 
     void updateView(const GuiViewModel& view);
-    void run(int argc, char** argv);
+    void run();
 
 private:
     void runApplication();

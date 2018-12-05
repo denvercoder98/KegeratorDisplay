@@ -11,6 +11,7 @@ public:
     virtual ~GuiView() {};
 
     virtual void updateView(const GuiViewModel& view) = 0;
+    virtual void run() = 0;
 };
 
 }

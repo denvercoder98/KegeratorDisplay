@@ -18,13 +18,12 @@ public:
     virtual ~GuiKegerator();
 
 protected:
-    void createViewAndPresenter(int &argc, char** argv);
+    void createView(int &argc, char** argv);
     void createDevices();
 
-    void run(int argc, char** argv);
+    void run();
 
 private:
-    QtGuiView* m_view;
     QApplication* m_qApplication;
     QQmlApplicationEngine* m_qEngine;
     QtQmlInputDevice* m_qmlInputDevice;

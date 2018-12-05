@@ -1,42 +1,43 @@
 #include <gtest/gtest.h>
 #include <cucumber-cpp/autodetect.hpp>
+#include <cucumber-cpp/internal/ContextManager.hpp>
 #include <iostream>
-#include <Kegerator.h>
+//#include "acceptance/AcceptanceTestKegerator.h"
+#include <boost/asio/io_service.hpp>
 
 using cucumber::ScenarioScope;
-using namespace KegeratorDisplay;
+//using namespace KegeratorDisplay;
 
 class Calculator {
 public:
-	Calculator() {};
-	
-	void push(double n) {
-		std::cout << "PUSH" << std::endl;
-	};
+    Calculator() :
+        result(3),
+        m_ioService(),
+        m_work(m_ioService) {};
 
-	int add() {
-		std::cout << "ADD" << std::endl;
-		return 3;
-	};
+    double add() {
+        return result;
+    }
+
+    double divide() {
+        return result;
+    }
+
+    void push(double a) {
+        result = 10;
+    }
+
+private:
+    double result;
+    boost::asio::io_service m_ioService;
+    boost::asio::io_service::work m_work;
 };
 
 struct CalcCtx {
+    //AcceptanceTestKegerator kegerator;
     Calculator calc;
-    //Kegerator kegerator;
     double result;
 };
-
-GIVEN("Application started") {
-    ScenarioScope<CalcCtx> context;
-
-    //context->kegerator.start();
-}
-
-GIVEN("Beer on left tap") {
-}
-
-GIVEN("Beer on right tap") {
-}
 
 GIVEN("^I have entered (\\d+) into the calculator$") {
     REGEX_PARAM(double, n);
@@ -49,6 +50,12 @@ WHEN("^I press add") {
     ScenarioScope<CalcCtx> context;
 
     context->result = context->calc.add();
+}
+
+WHEN("^I press divide") {
+    ScenarioScope<CalcCtx> context;
+
+    context->result = context->calc.divide();
 }
 
 THEN("^the result should be (.*) on the screen$") {

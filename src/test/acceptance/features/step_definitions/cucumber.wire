@@ -1,2 +1,5 @@
 host: localhost
 port: 3902
+timeout:
+    begin_scenario: 10
+    step_matches: 10

@@ -61,7 +61,7 @@ void QtGuiView::updateView(const GuiViewModel& view)
     updateTap(view);
 }
 
-void QtGuiView::run(int argc, char** argv)
+void QtGuiView::run()
 {
     m_qEngine->rootContext()->setContextProperty("temperature", &m_temperature);
     m_qEngine->rootContext()->setContextProperty("pressure", &m_pressure);
