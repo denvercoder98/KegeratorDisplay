@@ -24,14 +24,14 @@ GuiKegerator::~GuiKegerator()
     }
 }
 
-void GuiKegerator::createView(int &argc, char** argv)
+void GuiKegerator::doCreateView(int &argc, char** argv)
 {
     m_qApplication = new QApplication(argc, argv);
     m_qEngine = new QQmlApplicationEngine();
     p_view = new QtGuiView(m_qApplication, m_qEngine);
 }
 
-void GuiKegerator::createDevices()
+void GuiKegerator::doCreateDevices()
 {
     UserInputController* userInputController = getUserInputController();
     m_qmlInputDevice = new QmlInputDevice(m_qEngine, userInputController);

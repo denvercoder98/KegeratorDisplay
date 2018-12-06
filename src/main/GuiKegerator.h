@@ -18,8 +18,8 @@ public:
     virtual ~GuiKegerator();
 
 protected:
-    void createView(int &argc, char** argv);
-    void createDevices();
+    void doCreateView(int &argc, char** argv);
+    void doCreateDevices();
 
     void run();
 

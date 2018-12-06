@@ -30,12 +30,16 @@ public:
     void stop();
 
 protected:
-    virtual void createStorage();
-    virtual void createView(int &argc, char** argv) = 0;
-    virtual void createPresenter();
-    virtual void createInteractors();
-    virtual void createControllers();
-    virtual void createDevices() = 0;
+    virtual void doCreateView(int &argc, char** argv) {};
+    virtual void doCreateDevices() {};
+
+    void createStorage();
+    void createView(int &argc, char** argv);
+    void createPresenter();
+    void createInteractors();
+    void createSensors();
+    void createControllers();
+    void createDevices();
 
     UserInputController* getUserInputController() const;
     void setPresenter(Presenter* presenter);
@@ -45,8 +49,9 @@ protected:
     GuiView* p_view;
 
 private:
-    TemperatureSensorController* createTemperatureSensorController(TemperatureUpdateInteractor* temperatureUpdateInteractor);
+    TemperatureSensorController* createTemperatureSensorController(TemperatureSensor* temperatureSensor, TemperatureUpdateInteractor* temperatureUpdateInteractor);
     UserInputController* createUserInputController(TapClearInteractor* tapClearInteractor);
+    SensorSampler* createSensorSampler();
     void startControllers();
     void workerThread();
 
@@ -60,6 +65,7 @@ private:
 
     Presenter* m_presenter;
     Storage* m_storage;
+    TemperatureSensor* m_temperatureSensor;
     TemperatureUpdateInteractor* m_temperatureUpdateInteractor;
     TapUpdateInteractor* m_tapUpdateInteractor;
     TapClearInteractor* m_tapClearInteractor;

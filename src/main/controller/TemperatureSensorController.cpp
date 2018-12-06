@@ -14,7 +14,6 @@ TemperatureSensorController::TemperatureSensorController(TemperatureSensor* cons
 
 TemperatureSensorController::~TemperatureSensorController()
 {
-    delete m_sensor;
 }
 
 void TemperatureSensorController::process()

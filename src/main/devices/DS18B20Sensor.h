@@ -1,9 +1,7 @@
 #ifndef SRC_MAIN_CONTROLLER_DS18B20SENSOR_H_
 #define SRC_MAIN_CONTROLLER_DS18B20SENSOR_H_
 
-#include <interactors/TemperatureUpdateRequestObserver.h>
-#include "SensorController.h"
-#include "TemperatureSensor.h"
+#include "controller/TemperatureSensor.h"
 #include <string>
 
 namespace KegeratorDisplay {

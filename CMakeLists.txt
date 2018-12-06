@@ -20,6 +20,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES
 	"src/test/unit/TestRunner.cpp"
+	"src/test/unit/devices/*.cpp"
 	"src/test/unit/entities/*.cpp"
 	"src/test/unit/interactors/*.cpp"
 	"src/test/unit/presenter/*.cpp"

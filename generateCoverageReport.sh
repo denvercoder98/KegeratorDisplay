@@ -1,10 +1,8 @@
 #!/bin/bash
 
-BUILD_DIR=$1
 COVERAGE_DIR="test_coverage"
 
-pushd .
-cd $BUILD_DIR
+cd build
 mkdir -p $COVERAGE_DIR
 lcov -c -i -d CMakeFiles -o $COVERAGE_DIR/app_base.info
 bin/kegeratorDisplayUnitTest

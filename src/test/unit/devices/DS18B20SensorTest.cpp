@@ -1,7 +1,7 @@
 #include "DS18B20SensorTest.h"
 #include "DS18B20SensorReaderMock.h"
-#include "controller/DS18B20Sensor.h"
-#include "controller/InvalidDS18B20SensorReadingException.h"
+#include "devices/DS18B20Sensor.h"
+#include "devices/InvalidDS18B20SensorReadingException.h"
 
 using ::testing::Return;
 using ::testing::_;
