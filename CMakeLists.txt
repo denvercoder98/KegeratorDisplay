@@ -40,7 +40,7 @@ include_directories("lib/cucumber-cpp-0.5/build/include")
 include_directories("src/main/")
 include_directories("src/test/")
 
-find_package(Qt5 5.7 COMPONENTS Widgets Qml Quick QuickControls2 REQUIRED)
+find_package(Qt5 5.5 COMPONENTS Widgets Qml Quick QuickControls2 REQUIRED)
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
 qt5_add_resources(QT_RESOURCES src/main/view/qml.qrc)
