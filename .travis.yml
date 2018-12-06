@@ -21,4 +21,4 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -yqq qt57-meta-full; source /opt/qt57/bin/qt57-env.sh
+  - sudo apt-get install -yqq qt57base qt57declarative qt57quickcontrols2 qt57multimedia; source /opt/qt57/bin/qt57-env.sh
