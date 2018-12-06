@@ -29,13 +29,11 @@ file(GLOB UNITTEST_SOURCES
 file(GLOB ACCEPTANCETEST_SOURCES
 	"src/test/acceptance/features/step_definitions/*.cpp")
 
-link_directories("lib/googletest-release-1.8.1/build/googlemock/gtest/")
-link_directories("lib/googletest-release-1.8.1/build/googlemock/")
-include_directories("lib/googletest-release-1.8.1/googletest/include/")
-include_directories("lib/googletest-release-1.8.1/googlemock/include/")
+link_directories("lib/googletest-release-1.8.1/install/lib/")
+include_directories("lib/googletest-release-1.8.1/install/include/")
 
-link_directories("lib/cucumber-cpp-0.5/build/lib")
-include_directories("lib/cucumber-cpp-0.5/build/include")
+link_directories("lib/cucumber-cpp-0.5/install/lib")
+include_directories("lib/cucumber-cpp-0.5/install/include")
 
 include_directories("src/main/")
 include_directories("src/test/")
