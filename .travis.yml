@@ -2,4 +2,4 @@ language: cpp
 script: ./build.sh
 compiler: gcc
 sudo: required
-before_install: apt-get install libboost-all-dev
+before_install: sudo apt-get install libboost-all-dev
