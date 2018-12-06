@@ -13,6 +13,7 @@ addons:
       - libboost-filesystem-dev
       - libboost-program-options-dev
       - libboost-test-dev
+      - libgl-dev
       - google-mock
       - libdrm-dev
       
