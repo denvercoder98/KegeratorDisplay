@@ -2,6 +2,7 @@ language: cpp
 script: ./build.sh
 compiler: gcc
 sudo: required
+dist: trusty
 addons:
   apt:
     packages:
