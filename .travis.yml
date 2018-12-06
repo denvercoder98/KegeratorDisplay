@@ -26,8 +26,8 @@ before_install:
 
 install:
   - sudo apt-get install -yqq qt57base qt57declarative qt57quickcontrols2 qt57multimedia; source /opt/qt57/bin/qt57-env.sh
-  - sudo apt-get install lcov
-  - sudo gem install coveralls-lcov
+  - sudo apt-get install -y lcov
+  - gem install coveralls-lcov
 
 after_success:
    - cd build &&
