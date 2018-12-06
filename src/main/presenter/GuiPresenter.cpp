@@ -1,5 +1,4 @@
 #include "GuiPresenter.h"
-#include "GuiViewModel.h"
 #include "GuiView.h"
 
 #include <sstream>
@@ -29,47 +28,45 @@ void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperatur
 void GuiPresenter::updateTap(const TapUpdateResponse& tap)
 {
     BeerUpdateResponse beer = tap.beer();
-    if (tap.side() == TAP_LEFT) {
-        m_viewModel->leftTapBeerName = beer.name();
-        m_viewModel->leftTapBrewerName = beer.brewerName();
-        m_viewModel->leftTapAbv = beer.abv();
-        m_viewModel->leftTapIbu = std::to_string(beer.ibu());
-        m_viewModel->leftTapBrewDate = beer.brewDate();
-        m_viewModel->leftTapTapDate = beer.tapDate();
-        m_viewModel->leftTapFg = beer.finalGravity();
-    }
-    else if (tap.side() == TAP_RIGHT) {
-        m_viewModel->rightTapBeerName = beer.name();
-        m_viewModel->rightTapBrewerName = beer.brewerName();
-        m_viewModel->rightTapAbv = beer.abv();
-        m_viewModel->rightTapIbu = std::to_string(beer.ibu());
-        m_viewModel->rightTapBrewDate = beer.brewDate();
-        m_viewModel->rightTapTapDate = beer.tapDate();
-        m_viewModel->rightTapFg = beer.finalGravity();
-    }
+    GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
+
+    tapViewModel->beerName = beer.name();
+    tapViewModel->brewerName = beer.brewerName();
+    tapViewModel->abv = beer.abv();
+    tapViewModel->ibu = std::to_string(beer.ibu());
+    tapViewModel->brewDate = beer.brewDate();
+    tapViewModel->tapDate = beer.tapDate();
+    tapViewModel->fg = beer.finalGravity();
+
     m_view->updateView(*m_viewModel);
 }
 
 void GuiPresenter::clearTap(const TapClearResponse& tap) {
-    if (tap.side() == TAP_LEFT) {
-        m_viewModel->leftTapBeerName = "";
-        m_viewModel->leftTapBrewerName = "";
-        m_viewModel->leftTapAbv = "";
-        m_viewModel->leftTapIbu = "";
-        m_viewModel->leftTapBrewDate =  "";
-        m_viewModel->leftTapTapDate =  "";
-        m_viewModel->leftTapFg =  "";
-    }
-    else if (tap.side() == TAP_RIGHT) {
-        m_viewModel->rightTapBeerName = "";
-        m_viewModel->rightTapBrewerName = "";
-        m_viewModel->rightTapAbv = "";
-        m_viewModel->rightTapIbu = "";
-        m_viewModel->rightTapBrewDate =  "";
-        m_viewModel->rightTapTapDate =  "";
-        m_viewModel->rightTapFg =  "";
-    }
+    GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
+
+    tapViewModel->beerName = "";
+    tapViewModel->brewerName = "";
+    tapViewModel->abv = "";
+    tapViewModel->ibu = "";
+    tapViewModel->brewDate =  "";
+    tapViewModel->tapDate =  "";
+    tapViewModel->fg =  "";
+
     m_view->updateView(*m_viewModel);
+}
+
+GuiViewModel::TapViewModel* GuiPresenter::getTapViewModelForSide(const TapSide side)
+{
+    GuiViewModel::TapViewModel* tapViewModel;
+    if (side == TAP_LEFT)
+    {
+        tapViewModel = &m_viewModel->leftTap;
+    } else if (side == TAP_RIGHT)
+    {
+        tapViewModel = &m_viewModel->rightTap;
+    }
+
+    return tapViewModel;
 }
 
 }

@@ -74,13 +74,13 @@ TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 {
     GuiViewModel expectedViewModel;
-    expectedViewModel.leftTapBeerName = "A";
-    expectedViewModel.leftTapBrewerName = "B";
-    expectedViewModel.leftTapAbv = "4,1";
-    expectedViewModel.leftTapIbu = "30";
-    expectedViewModel.leftTapBrewDate = "2018-01-01";
-    expectedViewModel.leftTapTapDate = "2018-01-14";
-    expectedViewModel.leftTapFg = "1.010";
+    expectedViewModel.leftTap.beerName = "A";
+    expectedViewModel.leftTap.brewerName = "B";
+    expectedViewModel.leftTap.abv = "4,1";
+    expectedViewModel.leftTap.ibu = "30";
+    expectedViewModel.leftTap.brewDate = "2018-01-01";
+    expectedViewModel.leftTap.tapDate = "2018-01-14";
+    expectedViewModel.leftTap.fg = "1.010";
 
     GuiViewModel viewModel;
     ON_CALL(*m_view, updateView(_))
@@ -101,13 +101,13 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 {
     GuiViewModel expectedViewModel;
-    expectedViewModel.rightTapBeerName = "A";
-    expectedViewModel.rightTapBrewerName = "B";
-    expectedViewModel.rightTapAbv = "4,1";
-    expectedViewModel.rightTapIbu = "30";
-    expectedViewModel.rightTapBrewDate = "2018-01-01";
-    expectedViewModel.rightTapTapDate = "2018-01-14";
-    expectedViewModel.rightTapFg = "1.010";
+    expectedViewModel.rightTap.beerName = "A";
+    expectedViewModel.rightTap.brewerName = "B";
+    expectedViewModel.rightTap.abv = "4,1";
+    expectedViewModel.rightTap.ibu = "30";
+    expectedViewModel.rightTap.brewDate = "2018-01-01";
+    expectedViewModel.rightTap.tapDate = "2018-01-14";
+    expectedViewModel.rightTap.fg = "1.010";
 
     GuiViewModel viewModel;
     ON_CALL(*m_view, updateView(_))
@@ -127,18 +127,18 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 
 TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 {
-    m_viewModel->leftTapBeerName = "A";
-    m_viewModel->leftTapBrewerName = "B";
-    m_viewModel->leftTapAbv = "4,1";
-    m_viewModel->leftTapIbu = "30";
-    m_viewModel->leftTapBrewDate = "2018-01-01";
-    m_viewModel->leftTapTapDate = "2018-01-14";
-    m_viewModel->leftTapFg = "1.010";
+    m_viewModel->leftTap.beerName = "A";
+    m_viewModel->leftTap.brewerName = "B";
+    m_viewModel->leftTap.abv = "4,1";
+    m_viewModel->leftTap.ibu = "30";
+    m_viewModel->leftTap.brewDate = "2018-01-01";
+    m_viewModel->leftTap.tapDate = "2018-01-14";
+    m_viewModel->leftTap.fg = "1.010";
 
-    m_viewModel->rightTapAbv = "5,0";
+    m_viewModel->rightTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
-    expectedViewModel.rightTapAbv = "5,0";
+    expectedViewModel.rightTap.abv = "5,0";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
     m_presenter->clearTap(TapClearResponse(TAP_LEFT));
@@ -146,18 +146,18 @@ TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 
 TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
 {
-    m_viewModel->rightTapBeerName = "A";
-    m_viewModel->rightTapBrewerName = "B";
-    m_viewModel->rightTapAbv = "4,1";
-    m_viewModel->rightTapIbu = "30";
-    m_viewModel->rightTapBrewDate = "2018-01-01";
-    m_viewModel->rightTapTapDate = "2018-01-14";
-    m_viewModel->rightTapFg = "1.010";
+    m_viewModel->rightTap.beerName = "A";
+    m_viewModel->rightTap.brewerName = "B";
+    m_viewModel->rightTap.abv = "4,1";
+    m_viewModel->rightTap.ibu = "30";
+    m_viewModel->rightTap.brewDate = "2018-01-01";
+    m_viewModel->rightTap.tapDate = "2018-01-14";
+    m_viewModel->rightTap.fg = "1.010";
 
-    m_viewModel->leftTapAbv = "5,0";
+    m_viewModel->leftTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
-    expectedViewModel.leftTapAbv = "5,0";
+    expectedViewModel.leftTap.abv = "5,0";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
     m_presenter->clearTap(TapClearResponse(TAP_RIGHT));

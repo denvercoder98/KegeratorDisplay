@@ -8,40 +8,38 @@ namespace KegeratorDisplay {
 class GuiViewModel
 {
 public:
+    class TapViewModel {
+    public:
+        std::string beerName = "";
+        std::string brewerName = "";
+        std::string abv = "";
+        std::string ibu = "";
+        std::string brewDate = "";
+        std::string tapDate = "";
+        std::string fg = "";
+
+        bool operator==(const TapViewModel& other) const
+        {
+            return beerName == other.beerName &&
+                brewerName == other.brewerName &&
+                abv == other.abv &&
+                ibu == other.ibu &&
+                brewDate == other.brewDate &&
+                tapDate == other.tapDate &&
+                fg == other.fg;
+        }
+    };
+
     std::string temperature = "";
-    std::string leftTapBeerName = "";
-    std::string leftTapBrewerName = "";
-    std::string leftTapAbv = "";
-    std::string leftTapIbu = "";
-    std::string leftTapBrewDate = "";
-    std::string leftTapTapDate = "";
-    std::string leftTapFg = "";
-    std::string rightTapBeerName = "";
-    std::string rightTapBrewerName = "";
-    std::string rightTapAbv = "";
-    std::string rightTapIbu = "";
-    std::string rightTapBrewDate = "";
-    std::string rightTapTapDate = "";
-    std::string rightTapFg = "";
+    TapViewModel leftTap;
+    TapViewModel rightTap;
 
     bool operator==(const GuiViewModel& other) const
     {
         return
             temperature == other.temperature &&
-            leftTapBeerName == other.leftTapBeerName &&
-            leftTapBrewerName == other.leftTapBrewerName &&
-            leftTapAbv == other.leftTapAbv &&
-            leftTapIbu == other.leftTapIbu &&
-            leftTapBrewDate == other.leftTapBrewDate &&
-            leftTapTapDate == other.leftTapTapDate &&
-            leftTapFg == other.leftTapFg &&
-            rightTapBeerName == other.rightTapBeerName &&
-            rightTapBrewerName == other.rightTapBrewerName &&
-            rightTapAbv == other.rightTapAbv &&
-            rightTapIbu == other.rightTapIbu &&
-            leftTapBrewDate == other.leftTapBrewDate &&
-            leftTapTapDate == other.leftTapTapDate &&
-            leftTapFg == other.leftTapFg;
+            leftTap == other.leftTap &&
+            rightTap == other.rightTap;
     }
 };
 

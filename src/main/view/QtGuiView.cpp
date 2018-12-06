@@ -35,23 +35,23 @@ void QtGuiView::updateTemperature(const GuiViewModel& view)
 
 void QtGuiView::updateTap(const GuiViewModel& view)
 {
-    m_leftTap.setName(QString(view.leftTapBeerName.c_str()));
+    m_leftTap.setName(QString(view.leftTap.beerName.c_str()));
     m_leftTap.setEstVolume(QString("12"));
-    m_leftTap.setBrewer(QString(view.leftTapBrewerName.c_str()));
-    m_leftTap.setAbv(QString(view.leftTapAbv.c_str()));
-    m_leftTap.setIbu(QString(view.leftTapIbu.c_str()));
-    m_leftTap.setBrewDate(QString(view.leftTapBrewDate.c_str()));
-    m_leftTap.setTapDate(QString(view.leftTapTapDate.c_str()));
-    m_leftTap.setFinalGravity(QString(view.leftTapFg.c_str()));
+    m_leftTap.setBrewer(QString(view.leftTap.brewerName.c_str()));
+    m_leftTap.setAbv(QString(view.leftTap.abv.c_str()));
+    m_leftTap.setIbu(QString(view.leftTap.ibu.c_str()));
+    m_leftTap.setBrewDate(QString(view.leftTap.brewDate.c_str()));
+    m_leftTap.setTapDate(QString(view.leftTap.tapDate.c_str()));
+    m_leftTap.setFinalGravity(QString(view.leftTap.fg.c_str()));
 
-    m_rightTap.setName(QString(view.rightTapBeerName.c_str()));
+    m_rightTap.setName(QString(view.rightTap.beerName.c_str()));
     m_rightTap.setEstVolume(QString("12"));
-    m_rightTap.setBrewer(QString(view.rightTapBrewerName.c_str()));
-    m_rightTap.setAbv(QString(view.rightTapAbv.c_str()));
-    m_rightTap.setIbu(QString(view.rightTapIbu.c_str()));
-    m_rightTap.setBrewDate(QString(view.rightTapBrewDate.c_str()));
-    m_rightTap.setTapDate(QString(view.rightTapTapDate.c_str()));
-    m_rightTap.setFinalGravity(QString(view.rightTapFg.c_str()));
+    m_rightTap.setBrewer(QString(view.rightTap.brewerName.c_str()));
+    m_rightTap.setAbv(QString(view.rightTap.abv.c_str()));
+    m_rightTap.setIbu(QString(view.rightTap.ibu.c_str()));
+    m_rightTap.setBrewDate(QString(view.rightTap.brewDate.c_str()));
+    m_rightTap.setTapDate(QString(view.rightTap.tapDate.c_str()));
+    m_rightTap.setFinalGravity(QString(view.rightTap.fg.c_str()));
 }
 
 void QtGuiView::updateView(const GuiViewModel& view)

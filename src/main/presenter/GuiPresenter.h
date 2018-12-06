@@ -1,14 +1,14 @@
 #ifndef SRC_MAIN_PRESENTER_GUIPRESENTER_H_
 #define SRC_MAIN_PRESENTER_GUIPRESENTER_H_
 
-#include <interactors/Presenter.h>
+#include "interactors/Presenter.h"
+#include "GuiViewModel.h"
 
 namespace KegeratorDisplay {
 
 class GuiView;
-class GuiViewModel;
 
-class GuiPresenter: public Presenter
+class GuiPresenter : public Presenter
 {
 public:
     GuiPresenter(GuiView* view, GuiViewModel* viewModel);
@@ -19,6 +19,7 @@ public:
     void clearTap(const TapClearResponse& tap);
 
 private:
+    GuiViewModel::TapViewModel* getTapViewModelForSide(const TapSide tap);
     GuiView* m_view;
     GuiViewModel* m_viewModel;
 };
