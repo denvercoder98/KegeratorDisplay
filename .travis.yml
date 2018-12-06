@@ -26,3 +26,14 @@ before_install:
 
 install:
   - sudo apt-get install -yqq qt57base qt57declarative qt57quickcontrols2 qt57multimedia; source /opt/qt57/bin/qt57-env.sh
+  - sudo gem install coveralls-lcov
+
+after_success:
+   - cd build &&
+     mkdir -p coverage &&
+     lcov -c -i -d CMakeFiles -o coverage/app_base.info &&
+     bin/kegeratorDisplayUnitTest &&
+     lcov -c -d CMakeFiles -o $COVERAGE_DIR/app_cov.info &&
+     lcov -a $COVERAGE_DIR/app_base.info -a $COVERAGE_DIR/app_cov.info -o $COVERAGE_DIR/app_total.info &&
+     lcov -e $COVERAGE_DIR/app_total.info *main* -o $COVERAGE_DIR/app_main_only.info &&
+     coveralls-lcov coverage/app_main_only.info
