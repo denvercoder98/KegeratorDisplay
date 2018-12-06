@@ -8,7 +8,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TARGET_SOURCES
 	"src/main/Kegerator.cpp"
-	"src/main/Dippen.cpp"
 	"src/main/entities/*.cpp"
 	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
@@ -68,10 +67,10 @@ add_executable(kegeratorDisplay
 add_executable(kegeratorDisplayUnitTest
     ${UNITTEST_SOURCES}
 )
-add_executable(kegeratorDisplayAcceptanceTest
-    ${ACCEPTANCETEST_SOURCES}
-)
+#add_executable(kegeratorDisplayAcceptanceTest
+#    ${ACCEPTANCETEST_SOURCES}
+#)
 
 target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick Qt5::QuickControls2)
 target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
-target_link_libraries(kegeratorDisplayAcceptanceTest cucumber-cpp KegeratorDisplayImplementation gtest gmock ${Boost_LIBRARIES} pthread)
+#target_link_libraries(kegeratorDisplayAcceptanceTest cucumber-cpp KegeratorDisplayImplementation gtest gmock ${Boost_LIBRARIES} pthread)
