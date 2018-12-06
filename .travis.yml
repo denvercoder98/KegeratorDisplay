@@ -16,4 +16,4 @@ addons:
       - google-mock
       - qtbase5-dev
       - qtdeclarative5-dev
-      - qt-quickcontrols2-5-dev
+      - qml-module-qtquick-controls2
