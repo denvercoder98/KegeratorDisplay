@@ -2,7 +2,7 @@ language: cpp
 script: ./build.sh
 compiler: gcc
 sudo: required
-dist: trusty
+dist: xenial
 addons:
   apt:
     packages:
@@ -16,7 +16,7 @@ addons:
       - google-mock
       
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt571-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt571-xenial
   - sudo apt-get update -qq
 
 install:
