@@ -16,5 +16,8 @@ addons:
       - google-mock
       
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt57-trusty
-  - sudo apt-get install -qq g++-6 qt57-meta-full
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt571-trusty
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install -yqq qt57base
