@@ -30,5 +30,5 @@ else
 fi
 
 cmake -E make_directory build
-cmake -E chdir build cmake -DQt5_DIR:PATH=/opt/Qt5.10.0/5.10.0/gcc_64/lib/cmake/Qt5 ..
+cmake -E chdir build cmake ..
 cmake --build build -- "$@"
