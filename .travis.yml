@@ -2,6 +2,9 @@ language: cpp
 script: ./build.sh
 compiler: gcc
 sudo: required
+branches:
+  only:
+  - develop
 dist: xenial
 addons:
   apt:
