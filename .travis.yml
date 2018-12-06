@@ -15,3 +15,4 @@ addons:
       - libboost-test-dev
       - google-mock
       - qtbase5-dev
+      - qtdeclarative5-dev
