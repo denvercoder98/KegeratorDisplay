@@ -14,6 +14,7 @@ addons:
       - libboost-program-options-dev
       - libboost-test-dev
       - google-mock
-      - qtbase5-dev
-      - qtdeclarative5-dev
-      - qml-module-qtquick2
+      
+before_install:
+  - sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
+  - sudo apt-get install -qq g++-6 qt57-meta-full
