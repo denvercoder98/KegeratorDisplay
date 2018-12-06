@@ -1,3 +1,4 @@
 language: cpp
 script: ./build.sh
 compiler: gcc
+before_install: apt-get install libboost-all-dev
