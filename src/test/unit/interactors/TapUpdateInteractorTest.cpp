@@ -130,6 +130,27 @@ TEST_F(TapUpdateInteractorTest, ReadRightTapStorageOnCreation)
     TapUpdateInteractor updator(m_observer, &storage);
 }
 
+TEST_F(TapUpdateInteractorTest, ReadTapMissingFromStorageOnCreation)
+{
+    NiceMock<StorageMock> storage;
+    ON_CALL(storage, readLeftTap)
+        .WillByDefault(Return(new Tap()));
+    ON_CALL(storage, readRightTap)
+        .WillByDefault(Return(new Tap()));
+
+    BeerUpdateResponse expectedBeer("", "", "0,0", 0, "1970-01-01", "1970-01-01", "0.000");
+    bool empty = true;
+    TapUpdateResponse expectedLeftTap(TAP_LEFT, expectedBeer, empty);
+    TapUpdateResponse expectedRightTap(TAP_RIGHT, expectedBeer, empty);
+
+    EXPECT_CALL(*m_observer, updateTap(Eq(expectedLeftTap))).
+        Times(1);
+    EXPECT_CALL(*m_observer, updateTap(Eq(expectedRightTap))).
+        Times(1);
+
+    TapUpdateInteractor updator(m_observer, &storage);
+}
+
 TEST_F(TapUpdateInteractorTest, UpdateTapFromStorageOnCreation)
 {
     NiceMock<StorageMock> storage;

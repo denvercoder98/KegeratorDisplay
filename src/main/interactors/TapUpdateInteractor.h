@@ -2,6 +2,8 @@
 #define SRC_MAIN_INTERACTORS_TAPUPDATEINTERACTOR_H_
 
 #include "TapUpdateRequestObserver.h"
+#include "TapSide.h"
+#include <ostream>
 
 namespace KegeratorDisplay {
 
@@ -16,6 +18,8 @@ public:
 	void updateTap(const TapUpdateRequest& request);
 
 private:
+	void readAndUpdateTap(const TapSide side);
+
 	Presenter* m_presenter;
 	Storage* m_storage;
 };

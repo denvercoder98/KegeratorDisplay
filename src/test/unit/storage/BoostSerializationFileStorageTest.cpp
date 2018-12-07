@@ -11,7 +11,7 @@ using ::testing::SaveArg;
 using ::testing::Return;
 
 #define EXPECTED_SERIALIZED_TEMP "22 serialization::archive 12 0 0 6 0 3 2 1 0 0 0"
-#define EXPECTED_SERIALIZED_TAP "22 serialization::archive 12 0 0 0 0 4 Beer 5 Kalle 0 0 3 4,0 0 0 20 0 0 2015 2 13 2015 2 13 0 0 5 1.010"
+#define EXPECTED_SERIALIZED_TAP "22 serialization::archive 12 0 0 0 0 0 4 Beer 5 Kalle 0 0 3 4,0 0 0 20 0 0 2015 2 13 2015 2 13 0 0 5 1.010"
 
 namespace KegeratorDisplay {
 
@@ -173,12 +173,12 @@ TEST_F(BoostSerializationFileStorageTest, ReadLeftTapCorrect)
         Date(2015, 2, 13),
         Date(2015, 2, 13),
         SpecificGravity(1.010));
-    Tap originalTap(beer);
+    Tap expectedTap(beer);
 
     ON_CALL(*m_reader, read("fileLeft"))
         .WillByDefault(Return(EXPECTED_SERIALIZED_TAP));
     Tap* tap = m_storage->readLeftTap();
-    EXPECT_EQ(originalTap, *tap);
+    EXPECT_EQ(expectedTap, *tap);
     delete tap;
 }
 
@@ -192,12 +192,12 @@ TEST_F(BoostSerializationFileStorageTest, ReadRightTapCorrect)
         Date(2015, 2, 13),
         Date(2015, 2, 13),
         SpecificGravity(1.010));
-    Tap originalTap(beer);
+    Tap expectedTap(beer);
 
     ON_CALL(*m_reader, read("fileRight"))
         .WillByDefault(Return(EXPECTED_SERIALIZED_TAP));
     Tap* tap = m_storage->readRightTap();
-    EXPECT_EQ(originalTap, *tap);
+    EXPECT_EQ(expectedTap, *tap);
     delete tap;
 }
 
@@ -214,25 +214,23 @@ TEST_F(BoostSerializationFileStorageTest, ReadTemperatureEMpty)
 
 TEST_F(BoostSerializationFileStorageTest, ReadLeftTapEmpty)
 {
-    Beer beer;
-    Tap originalTap(beer);
+    Tap emptyTap;
 
     ON_CALL(*m_reader, read("fileLeft"))
         .WillByDefault(Return(""));
     Tap* tap = m_storage->readLeftTap();
-    EXPECT_EQ(originalTap, *tap);
+    EXPECT_EQ(emptyTap, *tap);
     delete tap;
 }
 
 TEST_F(BoostSerializationFileStorageTest, ReadRightTapEmpty)
 {
-    Beer beer;
-    Tap originalTap(beer);
+    Tap emptyTap;
 
     ON_CALL(*m_reader, read("fileRight"))
         .WillByDefault(Return(""));
     Tap* tap = m_storage->readRightTap();
-    EXPECT_EQ(originalTap, *tap);
+    EXPECT_EQ(emptyTap, *tap);
     delete tap;
 }
 

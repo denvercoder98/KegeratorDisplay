@@ -21,33 +21,8 @@ TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage)
         throw InvalidTapUpdateInteractorArgumentException("Missing KegeratorObserver dependency");
     }
 
-    Tap* leftTap = m_storage->readLeftTap();
-    Beer beer = leftTap->beer();
-    BeerUpdateResponse beerUpdate(beer.name(),
-                          beer.brewerName(),
-                          beer.alcoholByVolume().value(),
-                          beer.internationalBitternessUnits().value(),
-                          beer.brewDate().value(),
-                          beer.tapDate().value(),
-                          beer.finalGravity().value());
-
-    TapUpdateResponse leftTapUpdate(TAP_LEFT, beerUpdate);
-    m_presenter->updateTap(leftTapUpdate);
-    delete leftTap;
-
-    Tap* rightTap = m_storage->readRightTap();
-    Beer beer2 = rightTap->beer();
-    BeerUpdateResponse beerUpdate2(beer2.name(),
-                          beer2.brewerName(),
-                          beer2.alcoholByVolume().value(),
-                          beer2.internationalBitternessUnits().value(),
-                          beer2.brewDate().value(),
-                          beer2.tapDate().value(),
-                          beer2.finalGravity().value());
-
-    TapUpdateResponse rightTapUpdate(TAP_RIGHT, beerUpdate2);
-    m_presenter->updateTap(rightTapUpdate);
-    delete rightTap;
+    readAndUpdateTap(TAP_LEFT);
+    readAndUpdateTap(TAP_RIGHT);
 }
 
 TapUpdateInteractor::~TapUpdateInteractor()
@@ -56,6 +31,33 @@ TapUpdateInteractor::~TapUpdateInteractor()
 
 void TapUpdateInteractor::updateTap(const TapUpdateRequest& request)
 {
+}
+
+void TapUpdateInteractor::readAndUpdateTap(const TapSide side)
+{
+    Tap* tap;
+    if (side == TAP_LEFT) {
+        tap = m_storage->readLeftTap();
+    }
+    else if (side == TAP_RIGHT) {
+        tap = m_storage->readRightTap();
+    }
+    else {
+        //TODO throw
+    }
+    Beer beer = tap->beer();
+    BeerUpdateResponse beerUpdate(beer.name(),
+                          beer.brewerName(),
+                          beer.alcoholByVolume().value(),
+                          beer.internationalBitternessUnits().value(),
+                          beer.brewDate().value(),
+                          beer.tapDate().value(),
+                          beer.finalGravity().value());
+
+    std::cout << tap->isEmpty() << std::endl;
+    TapUpdateResponse tapUpdate(side, beerUpdate, tap->isEmpty());
+    m_presenter->updateTap(tapUpdate);
+    delete tap;
 }
 
 }

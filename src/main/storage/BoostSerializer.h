@@ -35,6 +35,8 @@ void load(Archive & ar, KegeratorDisplay::Temperature& t, const unsigned int ver
 template<class Archive>
 void save(Archive & ar, const KegeratorDisplay::Tap& t, const unsigned int version)
 {
+    bool empty = t.isEmpty();
+    ar & empty;
     KegeratorDisplay::Beer beer = t.beer();
     ar & beer;
 }
@@ -42,6 +44,9 @@ void save(Archive & ar, const KegeratorDisplay::Tap& t, const unsigned int versi
 template<class Archive>
 void load(Archive & ar, KegeratorDisplay::Tap& t, const unsigned int version)
 {
+    bool empty;
+    ar & empty;
+    t.setEmpty(empty);
     KegeratorDisplay::Beer beer;
     ar & beer;
     t.setBeer(beer);

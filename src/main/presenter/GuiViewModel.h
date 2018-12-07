@@ -2,6 +2,7 @@
 #define SRC_MAIN_PRESENTER_GUIVIEWMODEL_H_
 
 #include <string>
+#include <ostream>
 
 namespace KegeratorDisplay {
 
@@ -10,6 +11,7 @@ class GuiViewModel
 public:
     class TapViewModel {
     public:
+        bool empty = false;
         std::string beerName = "";
         std::string brewerName = "";
         std::string abv = "";
@@ -20,13 +22,28 @@ public:
 
         bool operator==(const TapViewModel& other) const
         {
-            return beerName == other.beerName &&
+            return empty == other.empty &&
+                beerName == other.beerName &&
                 brewerName == other.brewerName &&
                 abv == other.abv &&
                 ibu == other.ibu &&
                 brewDate == other.brewDate &&
                 tapDate == other.tapDate &&
                 fg == other.fg;
+        }
+
+        friend std::ostream& operator<<(std::ostream& stream, const TapViewModel& model)
+        {
+            return stream << "["
+                          << "empty: " << model.empty << ", "
+                          << "name: '" << model.beerName << "', "
+                          << "brewerName: '" << model.brewerName << "', "
+                          << "abv: '" << model.abv << "', "
+                          << "ibu: '" << model.ibu << "', "
+                          << "brewDate: '" << model.brewDate << "', "
+                          << "tapDate: '" << model.tapDate << "', "
+                          << "fg: '" << model.fg << "'"
+                          << "]";
         }
     };
 
@@ -40,6 +57,15 @@ public:
             temperature == other.temperature &&
             leftTap == other.leftTap &&
             rightTap == other.rightTap;
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, const GuiViewModel& model)
+    {
+        return stream << "["
+                      << "temperature: '" << model.temperature << "', "
+                      << "leftTap: " << model.leftTap << ", "
+                      << "rightTap: " << model.rightTap
+                      << "]";
     }
 };
 

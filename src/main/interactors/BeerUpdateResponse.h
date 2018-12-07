@@ -2,6 +2,7 @@
 #define SRC_MAIN_INTERACTORS_BEERUPDATERESPONSE_H
 
 #include <string>
+#include <ostream>
 
 namespace KegeratorDisplay {
 
@@ -69,6 +70,19 @@ public:
         m_brewDate == update.m_brewDate &&
         m_tapDate == update.m_tapDate &&
         m_finalGravity == update.m_finalGravity;
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, BeerUpdateResponse const& update)
+    {
+        return stream << "["
+                      << "Name: '" << update.m_name << "', "
+                      << "Brewer Name: '" << update.m_brewerName << "', "
+                      << "ABV: '" << update.m_abv << "', "
+                      << "IBU: '" << update.m_ibu << "', "
+                      << "Brew Date: '" << update.m_brewDate << "', "
+                      << "Tap Date: '" << update.m_tapDate << "', "
+                      << "FG: '" << update.m_finalGravity << "'"
+                      << "]";
     }
 
 private:

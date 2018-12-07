@@ -6,6 +6,7 @@
 #include "Date.h"
 #include "SpecificGravity.h"
 #include <string>
+#include <ostream>
 
 namespace KegeratorDisplay {
 
@@ -23,6 +24,18 @@ public:
 
     Beer& operator=(const Beer& other);
     bool operator==(const Beer& other) const;
+    friend std::ostream& operator<<(std::ostream& stream, const Beer& beer)
+    {
+        return stream << "["
+            << "name: " << beer.m_name << ", "
+            << "brewerName: " << beer.m_brewerName << ", "
+            << "abv: " << beer.m_abv.value() << ", "
+            << "ibu: " << beer.m_ibu.value() << ", "
+            << "brewDate: " << beer.m_brewDate.value() << ", "
+            << "tapDate: " << beer.m_tapDate.value() << ", "
+            << "finalGravity: " << beer.m_finalGravity.value()
+            << "]";
+    }
 
     const std::string name() const;
     void setName(const std::string& name);

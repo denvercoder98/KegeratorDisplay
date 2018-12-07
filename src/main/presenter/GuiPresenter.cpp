@@ -30,20 +30,31 @@ void GuiPresenter::updateTap(const TapUpdateResponse& tap)
     BeerUpdateResponse beer = tap.beer();
     GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
 
-    tapViewModel->beerName = beer.name();
-    tapViewModel->brewerName = beer.brewerName();
-    tapViewModel->abv = beer.abv();
-    tapViewModel->ibu = std::to_string(beer.ibu());
-    tapViewModel->brewDate = beer.brewDate();
-    tapViewModel->tapDate = beer.tapDate();
-    tapViewModel->fg = beer.finalGravity();
+    if (tap.empty()) {
+        clearTapData(tapViewModel);
+    }
+    else {
+        tapViewModel->beerName = beer.name();
+        tapViewModel->brewerName = beer.brewerName();
+        tapViewModel->abv = beer.abv();
+        tapViewModel->ibu = std::to_string(beer.ibu());
+        tapViewModel->brewDate = beer.brewDate();
+        tapViewModel->tapDate = beer.tapDate();
+        tapViewModel->fg = beer.finalGravity();
+    }
 
     m_view->updateView(*m_viewModel);
 }
 
 void GuiPresenter::clearTap(const TapClearResponse& tap) {
     GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
+    clearTapData(tapViewModel);
+    m_view->updateView(*m_viewModel);
+}
 
+void GuiPresenter::clearTapData(GuiViewModel::TapViewModel* tapViewModel)
+{
+    tapViewModel->empty = true;
     tapViewModel->beerName = "";
     tapViewModel->brewerName = "";
     tapViewModel->abv = "";
@@ -51,8 +62,6 @@ void GuiPresenter::clearTap(const TapClearResponse& tap) {
     tapViewModel->brewDate =  "";
     tapViewModel->tapDate =  "";
     tapViewModel->fg =  "";
-
-    m_view->updateView(*m_viewModel);
 }
 
 GuiViewModel::TapViewModel* GuiPresenter::getTapViewModelForSide(const TapSide side)

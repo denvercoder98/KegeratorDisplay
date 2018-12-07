@@ -138,6 +138,7 @@ TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
     m_viewModel->rightTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
+    expectedViewModel.leftTap.empty = true;
     expectedViewModel.rightTap.abv = "5,0";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
@@ -157,10 +158,70 @@ TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
     m_viewModel->leftTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
+    expectedViewModel.rightTap.empty = true;
     expectedViewModel.leftTap.abv = "5,0";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
     m_presenter->clearTap(TapClearResponse(TAP_RIGHT));
+}
+
+TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
+{
+    m_viewModel->leftTap.empty = false;
+    m_viewModel->leftTap.beerName = "A";
+    m_viewModel->leftTap.brewerName = "B";
+    m_viewModel->leftTap.abv = "4,1";
+    m_viewModel->leftTap.ibu = "30";
+    m_viewModel->leftTap.brewDate = "2018-01-01";
+    m_viewModel->leftTap.tapDate = "2018-01-14";
+    m_viewModel->leftTap.fg = "1.010";
+
+    m_viewModel->rightTap.abv = "5,0";
+
+    GuiViewModel expectedViewModel;
+    expectedViewModel.leftTap.empty = true;
+    expectedViewModel.rightTap.abv = "5,0";
+    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+        .Times(1);
+
+    BeerUpdateResponse emptyBeerUpdate("",
+                          "",
+                          "0,0", 0,
+                          "1970-01-01",
+                          "1970-01-01",
+                          "0.000");
+    TapUpdateResponse tapUpdate(TAP_LEFT, emptyBeerUpdate, true);
+    m_presenter->updateTap(tapUpdate);
+}
+
+
+TEST_F(GuiPresenterTest, EmptyRightTapClearsViewModel)
+{
+    m_viewModel->rightTap.empty = false;
+    m_viewModel->rightTap.beerName = "A";
+    m_viewModel->rightTap.brewerName = "B";
+    m_viewModel->rightTap.abv = "4,1";
+    m_viewModel->rightTap.ibu = "30";
+    m_viewModel->rightTap.brewDate = "2018-01-01";
+    m_viewModel->rightTap.tapDate = "2018-01-14";
+    m_viewModel->rightTap.fg = "1.010";
+
+    m_viewModel->leftTap.abv = "5,0";
+
+    GuiViewModel expectedViewModel;
+    expectedViewModel.rightTap.empty = true;
+    expectedViewModel.leftTap.abv = "5,0";
+    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+        .Times(1);
+
+    BeerUpdateResponse emptyBeerUpdate("",
+                          "",
+                          "0,0", 0,
+                          "1970-01-01",
+                          "1970-01-01",
+                          "0.000");
+    TapUpdateResponse tapUpdate(TAP_RIGHT, emptyBeerUpdate, true);
+    m_presenter->updateTap(tapUpdate);
 }
 
 }

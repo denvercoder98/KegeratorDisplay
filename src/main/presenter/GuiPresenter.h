@@ -20,6 +20,8 @@ public:
 
 private:
     GuiViewModel::TapViewModel* getTapViewModelForSide(const TapSide tap);
+    void clearTapData(GuiViewModel::TapViewModel* tapModel);
+
     GuiView* m_view;
     GuiViewModel* m_viewModel;
 };
