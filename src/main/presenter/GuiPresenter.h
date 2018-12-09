@@ -14,9 +14,10 @@ public:
     GuiPresenter(GuiView* view, GuiViewModel* viewModel);
     virtual ~GuiPresenter();
 
-    void updateTemperature(const TemperatureUpdateResponse& temperature);
-    void updateTap(const TapUpdateResponse& tap);
-    void clearTap(const TapClearResponse& tap);
+    void updateTemperature(const TemperatureUpdateResponse& response);
+    void updateTap(const TapUpdateResponse& response);
+    void clearTap(const TapClearResponse& response);
+    void screenTouched(const ScreenTouchedResponse& response);
 
 private:
     GuiViewModel::TapViewModel* getTapViewModelForSide(const TapSide tap);

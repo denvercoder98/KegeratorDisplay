@@ -50,13 +50,15 @@ public:
     std::string temperature = "";
     TapViewModel leftTap;
     TapViewModel rightTap;
+    bool buttonsVisible = false;
 
     bool operator==(const GuiViewModel& other) const
     {
         return
             temperature == other.temperature &&
             leftTap == other.leftTap &&
-            rightTap == other.rightTap;
+            rightTap == other.rightTap &&
+            buttonsVisible == other.buttonsVisible;
     }
 
     friend std::ostream& operator<<(std::ostream& stream, const GuiViewModel& model)
@@ -64,7 +66,8 @@ public:
         return stream << "["
                       << "temperature: '" << model.temperature << "', "
                       << "leftTap: " << model.leftTap << ", "
-                      << "rightTap: " << model.rightTap
+                      << "rightTap: " << model.rightTap << ", "
+                      << "buttonsVisible: '" << model.buttonsVisible << "'"
                       << "]";
     }
 };

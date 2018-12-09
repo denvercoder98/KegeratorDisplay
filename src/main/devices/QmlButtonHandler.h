@@ -23,6 +23,15 @@ public slots:
         m_userInputController->clearTap(msg.toStdString());
     }
 
+    void editTap(const QString &msg)
+    {
+    }
+
+    void screenTouched()
+    {
+        m_userInputController->screenTouched();
+    }
+
 private:
     UserInputController* m_userInputController;
 

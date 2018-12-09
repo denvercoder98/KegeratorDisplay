@@ -5,8 +5,6 @@
 #include <interactors/TapUpdateResponse.h>
 #include "entities/Beer.h"
 
-#include <iostream>
-
 namespace KegeratorDisplay {
 
 TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage) :
@@ -54,7 +52,6 @@ void TapUpdateInteractor::readAndUpdateTap(const TapSide side)
                           beer.tapDate().value(),
                           beer.finalGravity().value());
 
-    std::cout << tap->isEmpty() << std::endl;
     TapUpdateResponse tapUpdate(side, beerUpdate, tap->isEmpty());
     m_presenter->updateTap(tapUpdate);
     delete tap;

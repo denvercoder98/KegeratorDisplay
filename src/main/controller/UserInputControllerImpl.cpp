@@ -1,14 +1,22 @@
 #include <controller/UserInputControllerImpl.h>
+#include "interactors/TapClearRequestObserver.h"
+#include "interactors/ScreenTouchedRequestObserver.h"
 #include "InvalidUserInputControllerArgumentException.h"
 
 namespace KegeratorDisplay {
 
-UserInputControllerImpl::UserInputControllerImpl(TapClearRequestObserver* observer) :
-    m_tapClearObserver(observer)
+UserInputControllerImpl::UserInputControllerImpl(
+    TapClearRequestObserver* tapClearObserver,
+    ScreenTouchedRequestObserver* screenTouchedObserver) :
+        m_tapClearObserver(tapClearObserver),
+        m_screenTouchedObserver(screenTouchedObserver)
 {
-    if (observer == NULL)
-    {
+    if (tapClearObserver == NULL) {
         throw InvalidUserInputControllerArgumentException("Missing TapClearRequestObserver dependency");
+    }
+
+    if (screenTouchedObserver == NULL) {
+        throw InvalidUserInputControllerArgumentException("Missing ScreenTouchedRequestObserver dependency");
     }
 }
 
@@ -27,6 +35,12 @@ void UserInputControllerImpl::clearTap(const std::string& side)
         TapClearRequest request(TAP_RIGHT);
         m_tapClearObserver->handleRequest(request);
     }
+}
+
+void UserInputControllerImpl::screenTouched()
+{
+    ScreenTouchedRequest request;
+    m_screenTouchedObserver->handleRequest(request);
 }
 
 }

@@ -16,6 +16,7 @@ class QTap : public QObject
     Q_PROPERTY(QString brewDate READ brewDate WRITE setBrewDate NOTIFY brewDateChanged)
     Q_PROPERTY(QString tapDate READ tapDate WRITE setTapDate NOTIFY tapDateChanged)
     Q_PROPERTY(QString finalGravity READ finalGravity WRITE setFinalGravity NOTIFY finalGravityChanged)
+    Q_PROPERTY(bool buttonsVisible READ buttonsVisible WRITE setButtonsVisible NOTIFY buttonsVisibleChanged)
 
 public:
     void setName(const QString &a)
@@ -122,6 +123,19 @@ public:
         return m_finalGravity;
     }
 
+    void setButtonsVisible(const bool a)
+    {
+        if (a != m_buttonsVisible) {
+            m_buttonsVisible = a;
+            emit buttonsVisibleChanged();
+        }
+    }
+
+    bool buttonsVisible() const
+    {
+        return m_buttonsVisible;
+    }
+
 signals:
     void nameChanged();
     void estVolumeChanged();
@@ -131,6 +145,7 @@ signals:
     void brewDateChanged();
     void tapDateChanged();
     void finalGravityChanged();
+    void buttonsVisibleChanged();
 
 private:
     QString m_name;
@@ -141,6 +156,7 @@ private:
     QString m_tapDate;
     QString m_brewDate;
     QString m_finalGravity;
+    bool m_buttonsVisible;
 };
 
 }

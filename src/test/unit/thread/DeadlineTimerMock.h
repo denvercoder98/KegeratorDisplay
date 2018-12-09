@@ -10,6 +10,7 @@ class DeadlineTimerMock: public DeadlineTimer
 {
 public:
     MOCK_METHOD2(asyncWaitSeconds, void(boost::posix_time::seconds seconds, boost::function<void(const boost::system::error_code&)>));
+    MOCK_METHOD0(cancel, void(void));
 };
 
 }

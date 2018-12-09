@@ -54,11 +54,18 @@ void QtGuiView::updateTap(const GuiViewModel& view)
     m_rightTap.setFinalGravity(QString(view.rightTap.fg.c_str()));
 }
 
+void QtGuiView::updateButtons(const GuiViewModel& view)
+{
+    m_leftTap.setButtonsVisible(view.buttonsVisible);
+    m_rightTap.setButtonsVisible(view.buttonsVisible);
+}
+
 void QtGuiView::updateView(const GuiViewModel& view)
 {
     updateTemperature(view);
     updatePressure();
     updateTap(view);
+    updateButtons(view);
 }
 
 void QtGuiView::run()

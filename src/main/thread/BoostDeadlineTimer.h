@@ -12,8 +12,9 @@ public:
     BoostDeadlineTimer(boost::asio::deadline_timer* t);
     virtual ~BoostDeadlineTimer();
 
-    virtual void asyncWaitSeconds(boost::posix_time::seconds seconds,
-                                  boost::function<void(const boost::system::error_code&)> callback);
+    void asyncWaitSeconds(boost::posix_time::seconds seconds,
+                          boost::function<void(const boost::system::error_code&)> callback);
+    void cancel();
 
 private:
     boost::asio::deadline_timer* m_timer;

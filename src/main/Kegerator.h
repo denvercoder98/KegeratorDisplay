@@ -4,6 +4,7 @@
 #include "interactors/TapUpdateInteractor.h"
 #include "interactors/TapClearInteractor.h"
 #include "interactors/TemperatureUpdateInteractor.h"
+#include "interactors/ScreenTouchedInteractor.h"
 #include "controller/TemperatureSensorController.h"
 #include "thread/BoostDeadlineTimer.h"
 #include "thread/BoostMutex.h"
@@ -50,7 +51,7 @@ protected:
 
 private:
     TemperatureSensorController* createTemperatureSensorController(TemperatureSensor* temperatureSensor, TemperatureUpdateInteractor* temperatureUpdateInteractor);
-    UserInputController* createUserInputController(TapClearInteractor* tapClearInteractor);
+    UserInputController* createUserInputController(TapClearInteractor* tapClearInteractor, ScreenTouchedInteractor* screenTouchedInteractor);
     SensorSampler* createSensorSampler();
     void startControllers();
     void workerThread();
@@ -69,6 +70,7 @@ private:
     TemperatureUpdateInteractor* m_temperatureUpdateInteractor;
     TapUpdateInteractor* m_tapUpdateInteractor;
     TapClearInteractor* m_tapClearInteractor;
+    ScreenTouchedInteractor* m_screenTouchedInteractor;
     TemperatureSensorController* m_temperatureSensorController;
     UserInputController* m_userInputController;
     boost::asio::io_service* m_ioService;

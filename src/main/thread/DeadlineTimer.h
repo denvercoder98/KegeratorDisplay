@@ -14,6 +14,7 @@ public:
 
     virtual void asyncWaitSeconds(boost::posix_time::seconds seconds,
                                   boost::function<void(const boost::system::error_code&)> callback) = 0;
+    virtual void cancel() = 0;
 };
 
 }

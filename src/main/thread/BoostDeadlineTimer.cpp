@@ -19,4 +19,9 @@ void BoostDeadlineTimer::asyncWaitSeconds(boost::posix_time::seconds seconds,
     m_timer->async_wait(callback);
 }
 
+void BoostDeadlineTimer::cancel()
+{
+    m_timer->cancel();
+}
+
 }

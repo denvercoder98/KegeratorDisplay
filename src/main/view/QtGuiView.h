@@ -24,6 +24,7 @@ private:
     void updatePressure();
     void updateTemperature(const GuiViewModel& view);
     void updateTap(const GuiViewModel& view);
+    void updateButtons(const GuiViewModel& view);
 
     QApplication* m_qApplication;
     QQmlApplicationEngine* m_qEngine;

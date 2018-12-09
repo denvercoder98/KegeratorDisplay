@@ -14,6 +14,11 @@ ApplicationWindow
     maximumHeight: 480
     minimumWidth: 800
     minimumHeight: 480
+    
+    property int tapWidth: 300
+    property int topMargin: 10
+    property bool debug: true
+    
     title: qsTr("Kegerator Status")
     flags: Qt.FramelessWindowHint
     
@@ -22,8 +27,18 @@ ApplicationWindow
         setY(Screen.height / 2 - height / 2);
     }
     
+    MouseArea {
+        width: parent.width
+        height: parent.height
+        onClicked: {
+            buttonHandler.screenTouched()
+        }
+    }
+    
     ColumnLayout {
-        anchors.centerIn: parent
+        anchors.top: parent.top
+        anchors.topMargin: main.topMargin
+        anchors.horizontalCenter: parent.horizontalCenter
     
         id: mainColumn
         property int titleSize: 40
@@ -32,11 +47,25 @@ ApplicationWindow
         spacing: 20      
 
         Text {
+            id: headline
             text: qsTr("Kegerator Status");
             font.pixelSize: mainColumn.titleSize;
         }
     
         ColumnLayout {
+
+            id: generalInformation            
+            anchors.top: headline.bottom
+            anchors.topMargin: main.topMargin
+            
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                border.color: "blue"
+                border.width: 1
+                visible: main.debug
+            }
+            
             Text {
                 text: qsTr("Temperature: ") + temperature.temperature + " " + temperature.unit;
                 font.pixelSize: mainColumn.textSize
@@ -49,10 +78,25 @@ ApplicationWindow
         }
         
         RowLayout {
+            id: tapInformation            
+            anchors.top: generalInformation.bottom
+            anchors.topMargin: main.topMargin
+            
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                border.color: "red"
+                border.width: 1
+                visible: main.debug
+            }
         
             ColumnLayout {
                 id: left
                 property bool edit
+                
+                Layout.minimumWidth: main.tapWidth
+                Layout.maximumWidth: main.tapWidth
+                Layout.fillHeight: false
 
                 Text {
                     text: qsTr("Left tap");
@@ -61,10 +105,9 @@ ApplicationWindow
                 TextInput {
                     text: qsTr("Name: ") + leftTap.name;
                     font.pixelSize: mainColumn.textSize;
-                    readOnly: !left.edit
                 }
                 Text {
-                    text: qsTr("Est. volum: ") + leftTap.estVolume;
+                    text: qsTr("Est. volume: ") + leftTap.estVolume;
                     font.pixelSize: mainColumn.textSize;
                 }
                 Text {
@@ -92,13 +135,13 @@ ApplicationWindow
                     font.pixelSize: mainColumn.textSize;
                 }
                 RowLayout {
+                    visible: leftTap.buttonsVisible
                     Button {
                         text: qsTr("Edit");
                         font.pixelSize: mainColumn.textSize;
                         
                         onClicked: {
-                            console.log("Edit left");
-                            left.edit = true
+                            buttonHandler.editTap("left")
                         }
                     }
                     Button {
@@ -113,6 +156,10 @@ ApplicationWindow
             }
         
             ColumnLayout {
+                            
+                Layout.minimumWidth: main.tapWidth
+                Layout.maximumWidth: main.tapWidth
+                
                 Text {
                     text: qsTr("Right tap");
                     font.pixelSize: mainColumn.headerSize;
@@ -122,7 +169,7 @@ ApplicationWindow
                     font.pixelSize: mainColumn.textSize;
                 }
                 Text {
-                    text: qsTr("Est. volum: ") + rightTap.estVolume;
+                    text: qsTr("Est. volume: ") + rightTap.estVolume;
                     font.pixelSize: mainColumn.textSize;
                 }
                 Text {
@@ -150,9 +197,13 @@ ApplicationWindow
                     font.pixelSize: mainColumn.textSize;
                 }
                 RowLayout {
+                    visible: rightTap.buttonsVisible
                     Button {
                         text: qsTr("Edit");
                         font.pixelSize: mainColumn.textSize;
+                        onClicked: {
+                            buttonHandler.editTap("right")
+                        }
                     }
                     Button {
                         text: qsTr("Clear");

@@ -78,4 +78,10 @@ GuiViewModel::TapViewModel* GuiPresenter::getTapViewModelForSide(const TapSide s
     return tapViewModel;
 }
 
+void GuiPresenter::screenTouched(const ScreenTouchedResponse& response)
+{
+    m_viewModel->buttonsVisible = response.buttonsEnabled();
+    m_view->updateView(*m_viewModel);
+}
+
 }

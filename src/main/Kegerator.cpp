@@ -25,6 +25,7 @@ Kegerator::Kegerator() :
     m_storage(NULL),
     m_temperatureSensor(NULL),
     m_tapClearInteractor(NULL),
+    m_screenTouchedInteractor(NULL),
     m_tapUpdateInteractor(NULL),
     m_temperatureUpdateInteractor(NULL),
     m_temperatureSensorController(NULL),
@@ -57,7 +58,9 @@ void Kegerator::create(int& argc, char** argv)
     }
     catch(std::exception& ex) {
         std::cerr << "Unable to start kegerator: " << ex.what() << std::endl;
+        stop();
         cleanUp();
+        throw;
     }
 }
 
@@ -88,6 +91,20 @@ void Kegerator::cleanUp()
     if (m_storage) delete m_storage;
     if (m_presenter) delete m_presenter;
     if (p_view) delete p_view;
+
+    m_sensorSampler = NULL;
+    m_thread = NULL;
+    m_work = NULL;
+    m_ioService = NULL;
+    m_userInputController = NULL;
+    m_temperatureSensorController = NULL;
+    m_tapClearInteractor = NULL;
+    m_tapUpdateInteractor = NULL;
+    m_temperatureUpdateInteractor = NULL;
+    m_temperatureSensor = NULL;
+    m_storage = NULL;
+    m_presenter = NULL;
+    p_view = NULL;
 }
 
 void Kegerator::start()
@@ -108,9 +125,13 @@ bool Kegerator::wasStarted() const
 
 void Kegerator::stop()
 {
-    m_ioService->stop();
-    m_thread->interrupt();
-    m_thread->join();
+    if (m_ioService) {
+        m_ioService->stop();
+    }
+    if (m_thread) {
+        m_thread->interrupt();
+        m_thread->join();
+    }
 }
 
 void Kegerator::createView(int& argc, char** argv)
@@ -169,6 +190,20 @@ void Kegerator::createInteractors()
     m_temperatureUpdateInteractor = new TemperatureUpdateInteractor(m_presenter, m_storage);
     m_tapUpdateInteractor = new TapUpdateInteractor(m_presenter, m_storage);
     m_tapClearInteractor = new TapClearInteractor(m_presenter, m_storage);
+
+    boost::asio::deadline_timer* boostDeadlineTimer = NULL;
+    DeadlineTimer* timer = NULL;
+    try {
+        boostDeadlineTimer = new boost::asio::deadline_timer(*m_ioService);
+        timer = new BoostDeadlineTimer(boostDeadlineTimer);
+    }
+    catch (std::exception& ex) {
+        if (boostDeadlineTimer) {
+            delete boostDeadlineTimer;
+        }
+        throw;
+    }
+    m_screenTouchedInteractor = new ScreenTouchedInteractor(2, timer, m_presenter);
 }
 
 void Kegerator::createApplicationThread()
@@ -181,7 +216,7 @@ void Kegerator::createApplicationThread()
 void Kegerator::createControllers()
 {
     m_temperatureSensorController = createTemperatureSensorController(m_temperatureSensor, m_temperatureUpdateInteractor);
-    m_userInputController = createUserInputController(m_tapClearInteractor);
+    m_userInputController = createUserInputController(m_tapClearInteractor, m_screenTouchedInteractor);
     m_sensorSampler = createSensorSampler();
 }
 
@@ -250,9 +285,9 @@ TemperatureSensorController* Kegerator::createTemperatureSensorController(Temper
     return new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
 }
 
-UserInputController* Kegerator::createUserInputController(TapClearInteractor* tapClearInteractor)
+UserInputController* Kegerator::createUserInputController(TapClearInteractor* tapClearInteractor, ScreenTouchedInteractor* screenTouchedInteractor)
 {
-    return new UserInputControllerImpl(tapClearInteractor);
+    return new UserInputControllerImpl(tapClearInteractor, screenTouchedInteractor);
 }
 
 UserInputController* Kegerator::getUserInputController() const

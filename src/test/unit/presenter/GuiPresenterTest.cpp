@@ -224,4 +224,15 @@ TEST_F(GuiPresenterTest, EmptyRightTapClearsViewModel)
     m_presenter->updateTap(tapUpdate);
 }
 
+TEST_F(GuiPresenterTest, ScreenTouchedUpdatesViewModel)
+{
+    ScreenTouchedResponse response(true);
+
+    GuiViewModel viewModel;
+    EXPECT_CALL(*m_view, updateView(_))
+        .WillOnce(SaveArg<0>(&viewModel));
+    m_presenter->screenTouched(response);
+    EXPECT_TRUE(viewModel.buttonsVisible);
+}
+
 }

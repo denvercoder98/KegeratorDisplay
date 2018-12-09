@@ -13,6 +13,7 @@ public:
     MOCK_METHOD1(updateTemperature, void(const TemperatureUpdateResponse& response));
     MOCK_METHOD1(updateTap, void(const TapUpdateResponse& response));
     MOCK_METHOD1(clearTap, void(const TapClearResponse& response));
+    MOCK_METHOD1(screenTouched, void(const ScreenTouchedResponse& response));
 };
 
 }
