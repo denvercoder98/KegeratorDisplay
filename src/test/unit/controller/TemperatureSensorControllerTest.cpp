@@ -31,7 +31,6 @@ void TemperatureSensorControllerTest::TearDown()
 {
     delete m_controller;
     delete m_observer;
-    delete m_sensor;
 }
 
 TEST_F(TemperatureSensorControllerTest, Create)

@@ -10,10 +10,12 @@ TemperatureSensorController::TemperatureSensorController(TemperatureSensor* cons
     m_sensor(sensor),
     m_observer(observer)
 {
+    //TODO throw if missing sensor
 }
 
 TemperatureSensorController::~TemperatureSensorController()
 {
+    delete m_sensor;
 }
 
 void TemperatureSensorController::process()
