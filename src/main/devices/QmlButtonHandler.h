@@ -11,7 +11,7 @@ class QmlButtonHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit QmlButtonHandler(UserInputController* userInputController, QObject *parent = 0) :
+    explicit QmlButtonHandler(UserInputController& userInputController, QObject *parent = 0) :
         QObject(parent),
         m_userInputController(userInputController)
     {
@@ -20,7 +20,7 @@ public:
 public slots:
     void clearTap(const QString &msg)
     {
-        m_userInputController->clearTap(msg.toStdString());
+        m_userInputController.clearTap(msg.toStdString());
     }
 
     void editTap(const QString &msg)
@@ -29,11 +29,11 @@ public slots:
 
     void screenTouched()
     {
-        m_userInputController->screenTouched();
+        m_userInputController.screenTouched();
     }
 
 private:
-    UserInputController* m_userInputController;
+    UserInputController& m_userInputController;
 
 };
 

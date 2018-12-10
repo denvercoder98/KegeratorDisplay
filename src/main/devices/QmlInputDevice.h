@@ -13,12 +13,13 @@ class QmlInputDevice
 {
 public:
     QmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
-                     UserInputController* UserInputController);
+                     UserInputController& UserInputController);
     virtual ~QmlInputDevice();
 
 private:
+    //TODO Remove m_userInputController and inject QmlButtonHandler
     QmlButtonHandler m_buttonHandler;
-    UserInputController* m_userInputController;
+    UserInputController& m_userInputController;
 };
 
 }

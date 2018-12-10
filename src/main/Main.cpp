@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 
         //Controllers
         TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
-        UserInputController* userInputController = new UserInputControllerImpl(tapClearInteractor, screenTouchedInteractor);
+        UserInputControllerImpl userInputController(tapClearInteractor, screenTouchedInteractor);
         boost::asio::deadline_timer* sensorSamplerBoostDeadlineTimer = new boost::asio::deadline_timer(*ioService);
         DeadlineTimer* sensorSamplerTimer = new BoostDeadlineTimer(sensorSamplerBoostDeadlineTimer);
         Mutex* mutex = new BoostMutex();

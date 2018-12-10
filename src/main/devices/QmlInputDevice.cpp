@@ -4,7 +4,7 @@
 namespace KegeratorDisplay {
 
 QmlInputDevice::QmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
-                                   UserInputController* userInputController) :
+                                   UserInputController& userInputController) :
     m_buttonHandler(userInputController),
     m_userInputController(userInputController)
 {
