@@ -55,8 +55,8 @@ int main(int argc, char** argv)
         boost::thread* m_thread = new boost::thread(&workerThread);
 
         //View
-        QApplication* qApplication = new QApplication(argc, argv);
-        QQmlApplicationEngine* qEngine = new QQmlApplicationEngine();
+        QApplication qApplication(argc, argv);
+        QQmlApplicationEngine qEngine;
         GuiView* view = new QtGuiView(qApplication, qEngine);
 
         //Presenter

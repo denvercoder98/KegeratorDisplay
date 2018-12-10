@@ -12,12 +12,12 @@ class UserInputController;
 class QmlInputDevice
 {
 public:
-    QmlInputDevice(QQmlApplicationEngine* qQmlApplicationEngine,
+    QmlInputDevice(QQmlApplicationEngine& qQmlApplicationEngine,
                      UserInputController& UserInputController);
     virtual ~QmlInputDevice();
 
 private:
-    //TODO Remove m_userInputController and inject QmlButtonHandler
+    //TODO Remove m_userInputController and inject QmlButtonHandler, is this class even needed?
     QmlButtonHandler m_buttonHandler;
     UserInputController& m_userInputController;
 };

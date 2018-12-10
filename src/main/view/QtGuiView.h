@@ -13,7 +13,7 @@ namespace KegeratorDisplay {
 class QtGuiView : public GuiView
 {
 public:
-    QtGuiView(QApplication* qApplication, QQmlApplicationEngine* qQmlApplicationEngine);
+    QtGuiView(QApplication& qApplication, QQmlApplicationEngine& qQmlApplicationEngine);
     virtual ~QtGuiView();
 
     void updateView(const GuiViewModel& view);
@@ -26,8 +26,8 @@ private:
     void updateTap(const GuiViewModel& view);
     void updateButtons(const GuiViewModel& view);
 
-    QApplication* m_qApplication;
-    QQmlApplicationEngine* m_qEngine;
+    QApplication& m_qApplication;
+    QQmlApplicationEngine& m_qEngine;
     QTemperature m_temperature;
     QPressure m_pressure;
     QTap m_leftTap;

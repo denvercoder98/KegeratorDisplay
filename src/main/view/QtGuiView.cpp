@@ -6,7 +6,7 @@
 
 namespace KegeratorDisplay {
 
-QtGuiView::QtGuiView(QApplication* qApplication, QQmlApplicationEngine* qQmlApplicationEngine) :
+QtGuiView::QtGuiView(QApplication& qApplication, QQmlApplicationEngine& qQmlApplicationEngine) :
     m_qApplication(qApplication),
     m_qEngine(qQmlApplicationEngine),
     m_temperature(),
@@ -70,12 +70,12 @@ void QtGuiView::updateView(const GuiViewModel& view)
 
 void QtGuiView::run()
 {
-    m_qEngine->rootContext()->setContextProperty("temperature", &m_temperature);
-    m_qEngine->rootContext()->setContextProperty("pressure", &m_pressure);
-    m_qEngine->rootContext()->setContextProperty("leftTap", &m_leftTap);
-    m_qEngine->rootContext()->setContextProperty("rightTap", &m_rightTap);
-    m_qEngine->load(QUrl(QStringLiteral("qrc:main.qml")));
-    m_qApplication->exec();
+    m_qEngine.rootContext()->setContextProperty("temperature", &m_temperature);
+    m_qEngine.rootContext()->setContextProperty("pressure", &m_pressure);
+    m_qEngine.rootContext()->setContextProperty("leftTap", &m_leftTap);
+    m_qEngine.rootContext()->setContextProperty("rightTap", &m_rightTap);
+    m_qEngine.load(QUrl(QStringLiteral("qrc:main.qml")));
+    m_qApplication.exec();
 }
 
 }
