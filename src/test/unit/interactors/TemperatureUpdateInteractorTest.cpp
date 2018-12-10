@@ -27,7 +27,7 @@ TEST_F(TemperatureUpdateInteractorTest, Create)
     ON_CALL(storage, readTemperature())
         .WillByDefault(Return(new Temperature()));
 
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
 }
 
 TEST_F(TemperatureUpdateInteractorTest, ReadTemperatureFromStorage)
@@ -40,7 +40,7 @@ TEST_F(TemperatureUpdateInteractorTest, ReadTemperatureFromStorage)
     EXPECT_CALL(storage, readTemperature())
         .Times(1)
         .WillRepeatedly(Return(temperature));
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
 }
 
 
@@ -52,7 +52,7 @@ TEST_F(TemperatureUpdateInteractorTest, ReceiveTemperature)
     ON_CALL(storage, readTemperature())
         .WillByDefault(Return(new Temperature()));
    
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
     interactor.receiveTemperatureReading(reading);
 }
 
@@ -64,7 +64,7 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureNotifiesObserver)
     ON_CALL(storage, readTemperature())
         .WillByDefault(Return(new Temperature()));
 
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
     TemperatureUpdateRequest reading(3);
 
     EXPECT_CALL(kegerator, updateTemperature(_));
@@ -79,7 +79,7 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureNotifiesObserverCorrect
     ON_CALL(storage, readTemperature())
         .WillByDefault(Return(new Temperature()));
 
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
     TemperatureUpdateRequest reading(3);
 
     TemperatureUpdateResponse expectedUpdate(1);
@@ -95,7 +95,7 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureWritesToStorage)
     ON_CALL(storage, readTemperature())
         .WillByDefault(Return(new Temperature()));
 
-    TemperatureUpdateInteractor interactor(&kegerator, storage);
+    TemperatureUpdateInteractor interactor(kegerator, storage);
     TemperatureUpdateRequest reading(3);
 
     EXPECT_CALL(storage, writeTemperature(_));

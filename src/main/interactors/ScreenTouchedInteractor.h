@@ -14,7 +14,7 @@ class ScreenTouchedInteractor : public ScreenTouchedRequestObserver
 public:
     ScreenTouchedInteractor(unsigned int doubleTapWindowSeconds,
                             DeadlineTimer* timer,
-                            Presenter* presenter);
+                            Presenter& presenter);
     virtual ~ScreenTouchedInteractor();
 
     void handleRequest(const ScreenTouchedRequest& request);
@@ -24,7 +24,7 @@ public:
 private:
     DeadlineTimer* m_timer;
     bool m_tappedOnce;
-    Presenter* m_presenter;
+    Presenter& m_presenter;
 };
 
 }

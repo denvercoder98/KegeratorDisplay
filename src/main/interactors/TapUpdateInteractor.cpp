@@ -1,4 +1,3 @@
-#include <interactors/InvalidTapUpdateInteractorArgumentException.h>
 #include <interactors/Presenter.h>
 #include <interactors/Storage.h>
 #include <interactors/TapUpdateInteractor.h>
@@ -7,14 +6,10 @@
 
 namespace KegeratorDisplay {
 
-TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage& storage) :
+TapUpdateInteractor::TapUpdateInteractor(Presenter& presenter, Storage& storage) :
     m_presenter(presenter),
     m_storage(storage)
 {
-    if (m_presenter == NULL) {
-        throw InvalidTapUpdateInteractorArgumentException("Missing KegeratorObserver dependency");
-    }
-
     readAndUpdateTap(TAP_LEFT);
     readAndUpdateTap(TAP_RIGHT);
 }
@@ -49,7 +44,7 @@ void TapUpdateInteractor::readAndUpdateTap(const TapSide side)
                           beer.finalGravity().value());
 
     TapUpdateResponse tapUpdate(side, beerUpdate, tap->isEmpty());
-    m_presenter->updateTap(tapUpdate);
+    m_presenter.updateTap(tapUpdate);
     delete tap;
 }
 

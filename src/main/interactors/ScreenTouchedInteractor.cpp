@@ -9,17 +9,13 @@ namespace KegeratorDisplay {
 
 ScreenTouchedInteractor::ScreenTouchedInteractor(unsigned int doubleTapWindowSeconds,
                                                  DeadlineTimer* timer,
-                                                 Presenter* presenter) :
+                                                 Presenter& presenter) :
     m_timer(timer),
     m_tappedOnce(false),
     m_presenter(presenter)
 {
     if (m_timer == NULL) {
         throw InvalidScreenTouchedInteractorArgumentException("Missing timer dependency");
-    }
-
-    if (m_presenter == NULL) {
-        throw InvalidScreenTouchedInteractorArgumentException("Missing presenter dependency");
     }
 }
 
@@ -34,7 +30,7 @@ void ScreenTouchedInteractor::handleRequest(const ScreenTouchedRequest& request)
         m_timer->cancel();
         m_tappedOnce = false;
         ScreenTouchedResponse response(true);
-        m_presenter->screenTouched(response);
+        m_presenter.screenTouched(response);
     }
     else {
         m_tappedOnce = true;

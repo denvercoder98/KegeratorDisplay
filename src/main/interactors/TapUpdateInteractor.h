@@ -12,7 +12,7 @@ class Storage;
 
 class TapUpdateInteractor : public TapUpdateRequestObserver {
 public:
-	TapUpdateInteractor(Presenter* presenter, Storage& storage);
+	TapUpdateInteractor(Presenter& presenter, Storage& storage);
 	virtual ~TapUpdateInteractor();
 
 	void updateTap(const TapUpdateRequest& request);
@@ -20,7 +20,7 @@ public:
 private:
 	void readAndUpdateTap(const TapSide side);
 
-	Presenter* m_presenter;
+	Presenter& m_presenter;
 	Storage& m_storage;
 };
 

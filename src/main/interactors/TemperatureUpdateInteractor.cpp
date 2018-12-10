@@ -6,7 +6,7 @@
 
 namespace KegeratorDisplay {
 
-TemperatureUpdateInteractor::TemperatureUpdateInteractor(Presenter* presenter, Storage& storage) :
+TemperatureUpdateInteractor::TemperatureUpdateInteractor(Presenter& presenter, Storage& storage) :
     m_temperature(storage.readTemperature()),
     m_presenter(presenter),
     m_storage(storage)
@@ -30,7 +30,7 @@ void TemperatureUpdateInteractor::updatePresenter()
 {
     int updatedValue = m_temperature->value();
     TemperatureUpdateResponse temperatureUpdate(updatedValue);
-    m_presenter->updateTemperature(temperatureUpdate);
+    m_presenter.updateTemperature(temperatureUpdate);
 }
 
 void TemperatureUpdateInteractor::updateStorage()

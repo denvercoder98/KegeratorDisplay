@@ -1,8 +1,7 @@
 #include "../interactors/TapUpdateInteractorTest.h"
 
-#include <interactors/InvalidTapUpdateInteractorArgumentException.h>
-#include <interactors/TapUpdateInteractor.h>
-#include <interactors/TapUpdateResponse.h>
+#include "interactors/TapUpdateInteractor.h"
+#include "interactors/TapUpdateResponse.h"
 
 #include "entities/Beer.h"
 #include "entities/AlcoholByVolume.h"
@@ -67,12 +66,7 @@ void TapUpdateInteractorTest::TearDown()
 TEST_F(TapUpdateInteractorTest, Create)
 {
     prepareBeers();
-    TapUpdateInteractor(m_observer, *m_storage);
-}
-
-TEST_F(TapUpdateInteractorTest, MissingObserverThrows)
-{
-    EXPECT_THROW(TapUpdateInteractor(NULL, *m_storage), InvalidTapUpdateInteractorArgumentException);
+    TapUpdateInteractor(*m_observer, *m_storage);
 }
 
 TEST_F(TapUpdateInteractorTest, ReadLeftTapStorageOnCreation)
@@ -97,7 +91,7 @@ TEST_F(TapUpdateInteractorTest, ReadLeftTapStorageOnCreation)
     ON_CALL(storage, readRightTap)
         .WillByDefault(Return(new Tap(beerB)));
 
-    TapUpdateInteractor updator(m_observer, storage);
+    TapUpdateInteractor updator(*m_observer, storage);
 }
 
 TEST_F(TapUpdateInteractorTest, ReadRightTapStorageOnCreation)
@@ -122,7 +116,7 @@ TEST_F(TapUpdateInteractorTest, ReadRightTapStorageOnCreation)
     EXPECT_CALL(storage, readRightTap)
         .WillOnce(Return(new Tap(beerB)));
 
-    TapUpdateInteractor updator(m_observer, storage);
+    TapUpdateInteractor updator(*m_observer, storage);
 }
 
 TEST_F(TapUpdateInteractorTest, ReadTapMissingFromStorageOnCreation)
@@ -143,7 +137,7 @@ TEST_F(TapUpdateInteractorTest, ReadTapMissingFromStorageOnCreation)
     EXPECT_CALL(*m_observer, updateTap(Eq(expectedRightTap))).
         Times(1);
 
-    TapUpdateInteractor updator(m_observer, storage);
+    TapUpdateInteractor updator(*m_observer, storage);
 }
 
 TEST_F(TapUpdateInteractorTest, UpdateTapFromStorageOnCreation)
@@ -177,7 +171,7 @@ TEST_F(TapUpdateInteractorTest, UpdateTapFromStorageOnCreation)
         Times(1);
     EXPECT_CALL(*m_observer, updateTap(Eq(expectedRightTap))).
         Times(1);
-    TapUpdateInteractor updator(m_observer, storage);
+    TapUpdateInteractor updator(*m_observer, storage);
 }
 
 }

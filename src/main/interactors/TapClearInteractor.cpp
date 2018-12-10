@@ -5,7 +5,7 @@
 
 namespace KegeratorDisplay {
 
-TapClearInteractor::TapClearInteractor(Presenter* presenter, Storage& storage) :
+TapClearInteractor::TapClearInteractor(Presenter& presenter, Storage& storage) :
     m_presenter(presenter),
     m_storage(storage)
 {
@@ -35,7 +35,7 @@ void TapClearInteractor::clearStorage(TapSide side)
 void TapClearInteractor::updatePresenter(TapSide side)
 {
     TapClearResponse response(side);
-    m_presenter->clearTap(response);
+    m_presenter.clearTap(response);
 }
 
 }

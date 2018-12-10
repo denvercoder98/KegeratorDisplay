@@ -12,13 +12,13 @@ class Storage;
 class TapClearInteractor : public TapClearRequestObserver
 {
 public:
-    TapClearInteractor(Presenter* presenter, Storage& storage);
+    TapClearInteractor(Presenter& presenter, Storage& storage);
     virtual ~TapClearInteractor();
 
     void handleRequest(const TapClearRequest& request);
 
 private:
-    Presenter* m_presenter;
+    Presenter& m_presenter;
     Storage& m_storage;
 
     void clearStorage(TapSide side);

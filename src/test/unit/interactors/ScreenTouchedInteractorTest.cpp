@@ -14,7 +14,7 @@ ScreenTouchedInteractorTest::ScreenTouchedInteractorTest()
 {
     m_timer = new NiceMock<DeadlineTimerMock>();
     m_presenter = new NiceMock<PresenterMock>();
-    m_interactor= new ScreenTouchedInteractor(1, m_timer, m_presenter);
+    m_interactor= new ScreenTouchedInteractor(1, m_timer, *m_presenter);
 }
 
 ScreenTouchedInteractorTest::~ScreenTouchedInteractorTest()
@@ -25,20 +25,6 @@ ScreenTouchedInteractorTest::~ScreenTouchedInteractorTest()
 
 TEST_F(ScreenTouchedInteractorTest, Create)
 {
-}
-
-TEST_F(ScreenTouchedInteractorTest, ThrowsExceptionOnMissingPresenter)
-{
-    DeadlineTimer* timer = new NiceMock<DeadlineTimerMock>();
-    EXPECT_THROW(ScreenTouchedInteractor(1, timer, NULL), InvalidScreenTouchedInteractorArgumentException);
-    delete timer;
-}
-
-TEST_F(ScreenTouchedInteractorTest, ThrowsExceptionOnMissingTimer)
-{
-    Presenter* presenter = new NiceMock<PresenterMock>();
-    EXPECT_THROW(ScreenTouchedInteractor(1, NULL, presenter), InvalidScreenTouchedInteractorArgumentException);
-    delete presenter;
 }
 
 TEST_F(ScreenTouchedInteractorTest, HandleRequest)

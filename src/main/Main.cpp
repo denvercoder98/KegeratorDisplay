@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 
         //Presenter
         GuiViewModel* viewModel = new GuiViewModel();
-        Presenter* presenter = new GuiPresenter(view, viewModel);
+        GuiPresenter presenter(view, viewModel);
 
         //Storage
         FileWriter* fileWriter = new FileWriterImpl();
