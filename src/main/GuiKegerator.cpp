@@ -3,8 +3,12 @@
 
 namespace KegeratorDisplay {
 
-GuiKegerator::GuiKegerator(GuiView* view, SensorSampler* sensorSampler, boost::asio::io_service* ioService) :
-    Kegerator(sensorSampler, ioService),
+GuiKegerator::GuiKegerator(GuiView* view,
+                           SensorSampler*
+                           sensorSampler,
+                           boost::asio::io_service& ioService,
+                           boost::thread& thread) :
+    Kegerator(sensorSampler, ioService, thread),
     m_view(view)
 {
 }

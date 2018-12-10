@@ -11,7 +11,10 @@ class SensorSampler;
 class GuiKegerator : public Kegerator
 {
 public:
-    GuiKegerator(GuiView* view, SensorSampler* sensorSampler, boost::asio::io_service* ioService);
+    GuiKegerator(GuiView* view,
+                 SensorSampler* sensorSampler,
+                 boost::asio::io_service& ioService,
+                 boost::thread& thread);
     virtual ~GuiKegerator();
 
 protected:

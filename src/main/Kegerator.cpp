@@ -20,13 +20,13 @@
 
 namespace KegeratorDisplay {
 
-Kegerator::Kegerator(SensorSampler* sensorSampler, boost::asio::io_service* ioService) :
+Kegerator::Kegerator(SensorSampler* sensorSampler, boost::asio::io_service& ioService, boost::thread& thread) :
     m_ioService(ioService),
-    m_work(NULL),
-    m_thread(NULL),
+    m_thread(thread),
     m_sensorSampler(sensorSampler),
     m_started(false)
 {
+    //TODO throw if missing sensorSampler
 }
 
 Kegerator::~Kegerator()
@@ -42,15 +42,10 @@ void Kegerator::startAndRun(int &argc, char** argv)
 
 void Kegerator::cleanUp()
 {
-    if (m_sensorSampler) delete m_sensorSampler;
-    if (m_thread) delete m_thread;
-    if (m_work) delete m_work;
-    if (m_ioService) delete m_ioService;
-
-    m_sensorSampler = NULL;
-    m_thread = NULL;
-    m_work = NULL;
-    m_ioService = NULL;
+    if (m_sensorSampler) {
+        delete m_sensorSampler;
+        m_sensorSampler = NULL;
+    }
 }
 
 void Kegerator::start()
@@ -71,13 +66,9 @@ bool Kegerator::wasStarted() const
 
 void Kegerator::stop()
 {
-    if (m_ioService) {
-        m_ioService->stop();
-    }
-    if (m_thread) {
-        m_thread->interrupt();
-        m_thread->join();
-    }
+    m_ioService.stop();
+    m_thread.interrupt();
+    m_thread.join();
 }
 
 void Kegerator::startControllers()

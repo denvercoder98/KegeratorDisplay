@@ -11,7 +11,7 @@ namespace KegeratorDisplay {
 class Kegerator
 {
 public:
-    Kegerator(SensorSampler* sensorSampler, boost::asio::io_service* ioService);
+    Kegerator(SensorSampler* sensorSampler, boost::asio::io_service& ioService, boost::thread& thread);
     virtual ~Kegerator();
 
     void startAndRun(int &argc, char** argv);
@@ -29,9 +29,8 @@ private:
     void doCreate(int& argc, char** argv);
     void cleanUp();
 
-    boost::asio::io_service* m_ioService;
-    boost::asio::io_service::work* m_work;
-    boost::thread* m_thread;
+    boost::asio::io_service& m_ioService;
+    boost::thread& m_thread;
     SensorSampler* m_sensorSampler;
     bool m_started;
 };

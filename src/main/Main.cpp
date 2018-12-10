@@ -31,12 +31,12 @@
 
 using namespace KegeratorDisplay;
 
-boost::asio::io_service* ioService;
+boost::asio::io_service ioService;
 
 void workerThread()
 {
     try {
-        ioService->run();
+        ioService.run();
     }
     catch (boost::thread_interrupted&) {
 
@@ -50,9 +50,8 @@ int main(int argc, char** argv)
 {
     try {
         //Application thread
-        ioService = new boost::asio::io_service();
-        boost::asio::io_service::work* m_work = new boost::asio::io_service::work(*ioService);
-        boost::thread* m_thread = new boost::thread(&workerThread);
+        boost::asio::io_service::work work(ioService);
+        boost::thread thread(&workerThread);
 
         //View
         QApplication qApplication(argc, argv);
@@ -70,7 +69,7 @@ int main(int argc, char** argv)
         BoostSerializationFileStorage storage("temp", "left", "right", fileWriter, fileReader, fileRemover);
 
         //Interactors
-        boost::asio::deadline_timer* screenTouchedInteractorBoostDeadlineTimer = new boost::asio::deadline_timer(*ioService);
+        boost::asio::deadline_timer* screenTouchedInteractorBoostDeadlineTimer = new boost::asio::deadline_timer(ioService);
         DeadlineTimer* screenTouchedInteractorTimer = new BoostDeadlineTimer(screenTouchedInteractorBoostDeadlineTimer);
         ScreenTouchedInteractor* screenTouchedInteractor = new ScreenTouchedInteractor(2, screenTouchedInteractorTimer, presenter);
         TemperatureUpdateInteractor* temperatureUpdateInteractor = new TemperatureUpdateInteractor(presenter, storage);
@@ -84,7 +83,7 @@ int main(int argc, char** argv)
         //Controllers
         TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
         UserInputControllerImpl userInputController(tapClearInteractor, screenTouchedInteractor);
-        boost::asio::deadline_timer* sensorSamplerBoostDeadlineTimer = new boost::asio::deadline_timer(*ioService);
+        boost::asio::deadline_timer* sensorSamplerBoostDeadlineTimer = new boost::asio::deadline_timer(ioService);
         DeadlineTimer* sensorSamplerTimer = new BoostDeadlineTimer(sensorSamplerBoostDeadlineTimer);
         Mutex* mutex = new BoostMutex();
         SensorSampler* sensorSampler = new SensorSampler(1, sensorSamplerTimer, mutex);
@@ -93,7 +92,7 @@ int main(int argc, char** argv)
         //Devices
         QmlInputDevice* qmlInputDevice = new QmlInputDevice(qEngine, userInputController);
 
-        GuiKegerator kegerator(view, sensorSampler, ioService);
+        GuiKegerator kegerator(view, sensorSampler, ioService, thread);
         kegerator.startAndRun(argc, argv);
         return 0;
     }
