@@ -1,32 +1,24 @@
 #ifndef SRC_MAIN_GUIKEGERATOR_H_
 #define SRC_MAIN_GUIKEGERATOR_H_
 
-#include <Kegerator.h>
-#include <QtWidgets/qapplication.h>
-#include <QtQml/qqmlapplicationengine.h>
-#include "view/QtGuiView.h"
+#include "Kegerator.h"
 
 namespace KegeratorDisplay {
 
-class Presenter;
-class QmlInputDevice;
+class GuiView;
+class SensorSampler;
 
 class GuiKegerator : public Kegerator
 {
 public:
-    GuiKegerator();
+    GuiKegerator(GuiView* view, SensorSampler* sensorSampler, boost::asio::io_service* ioService);
     virtual ~GuiKegerator();
 
 protected:
-    void doCreateView(int &argc, char** argv);
-    void doCreateDevices();
-
     void run();
 
 private:
-    QApplication* m_qApplication;
-    QQmlApplicationEngine* m_qEngine;
-    QmlInputDevice* m_qmlInputDevice;
+    GuiView* m_view;
 
 };
 
