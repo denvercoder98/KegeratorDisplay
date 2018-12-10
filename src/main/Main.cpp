@@ -90,7 +90,7 @@ int main(int argc, char** argv)
         sensorSampler->addSensorController(temperatureSensorController);
 
         //Devices
-        QmlInputDevice* qmlInputDevice = new QmlInputDevice(qEngine, userInputController);
+        QmlInputDevice qmlInputDevice(qEngine, userInputController);
 
         GuiKegerator kegerator(view, sensorSampler, ioService, thread);
         kegerator.startAndRun(argc, argv);
