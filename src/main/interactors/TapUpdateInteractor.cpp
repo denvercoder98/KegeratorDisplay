@@ -7,14 +7,10 @@
 
 namespace KegeratorDisplay {
 
-TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage* storage) :
+TapUpdateInteractor::TapUpdateInteractor(Presenter* presenter, Storage& storage) :
     m_presenter(presenter),
     m_storage(storage)
 {
-    if (m_storage == NULL) {
-        throw InvalidTapUpdateInteractorArgumentException("Missing Storage dependency");
-    }
-
     if (m_presenter == NULL) {
         throw InvalidTapUpdateInteractorArgumentException("Missing KegeratorObserver dependency");
     }
@@ -35,10 +31,10 @@ void TapUpdateInteractor::readAndUpdateTap(const TapSide side)
 {
     Tap* tap;
     if (side == TAP_LEFT) {
-        tap = m_storage->readLeftTap();
+        tap = m_storage.readLeftTap();
     }
     else if (side == TAP_RIGHT) {
-        tap = m_storage->readRightTap();
+        tap = m_storage.readRightTap();
     }
     else {
         //TODO throw

@@ -22,7 +22,7 @@ void TapClearInteractorTest::SetUp()
 {
     m_presenter = new NiceMock<PresenterMock>();
     m_storage = new NiceMock<StorageMock>();
-    m_interactor = new TapClearInteractor(m_presenter, m_storage);
+    m_interactor = new TapClearInteractor(m_presenter, *m_storage);
 }
 
 void TapClearInteractorTest::TearDown()

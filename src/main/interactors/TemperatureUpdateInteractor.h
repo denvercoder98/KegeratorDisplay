@@ -12,7 +12,7 @@ class Temperature;
 class TemperatureUpdateInteractor : public TemperatureUpdateRequestObserver
 {
 public:
-    TemperatureUpdateInteractor(Presenter* observer, Storage* storage);
+    TemperatureUpdateInteractor(Presenter* observer, Storage& storage);
     virtual ~TemperatureUpdateInteractor();
 
     virtual void receiveTemperatureReading(const TemperatureUpdateRequest& request);
@@ -24,7 +24,7 @@ private:
 
     Temperature* m_temperature;
     Presenter* m_presenter;
-    Storage* m_storage;
+    Storage& m_storage;
 };
 
 }

@@ -5,7 +5,7 @@
 
 namespace KegeratorDisplay {
 
-TapClearInteractor::TapClearInteractor(Presenter* presenter, Storage* storage) :
+TapClearInteractor::TapClearInteractor(Presenter* presenter, Storage& storage) :
     m_presenter(presenter),
     m_storage(storage)
 {
@@ -25,10 +25,10 @@ void TapClearInteractor::clearStorage(TapSide side)
 {
     if (side == TAP_LEFT)
     {
-        m_storage->clearLeftTap();
+        m_storage.clearLeftTap();
     } else if (side == TAP_RIGHT)
     {
-        m_storage->clearRightTap();
+        m_storage.clearRightTap();
     }
 }
 

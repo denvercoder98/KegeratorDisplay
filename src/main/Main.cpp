@@ -67,7 +67,7 @@ int main(int argc, char** argv)
         FileWriter* fileWriter = new FileWriterImpl();
         FileReader* fileReader = new FileReaderImpl();
         FileRemover* fileRemover = new FileRemoverImpl();
-        Storage* storage = new BoostSerializationFileStorage("temp", "left", "right", fileWriter, fileReader, fileRemover);
+        BoostSerializationFileStorage storage("temp", "left", "right", fileWriter, fileReader, fileRemover);
 
         //Interactors
         boost::asio::deadline_timer* screenTouchedInteractorBoostDeadlineTimer = new boost::asio::deadline_timer(*ioService);
