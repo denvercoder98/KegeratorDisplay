@@ -11,7 +11,7 @@ class GuiView;
 class GuiPresenter : public Presenter
 {
 public:
-    GuiPresenter(GuiView* view, GuiViewModel* viewModel);
+    GuiPresenter(GuiView& view, GuiViewModel* viewModel);
     virtual ~GuiPresenter();
 
     void updateTemperature(const TemperatureUpdateResponse& response);
@@ -23,7 +23,7 @@ private:
     GuiViewModel::TapViewModel* getTapViewModelForSide(const TapSide tap);
     void clearTapData(GuiViewModel::TapViewModel* tapModel);
 
-    GuiView* m_view;
+    GuiView& m_view;
     GuiViewModel* m_viewModel;
 };
 

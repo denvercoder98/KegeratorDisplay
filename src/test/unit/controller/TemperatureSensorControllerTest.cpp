@@ -24,7 +24,7 @@ void TemperatureSensorControllerTest::SetUp()
 {
     m_sensor = new NiceMock<TemperatureSensorMock>();
     m_observer = new NiceMock<TemperatureReadingObserverMock>();
-    m_controller = new TemperatureSensorController(m_sensor, m_observer);
+    m_controller = new TemperatureSensorController(m_sensor, *m_observer);
 }
 
 void TemperatureSensorControllerTest::TearDown()

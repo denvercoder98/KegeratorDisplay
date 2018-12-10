@@ -6,7 +6,7 @@
 
 namespace KegeratorDisplay {
 
-GuiPresenter::GuiPresenter(GuiView* view, GuiViewModel* viewModel) :
+GuiPresenter::GuiPresenter(GuiView& view, GuiViewModel* viewModel) :
     m_view(view),
     m_viewModel(viewModel)
 {
@@ -22,7 +22,7 @@ void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperatur
     std::stringstream ss;
     ss << temperature.value();
     m_viewModel->temperature = ss.str();
-    m_view->updateView(*m_viewModel);
+    m_view.updateView(*m_viewModel);
 }
 
 void GuiPresenter::updateTap(const TapUpdateResponse& tap)
@@ -43,13 +43,13 @@ void GuiPresenter::updateTap(const TapUpdateResponse& tap)
         tapViewModel->fg = beer.finalGravity();
     }
 
-    m_view->updateView(*m_viewModel);
+    m_view.updateView(*m_viewModel);
 }
 
 void GuiPresenter::clearTap(const TapClearResponse& tap) {
     GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
     clearTapData(tapViewModel);
-    m_view->updateView(*m_viewModel);
+    m_view.updateView(*m_viewModel);
 }
 
 void GuiPresenter::clearTapData(GuiViewModel::TapViewModel* tapViewModel)
@@ -81,7 +81,7 @@ GuiViewModel::TapViewModel* GuiPresenter::getTapViewModelForSide(const TapSide s
 void GuiPresenter::screenTouched(const ScreenTouchedResponse& response)
 {
     m_viewModel->buttonsVisible = response.buttonsEnabled();
-    m_view->updateView(*m_viewModel);
+    m_view.updateView(*m_viewModel);
 }
 
 }

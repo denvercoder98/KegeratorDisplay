@@ -11,7 +11,7 @@ class TemperatureUpdateRequestObserver;
 class TemperatureSensorController: public SensorController
 {
 public:
-    TemperatureSensorController(TemperatureSensor* const sensor, TemperatureUpdateRequestObserver* const observer);
+    TemperatureSensorController(TemperatureSensor* const sensor, TemperatureUpdateRequestObserver& observer);
     virtual ~TemperatureSensorController();
 
     virtual void process();
@@ -21,7 +21,7 @@ private:
     void notifyObserver(int temperatureInteger);
 
     TemperatureSensor* const m_sensor;
-    TemperatureUpdateRequestObserver* const m_observer;
+    TemperatureUpdateRequestObserver& m_observer;
 };
 
 }

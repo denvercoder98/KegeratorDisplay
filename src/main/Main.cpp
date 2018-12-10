@@ -56,7 +56,7 @@ int main(int argc, char** argv)
         //View
         QApplication qApplication(argc, argv);
         QQmlApplicationEngine qEngine;
-        GuiView* view = new QtGuiView(qApplication, qEngine);
+        QtGuiView view(qApplication, qEngine);
 
         //Presenter
         GuiViewModel* viewModel = new GuiViewModel();
@@ -71,10 +71,10 @@ int main(int argc, char** argv)
         //Interactors
         boost::asio::deadline_timer* screenTouchedInteractorBoostDeadlineTimer = new boost::asio::deadline_timer(ioService);
         DeadlineTimer* screenTouchedInteractorTimer = new BoostDeadlineTimer(screenTouchedInteractorBoostDeadlineTimer);
-        ScreenTouchedInteractor* screenTouchedInteractor = new ScreenTouchedInteractor(2, screenTouchedInteractorTimer, presenter);
-        TemperatureUpdateInteractor* temperatureUpdateInteractor = new TemperatureUpdateInteractor(presenter, storage);
-        TapUpdateInteractor* tapUpdateInteractor = new TapUpdateInteractor(presenter, storage);
-        TapClearInteractor* tapClearInteractor = new TapClearInteractor(presenter, storage);
+        ScreenTouchedInteractor screenTouchedInteractor(2, screenTouchedInteractorTimer, presenter);
+        TemperatureUpdateInteractor temperatureUpdateInteractor(presenter, storage);
+        TapUpdateInteractor tapUpdateInteractor(presenter, storage);
+        TapClearInteractor tapClearInteractor(presenter, storage);
 
         //Devices
         DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();

@@ -26,7 +26,7 @@ void GuiPresenterTest::SetUp()
 {
     m_viewModel = new GuiViewModel();
     m_view = new NiceMock<GuiViewMock>();
-    m_presenter = new GuiPresenter(m_view, m_viewModel);
+    m_presenter = new GuiPresenter(*m_view, m_viewModel);
 }
 
 void GuiPresenterTest::TearDown()

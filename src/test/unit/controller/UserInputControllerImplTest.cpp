@@ -4,7 +4,6 @@
 
 #include "unit/interactors/TapClearRequestObserverMock.h"
 #include "unit/interactors/ScreenTouchedRequestObserverMock.h"
-#include "controller/InvalidUserInputControllerArgumentException.h"
 
 using ::testing::NiceMock;
 
@@ -34,26 +33,12 @@ void UserInputControllerImplTest::TearDown()
 
 TEST_F(UserInputControllerImplTest, Create)
 {
-    UserInputControllerImpl controller(m_clearObserver, m_screenTouchedObserver);
-}
-
-TEST_F(UserInputControllerImplTest, ThrowsOnMissingClearTapObserver)
-{
-    ScreenTouchedRequestObserver* screenTouchedObserver = new NiceMock<ScreenTouchedRequestObserverMock>();
-    EXPECT_THROW(UserInputControllerImpl(NULL, screenTouchedObserver), InvalidUserInputControllerArgumentException);
-    delete screenTouchedObserver;
-}
-
-TEST_F(UserInputControllerImplTest, ThrowsOnMissingScreenTouchedObserver)
-{
-    TapClearRequestObserver* clearObserver = new NiceMock<TapClearRequestObserverMock>();
-    EXPECT_THROW(UserInputControllerImpl(clearObserver, NULL), InvalidUserInputControllerArgumentException);
-    delete clearObserver;
+    UserInputControllerImpl controller(*m_clearObserver, *m_screenTouchedObserver);
 }
 
 TEST_F(UserInputControllerImplTest, ClearLeftTapButtonInvokesInteractor)
 {
-    UserInputControllerImpl controller(m_clearObserver, m_screenTouchedObserver);
+    UserInputControllerImpl controller(*m_clearObserver, *m_screenTouchedObserver);
     TapClearRequest expectedRequest(TAP_LEFT);
     EXPECT_CALL(*m_clearObserver, handleRequest(expectedRequest))
         .Times(1);
@@ -62,7 +47,7 @@ TEST_F(UserInputControllerImplTest, ClearLeftTapButtonInvokesInteractor)
 
 TEST_F(UserInputControllerImplTest, ClearRightTapButtonInvokesInteractor)
 {
-    UserInputControllerImpl controller(m_clearObserver, m_screenTouchedObserver);
+    UserInputControllerImpl controller(*m_clearObserver, *m_screenTouchedObserver);
     TapClearRequest expectedRequest(TAP_RIGHT);
     EXPECT_CALL(*m_clearObserver, handleRequest(expectedRequest))
         .Times(1);
@@ -71,7 +56,7 @@ TEST_F(UserInputControllerImplTest, ClearRightTapButtonInvokesInteractor)
 
 TEST_F(UserInputControllerImplTest, ScreenTapInvokesInteractor)
 {
-    UserInputControllerImpl controller(m_clearObserver, m_screenTouchedObserver);
+    UserInputControllerImpl controller(*m_clearObserver, *m_screenTouchedObserver);
     ScreenTouchedRequest expectedRequest;
     EXPECT_CALL(*m_screenTouchedObserver, handleRequest(expectedRequest))
         .Times(1);

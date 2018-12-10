@@ -6,7 +6,7 @@
 namespace KegeratorDisplay {
 
 TemperatureSensorController::TemperatureSensorController(TemperatureSensor* const sensor,
-                                                         TemperatureUpdateRequestObserver* const observer) :
+                                                         TemperatureUpdateRequestObserver& observer) :
     m_sensor(sensor),
     m_observer(observer)
 {
@@ -29,7 +29,7 @@ int TemperatureSensorController::readSensor()
 
 void TemperatureSensorController::notifyObserver(int temperature)
 {
-    m_observer->receiveTemperatureReading(TemperatureUpdateRequest(temperature));
+    m_observer.receiveTemperatureReading(TemperatureUpdateRequest(temperature));
 }
 
 }

@@ -3,7 +3,7 @@
 
 namespace KegeratorDisplay {
 
-GuiKegerator::GuiKegerator(GuiView* view,
+GuiKegerator::GuiKegerator(GuiView& view,
                            SensorSampler*
                            sensorSampler,
                            boost::asio::io_service& ioService,
@@ -15,12 +15,11 @@ GuiKegerator::GuiKegerator(GuiView* view,
 
 GuiKegerator::~GuiKegerator()
 {
-    delete m_view;
 }
 
 void GuiKegerator::run()
 {
-    m_view->run();
+    m_view.run();
 }
 
 }
