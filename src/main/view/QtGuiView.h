@@ -2,11 +2,11 @@
 #define SRC_MAIN_VIEW_QTGUIVIEW_H_
 
 #include "presenter/GuiView.h"
-#include "QKegerator.h"
-#include "QTapTags.h"
-#include "QTap.h"
-#include "QTemperature.h"
-#include "QPressure.h"
+#include "qobjects/QKegerator.h"
+#include "qobjects/QTapTags.h"
+#include "qobjects/QTap.h"
+#include "qobjects/QTemperature.h"
+#include "qobjects/QPressure.h"
 #include <QtWidgets/qapplication.h>
 #include <QtQml/qqmlapplicationengine.h>
 

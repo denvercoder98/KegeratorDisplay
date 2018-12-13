@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
-import "qrc:/qml"
 import se.kj.CppInterface 1.0
 
 ColumnLayout {

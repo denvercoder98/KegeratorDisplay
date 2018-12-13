@@ -2,7 +2,6 @@
 #include <QtQuick/qquickview.h>
 #include <QtQml/qqmlcontext.h>
 #include <QtQuickControls2/qquickstyle.h>
-#include "QTap.h"
 #include <iostream>
 
 namespace KegeratorDisplay {
@@ -105,8 +104,8 @@ void QtGuiView::run()
 
     qmlRegisterType<QTap>("se.kj.CppInterface", 1, 0, "QTap");
 
-    m_qEngine.load(QUrl(QStringLiteral("qrc:/qml/Tap.qml")));
-    m_qEngine.load(QUrl(QStringLiteral("qrc:main.qml")));
+    m_qEngine.load(QUrl(QStringLiteral("qrc:/Tap.qml")));
+    m_qEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     m_qApplication.exec();
 }

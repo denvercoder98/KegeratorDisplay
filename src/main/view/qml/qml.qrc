@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/Tap.qml</file>
+        <file>Tap.qml</file>
         <file>main.qml</file>
     </qresource>
 </RCC>

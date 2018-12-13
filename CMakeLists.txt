@@ -11,7 +11,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/entities/*.cpp"
 	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
-	"src/main/view/Q*.h"
+	"src/main/view/qobjects/*.h"
 	"src/main/view/*.cpp"
 	"src/main/storage/*.cpp"
 	"src/main/controller/*.cpp"
@@ -41,7 +41,7 @@ include_directories("src/test/")
 find_package(Qt5 5.7 COMPONENTS Widgets Qml Quick QuickControls2 REQUIRED)
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
-qt5_add_resources(QT_RESOURCES src/main/view/qml.qrc)
+qt5_add_resources(QT_RESOURCES src/main/view/qml/qml.qrc)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
