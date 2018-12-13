@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
+import "qrc:/qml"
+import se.kj.CppInterface 1.0
 
 ApplicationWindow
 {
@@ -18,13 +20,16 @@ ApplicationWindow
     property int tapWidth: 300
     property int topMargin: 10
     property bool debug: true
+    property int titleSize: 40
+    property int headerSize: 30
+    property int textSize: 20
     
-    title: qsTr("Kegerator Status")
+    title: qsTr(kegerator.heading)
     flags: Qt.FramelessWindowHint
     
     Component.onCompleted: {
-        setX(Screen.width / 2 - width / 2);
-        setY(Screen.height / 2 - height / 2);
+        setX(Screen.width / 2 - width / 2)
+        setY(Screen.height / 2 - height / 2)
     }
     
     MouseArea {
@@ -40,16 +45,12 @@ ApplicationWindow
         anchors.topMargin: main.topMargin
         anchors.horizontalCenter: parent.horizontalCenter
     
-        id: mainColumn
-        property int titleSize: 40
-        property int headerSize: 30
-        property int textSize: 20
         spacing: 20      
 
         Text {
             id: headline
-            text: qsTr("Kegerator Status");
-            font.pixelSize: mainColumn.titleSize;
+            text: qsTr(kegerator.heading)
+            font.pixelSize: main.titleSize
         }
     
         ColumnLayout {
@@ -67,13 +68,13 @@ ApplicationWindow
             }
             
             Text {
-                text: qsTr("Temperature: ") + temperature.temperature + " " + temperature.unit;
-                font.pixelSize: mainColumn.textSize
+                text: qsTr(temperature.tag + temperature.temperature + temperature.unit)
+                font.pixelSize: main.textSize
             }
         
             Text {
-                text: qsTr("Pressure: ") + pressure.pressure + " " + pressure.unit;
-                font.pixelSize: mainColumn.textSize
+                text: qsTr(pressure.tag + pressure.pressure + pressure.unit)
+                font.pixelSize: main.textSize
             }
         }
         
@@ -89,130 +90,61 @@ ApplicationWindow
                 border.width: 1
                 visible: main.debug
             }
-        
-            ColumnLayout {
+            
+            Tap {
                 id: left
-                property bool edit
                 
-                Layout.minimumWidth: main.tapWidth
-                Layout.maximumWidth: main.tapWidth
-                Layout.fillHeight: false
-
-                Text {
-                    text: qsTr("Left tap");
-                    font.pixelSize: mainColumn.headerSize;
-                }
-                TextInput {
-                    text: qsTr("Name: ") + leftTap.name;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Est. volume: ") + leftTap.estVolume;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Brewer: ") + leftTap.brewer;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("ABV: ") + leftTap.abv;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("IBU: ") + leftTap.ibu;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Brew date: ") + leftTap.brewDate;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Tap date: ") + leftTap.tapDate;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Final gravity: ") + leftTap.finalGravity;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                RowLayout {
-                    visible: leftTap.buttonsVisible
-                    Button {
-                        text: qsTr("Edit");
-                        font.pixelSize: mainColumn.textSize;
-                        
-                        onClicked: {
-                            buttonHandler.editTap("left")
-                        }
-                    }
-                    Button {
-                        text: qsTr("Clear");
-                        font.pixelSize: mainColumn.textSize;
-                        
-                        onClicked: {
-                            buttonHandler.clearTap("left")
-                        }
-                    }
-                }
+                side: leftTap.side                
+                name: leftTap.name
+                nameTag: tapTags.nameTag
+                estVolume: leftTap.estVolume
+                estVolumeTag: tapTags.estVolumeTag
+                brewer: leftTap.brewer
+                brewerTag: tapTags.brewerTag
+                abv: leftTap.abv
+                abvTag: tapTags.abvTag
+                ibu: leftTap.ibu
+                ibuTag: tapTags.ibuTag
+                brewDate: leftTap.brewDate
+                brewDateTag: tapTags.brewDateTag
+                tapDate: leftTap.tapDate
+                tapDateTag: tapTags.tapDateTag
+                finalGravity: leftTap.finalGravity
+                finalGravityTag: tapTags.finalGravityTag
+                clearButtonTag: tapTags.clearButtonTag
+                buttonsVisible: leftTap.buttonsVisible
+                
+                headerSize: main.headerSize
+                tapWidth: main.tapWidth
+                textSize: main.textSize
             }
-        
-            ColumnLayout {
-                            
-                Layout.minimumWidth: main.tapWidth
-                Layout.maximumWidth: main.tapWidth
+            
+            Tap {
+                id: right
                 
-                Text {
-                    text: qsTr("Right tap");
-                    font.pixelSize: mainColumn.headerSize;
-                }
-                Text {
-                    text: qsTr("Name: ") + rightTap.name;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Est. volume: ") + rightTap.estVolume;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Brewer: ") + rightTap.brewer;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("ABV: ") + rightTap.abv;
-                    font.pixelSize: mainColumn.textSize;
-                }                
-                Text {
-                    text: qsTr("IBU: ") + rightTap.ibu;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Brew date: ") + rightTap.brewDate;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Tap date: ") + rightTap.tapDate;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                Text {
-                    text: qsTr("Final gravity: ") + rightTap.finalGravity;
-                    font.pixelSize: mainColumn.textSize;
-                }
-                RowLayout {
-                    visible: rightTap.buttonsVisible
-                    Button {
-                        text: qsTr("Edit");
-                        font.pixelSize: mainColumn.textSize;
-                        onClicked: {
-                            buttonHandler.editTap("right")
-                        }
-                    }
-                    Button {
-                        text: qsTr("Clear");
-                        font.pixelSize: mainColumn.textSize;
-                        onClicked: {
-                            buttonHandler.clearTap("right")
-                        }
-                    }
-                }         
+                side: rightTap.side  
+                name: rightTap.name
+                nameTag: tapTags.nameTag
+                estVolume: rightTap.estVolume
+                estVolumeTag: tapTags.estVolumeTag
+                brewer: rightTap.brewer
+                brewerTag: tapTags.brewerTag
+                abv: rightTap.abv
+                abvTag: tapTags.abvTag
+                ibu: rightTap.ibu
+                ibuTag: tapTags.ibuTag
+                brewDate: rightTap.brewDate
+                brewDateTag: tapTags.brewDateTag
+                tapDate: rightTap.tapDate
+                tapDateTag: tapTags.tapDateTag
+                finalGravity: rightTap.finalGravity
+                finalGravityTag: tapTags.finalGravityTag
+                clearButtonTag: tapTags.clearButtonTag
+                buttonsVisible: leftTap.buttonsVisible
+                                
+                headerSize: main.headerSize
+                tapWidth: main.tapWidth
+                textSize: main.textSize                
             }
         }
     }

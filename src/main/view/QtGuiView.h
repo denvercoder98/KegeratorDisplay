@@ -2,6 +2,8 @@
 #define SRC_MAIN_VIEW_QTGUIVIEW_H_
 
 #include "presenter/GuiView.h"
+#include "QKegerator.h"
+#include "QTapTags.h"
 #include "QTap.h"
 #include "QTemperature.h"
 #include "QPressure.h"
@@ -21,15 +23,19 @@ public:
 
 private:
     void runApplication();
-    void updatePressure();
+    void updateKegerator(const GuiViewModel& view);
+    void updatePressure(const GuiViewModel& view);
     void updateTemperature(const GuiViewModel& view);
+    void updateTapTags(const GuiViewModel& view);
     void updateTap(const GuiViewModel& view);
     void updateButtons(const GuiViewModel& view);
 
     QApplication& m_qApplication;
     QQmlApplicationEngine& m_qEngine;
+    QKegerator m_kegerator;
     QTemperature m_temperature;
     QPressure m_pressure;
+    QTapTags m_tapTags;
     QTap m_leftTap;
     QTap m_rightTap;
 };

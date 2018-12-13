@@ -74,6 +74,7 @@ TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 {
     GuiViewModel expectedViewModel;
+    expectedViewModel.leftTap.side = "Left tap";
     expectedViewModel.leftTap.beerName = "A";
     expectedViewModel.leftTap.brewerName = "B";
     expectedViewModel.leftTap.abv = "4,1";
@@ -81,6 +82,7 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
     expectedViewModel.leftTap.brewDate = "2018-01-01";
     expectedViewModel.leftTap.tapDate = "2018-01-14";
     expectedViewModel.leftTap.fg = "1.010";
+    expectedViewModel.rightTap.side = "Right tap";
 
     GuiViewModel viewModel;
     ON_CALL(*m_view, updateView(_))
@@ -101,6 +103,7 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 {
     GuiViewModel expectedViewModel;
+    expectedViewModel.rightTap.side = "Right tap";
     expectedViewModel.rightTap.beerName = "A";
     expectedViewModel.rightTap.brewerName = "B";
     expectedViewModel.rightTap.abv = "4,1";
@@ -108,6 +111,7 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     expectedViewModel.rightTap.brewDate = "2018-01-01";
     expectedViewModel.rightTap.tapDate = "2018-01-14";
     expectedViewModel.rightTap.fg = "1.010";
+    expectedViewModel.leftTap.side = "Left tap";
 
     GuiViewModel viewModel;
     ON_CALL(*m_view, updateView(_))
@@ -139,10 +143,14 @@ TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 
     GuiViewModel expectedViewModel;
     expectedViewModel.leftTap.empty = true;
-    expectedViewModel.rightTap.abv = "5,0";
-    EXPECT_CALL(*m_view, updateView(expectedViewModel))
-        .Times(1);
+    expectedViewModel.leftTap.side = "Left tap";
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(*m_view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
     m_presenter->clearTap(TapClearResponse(TAP_LEFT));
+    EXPECT_EQ(expectedViewModel.leftTap, receivedViewModel.leftTap);
 }
 
 TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
@@ -159,10 +167,14 @@ TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
 
     GuiViewModel expectedViewModel;
     expectedViewModel.rightTap.empty = true;
-    expectedViewModel.leftTap.abv = "5,0";
-    EXPECT_CALL(*m_view, updateView(expectedViewModel))
-        .Times(1);
+    expectedViewModel.rightTap.side = "Right tap";
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(*m_view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
     m_presenter->clearTap(TapClearResponse(TAP_RIGHT));
+    EXPECT_EQ(expectedViewModel.rightTap, receivedViewModel.rightTap);
 }
 
 TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
@@ -179,8 +191,10 @@ TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
     m_viewModel->rightTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
+    expectedViewModel.leftTap.side = "Left tap";
     expectedViewModel.leftTap.empty = true;
     expectedViewModel.rightTap.abv = "5,0";
+    expectedViewModel.rightTap.side = "Right tap";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
 
@@ -209,8 +223,10 @@ TEST_F(GuiPresenterTest, EmptyRightTapClearsViewModel)
     m_viewModel->leftTap.abv = "5,0";
 
     GuiViewModel expectedViewModel;
+    expectedViewModel.rightTap.side = "Right tap";
     expectedViewModel.rightTap.empty = true;
     expectedViewModel.leftTap.abv = "5,0";
+    expectedViewModel.leftTap.side = "Left tap";
     EXPECT_CALL(*m_view, updateView(expectedViewModel))
         .Times(1);
 
@@ -233,6 +249,60 @@ TEST_F(GuiPresenterTest, ScreenTouchedUpdatesViewModel)
         .WillOnce(SaveArg<0>(&viewModel));
     m_presenter->screenTouched(response);
     EXPECT_TRUE(viewModel.buttonsVisible);
+}
+
+TEST_F(GuiPresenterTest, ViewUpdatedWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    NiceMock<GuiViewMock> view;
+    EXPECT_CALL(view, updateView(_))
+        .Times(1);
+    GuiPresenter presenter(view, viewModel);
+}
+
+TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    NiceMock<GuiViewMock> view;
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
+    GuiPresenter presenter(view, viewModel);
+    EXPECT_EQ("Name: ", receivedViewModel.beerNameTag);
+    EXPECT_EQ("Brewer Name: ", receivedViewModel.brewerNameTag);
+    EXPECT_EQ("ABV: ", receivedViewModel.abvTag);
+    EXPECT_EQ("IBU: ", receivedViewModel.ibuTag);
+    EXPECT_EQ("Brew Date: ", receivedViewModel.brewDateTag);
+    EXPECT_EQ("Tap Date: ", receivedViewModel.tapDateTag);
+    EXPECT_EQ("FG: ", receivedViewModel.fgTag);
+}
+
+TEST_F(GuiPresenterTest, HeadingSetWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    NiceMock<GuiViewMock> view;
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
+    GuiPresenter presenter(view, viewModel);
+    EXPECT_EQ("Kegerator Status", receivedViewModel.heading);
+}
+
+TEST_F(GuiPresenterTest, ClearButtonTagSetWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    NiceMock<GuiViewMock> view;
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
+    GuiPresenter presenter(view, viewModel);
+    EXPECT_EQ("Clear", receivedViewModel.clearButtonTag);
 }
 
 }

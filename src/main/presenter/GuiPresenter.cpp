@@ -10,6 +10,9 @@ GuiPresenter::GuiPresenter(GuiView& view, GuiViewModel* viewModel) :
     m_view(view),
     m_viewModel(viewModel)
 {
+    m_viewModel->leftTap.side = "Left tap";
+    m_viewModel->rightTap.side = "Right tap";
+    m_view.updateView(*m_viewModel);
 }
 
 GuiPresenter::~GuiPresenter()
