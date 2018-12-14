@@ -6,6 +6,7 @@
 
 namespace KegeratorDisplay {
 
+class ApplicationThreadFake;
 class TapClearRequestObserverMock;
 class ScreenTouchedRequestObserverMock;
 
@@ -19,6 +20,7 @@ protected:
     void SetUp();
     void TearDown();
 
+    ApplicationThreadFake* m_thread;
     TapClearRequestObserverMock* m_clearObserver;
     ScreenTouchedRequestObserverMock* m_screenTouchedObserver;
 };

@@ -22,6 +22,7 @@
 #include "devices/DS18B20Sensor.h"
 #include "devices/QmlInputDevice.h"
 
+#include "thread/ApplicationThreadImpl.h"
 #include "thread/BoostDeadlineTimer.h"
 #include "thread/BoostMutex.h"
 
@@ -52,6 +53,7 @@ int main(int argc, char** argv)
         //Application thread
         boost::asio::io_service::work work(ioService);
         boost::thread thread(&workerThread);
+        ApplicationThreadImpl applicationThread(&ioService);
 
         //View
         QApplication qApplication(argc, argv);
@@ -82,7 +84,7 @@ int main(int argc, char** argv)
 
         //Controllers
         TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
-        UserInputControllerImpl userInputController(tapClearInteractor, screenTouchedInteractor);
+        UserInputControllerImpl userInputController(applicationThread, tapClearInteractor, screenTouchedInteractor);
         boost::asio::deadline_timer* sensorSamplerBoostDeadlineTimer = new boost::asio::deadline_timer(ioService);
         DeadlineTimer* sensorSamplerTimer = new BoostDeadlineTimer(sensorSamplerBoostDeadlineTimer);
         Mutex* mutex = new BoostMutex();
