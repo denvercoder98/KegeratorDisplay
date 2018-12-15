@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         //Application thread
         boost::asio::io_service::work work(ioService);
         boost::thread thread(&workerThread);
-        ApplicationThreadImpl applicationThread(&ioService);
+        ApplicationThreadImpl applicationThread(ioService);
 
         //View
         QApplication qApplication(argc, argv);

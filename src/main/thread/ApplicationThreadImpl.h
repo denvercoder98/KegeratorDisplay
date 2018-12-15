@@ -9,13 +9,13 @@ namespace KegeratorDisplay {
 class ApplicationThreadImpl: public ApplicationThread
 {
 public:
-    ApplicationThreadImpl(boost::asio::io_service* ioService);
+    ApplicationThreadImpl(boost::asio::io_service& ioService);
     virtual ~ApplicationThreadImpl();
 
     void post(boost::function<void()> f);
 
 private:
-    boost::asio::io_service* m_ioService;
+    boost::asio::io_service& m_ioService;
 };
 
 }

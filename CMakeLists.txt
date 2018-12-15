@@ -25,6 +25,7 @@ file(GLOB UNITTEST_SOURCES
 	"src/test/unit/interactors/*.cpp"
 	"src/test/unit/presenter/*.cpp"
 	"src/test/unit/controller/*.cpp"
+	"src/test/unit/thread/*.cpp"
 	"src/test/unit/storage/*.cpp")
 file(GLOB ACCEPTANCETEST_SOURCES
 	"src/test/acceptance/features/step_definitions/*.cpp")
