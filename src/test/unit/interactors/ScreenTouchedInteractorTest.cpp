@@ -27,6 +27,11 @@ TEST_F(ScreenTouchedInteractorTest, Create)
 {
 }
 
+TEST_F(ScreenTouchedInteractorTest, ThrowsExceptionIfMissingTimer)
+{
+    EXPECT_THROW(ScreenTouchedInteractor(1, NULL, *m_presenter), InvalidScreenTouchedInteractorArgumentException);
+}
+
 TEST_F(ScreenTouchedInteractorTest, HandleRequest)
 {
     ScreenTouchedRequest request;
