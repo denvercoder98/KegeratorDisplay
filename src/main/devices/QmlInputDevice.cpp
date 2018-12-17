@@ -1,14 +1,15 @@
-#include <devices/QmlInputDevice.h>
+#include <devices/QmlContextPropertyRegistrator.h>
+#include "QmlInputDevice.h"
 #include "controller/UserInputController.h"
 
 namespace KegeratorDisplay {
 
-QmlInputDevice::QmlInputDevice(QQmlApplicationEngine& qQmlApplicationEngine,
+QmlInputDevice::QmlInputDevice(QmlContextPropertyRegistrator& qmlContextPropertyRegistrator,
                                    UserInputController& userInputController) :
     m_buttonHandler(userInputController),
     m_userInputController(userInputController)
 {
-    qQmlApplicationEngine.rootContext()->setContextProperty("buttonHandler", &m_buttonHandler);
+    qmlContextPropertyRegistrator.setContextProperty("buttonHandler", &m_buttonHandler);
 }
 
 QmlInputDevice::~QmlInputDevice()

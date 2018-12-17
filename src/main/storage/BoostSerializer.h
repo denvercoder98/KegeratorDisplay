@@ -6,6 +6,8 @@
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/split_member.hpp>
 
+#include <string>
+
 BOOST_SERIALIZATION_SPLIT_FREE(KegeratorDisplay::Temperature)
 BOOST_SERIALIZATION_SPLIT_FREE(KegeratorDisplay::Tap)
 BOOST_SERIALIZATION_SPLIT_FREE(KegeratorDisplay::Beer)
@@ -120,7 +122,7 @@ void load(Archive & ar, KegeratorDisplay::SpecificGravity& sg, const unsigned in
 {
     std::string value;
     ar & value;
-    double temp = ::atof(value.c_str());
+    double temp = std::stof(value.c_str());
     sg.setSG(temp);
 }
 

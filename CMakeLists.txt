@@ -74,5 +74,5 @@ add_executable(kegeratorDisplayUnitTest
 #)
 
 target_link_libraries(kegeratorDisplay KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Widgets Qt5::Qml Qt5::Quick Qt5::QuickControls2)
-target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} gtest gmock pthread)
+target_link_libraries(kegeratorDisplayUnitTest KegeratorDisplayImplementation ${Boost_LIBRARIES} Qt5::Quick gtest gmock pthread)
 #target_link_libraries(kegeratorDisplayAcceptanceTest cucumber-cpp KegeratorDisplayImplementation gtest gmock ${Boost_LIBRARIES} pthread)

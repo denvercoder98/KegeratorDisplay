@@ -3,21 +3,20 @@
 
 #include <devices/QmlButtonHandler.h>
 #include <QtQml/qqmlapplicationengine.h>
-#include <QtQml/qqmlcontext.h>
 
 namespace KegeratorDisplay {
 
+class QmlContextPropertyRegistrator;
 class UserInputController;
 
 class QmlInputDevice
 {
 public:
-    QmlInputDevice(QQmlApplicationEngine& qQmlApplicationEngine,
+    QmlInputDevice(QmlContextPropertyRegistrator& qmlContextPropertyRegistrator,
                      UserInputController& UserInputController);
     virtual ~QmlInputDevice();
 
 private:
-    //TODO Remove m_userInputController and inject QmlButtonHandler, is this class even needed?
     QmlButtonHandler m_buttonHandler;
     UserInputController& m_userInputController;
 };
