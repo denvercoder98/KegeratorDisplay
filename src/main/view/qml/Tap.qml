@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.0
 import se.kj.CppInterface 1.0
 
 ColumnLayout {
+    spacing: 1
     property string side
     property bool edit
     property int tapWidth
@@ -38,46 +39,61 @@ ColumnLayout {
         text: qsTr(side)
         font.pixelSize: headerSize
     }
-
-    RowLayout {
-        Text {
-            text: qsTr(nameTag)
-            font.pixelSize: textSize
-        }
-        TextInput {
-            text: name
-            font.pixelSize: textSize
-            readOnly: !buttonsVisible
-        }
+    
+    TapDataRow {
+        tag: nameTag
+        value: name
+        textSize: textSize
+        edit: buttonsVisible
     }
+
     Text {
         text: qsTr(estVolumeTag) + estVolume
         font.pixelSize: textSize
     }
-    Text {
-        text: qsTr(brewerTag) + brewer
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: brewerTag
+        value: brewer
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
-    Text {
-        text: qsTr(abvTag) + abv
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: brewDateTag
+        value: brewDate
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
-    Text {
-        text: qsTr(ibuTag) + ibu
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: tapDateTag
+        value: tapDate
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
-    Text {
-        text: qsTr(brewDateTag) + brewDate
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: abvTag
+        value: abv
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
-    Text {
-        text: qsTr(tapDateTag) + tapDate
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: ibuTag
+        value: ibu
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
-    Text {
-        text: qsTr(finalGravityTag) + finalGravity
-        font.pixelSize: textSize
+    
+    TapDataRow {
+        tag: finalGravityTag
+        value: finalGravity
+        textSize: parent.textSize
+        edit: buttonsVisible
     }
+
     Button {
         text: qsTr(clearButtonTag)
         font.pixelSize: textSize

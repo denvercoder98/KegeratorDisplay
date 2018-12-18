@@ -19,9 +19,9 @@ ApplicationWindow
     property int tapWidth: 300
     property int topMargin: 10
     property bool debug: true
-    property int titleSize: 40
-    property int headerSize: 30
-    property int textSize: 20
+    property int titleSize: 30
+    property int headerSize: 25
+    property int textSize: 14
     
     title: qsTr(kegerator.heading)
     flags: Qt.FramelessWindowHint
@@ -139,7 +139,7 @@ ApplicationWindow
                 finalGravity: rightTap.finalGravity
                 finalGravityTag: tapTags.finalGravityTag
                 clearButtonTag: tapTags.clearButtonTag
-                buttonsVisible: leftTap.buttonsVisible
+                buttonsVisible: rightTap.buttonsVisible
                                 
                 headerSize: main.headerSize
                 tapWidth: main.tapWidth

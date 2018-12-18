@@ -104,6 +104,7 @@ void QtGuiView::run()
 
     qmlRegisterType<QTap>("se.kj.CppInterface", 1, 0, "QTap");
 
+    m_qEngine.load(QUrl(QStringLiteral("qrc:/TapDataRow.qml")));
     m_qEngine.load(QUrl(QStringLiteral("qrc:/Tap.qml")));
     m_qEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
