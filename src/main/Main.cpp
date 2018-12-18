@@ -20,7 +20,7 @@
 
 #include "devices/DS18B20SensorReaderStaticValue.h"
 #include "devices/DS18B20Sensor.h"
-#include "devices/QmlInputDevice.h"
+#include "devices/QmlButtonHandler.h"
 #include "devices/QmlContextPropertyRegistratorImpl.h"
 
 #include "thread/ApplicationThreadImpl.h"
@@ -93,8 +93,9 @@ int main(int argc, char** argv)
         sensorSampler->addSensorController(temperatureSensorController);
 
         //Devices
+        QmlButtonHandler buttonHandler(userInputController);
         QmlContextPropertyRegistratorImpl contextPropertyRegistrator(qEngine);
-        QmlInputDevice qmlInputDevice(contextPropertyRegistrator, userInputController);
+        contextPropertyRegistrator.setContextProperty("buttonHandler", &buttonHandler);
 
         GuiKegerator kegerator(view, sensorSampler, ioService, thread);
         kegerator.startAndRun(argc, argv);

@@ -52,6 +52,7 @@ void QtGuiView::updateTapTags(const GuiViewModel& view)
     m_tapTags.setTapDateTag(QString(view.tapDateTag.c_str()));
     m_tapTags.setFinalGravityTag(QString(view.fgTag.c_str()));
     m_tapTags.setClearButtonTag(QString(view.clearButtonTag.c_str()));
+    m_tapTags.setSaveButtonTag(QString(view.saveButtonTag.c_str()));
 }
 
 void QtGuiView::updateTap(const GuiViewModel& view)

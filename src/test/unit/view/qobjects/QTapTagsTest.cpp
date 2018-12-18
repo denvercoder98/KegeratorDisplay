@@ -168,6 +168,25 @@ TEST_F(QTapTagsTest, GetFinalGravityTag)
     EXPECT_EQ("abc123", tags.finalGravityTag());
 }
 
+TEST_F(QTapTagsTest, SaveButtonTagDefaultEmpty)
+{
+    QTapTags tags;
+    EXPECT_EQ("", tags.saveButtonTag());
+}
+
+TEST_F(QTapTagsTest, SetSaveButtonTag)
+{
+    QTapTags tags;
+    tags.setSaveButtonTag("abc123");
+}
+
+TEST_F(QTapTagsTest, GetSaveButtonTag)
+{
+    QTapTags tags;
+    tags.setSaveButtonTag("abc123");
+    EXPECT_EQ("abc123", tags.saveButtonTag());
+}
+
 TEST_F(QTapTagsTest, ClearButtonTagDefaultEmpty)
 {
     QTapTags tags;

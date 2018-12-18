@@ -305,4 +305,17 @@ TEST_F(GuiPresenterTest, ClearButtonTagSetWhenPresenterCreated)
     EXPECT_EQ("Clear", receivedViewModel.clearButtonTag);
 }
 
+TEST_F(GuiPresenterTest, SaveButtonTagSetWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    NiceMock<GuiViewMock> view;
+
+    GuiViewModel receivedViewModel;
+    EXPECT_CALL(view, updateView(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
+    GuiPresenter presenter(view, viewModel);
+    EXPECT_EQ("Save", receivedViewModel.saveButtonTag);
+}
+
 }

@@ -16,6 +16,7 @@ class QTapTags : public QObject
     Q_PROPERTY(QString brewDateTag READ brewDateTag WRITE setBrewDateTag NOTIFY brewDateTagChanged)
     Q_PROPERTY(QString tapDateTag READ tapDateTag WRITE setTapDateTag NOTIFY tapDateTagChanged)
     Q_PROPERTY(QString finalGravityTag READ finalGravityTag WRITE setFinalGravityTag NOTIFY finalGravityTagChanged)
+    Q_PROPERTY(QString saveButtonTag READ saveButtonTag WRITE setSaveButtonTag NOTIFY saveButtonTagChanged)
     Q_PROPERTY(QString clearButtonTag READ clearButtonTag WRITE setClearButtonTag NOTIFY clearButtonTagChanged)
 
 public:
@@ -123,6 +124,19 @@ public:
         return m_finalGravityTag;
     }
 
+    void setSaveButtonTag(const QString &a)
+    {
+        if (a != m_saveButtonTag) {
+            m_saveButtonTag = a;
+            emit saveButtonTagChanged();
+        }
+    }
+
+    QString saveButtonTag() const
+    {
+        return m_saveButtonTag;
+    }
+
     void setClearButtonTag(const QString &a)
     {
         if (a != m_clearButtonTag) {
@@ -145,6 +159,7 @@ signals:
     void brewDateTagChanged();
     void tapDateTagChanged();
     void finalGravityTagChanged();
+    void saveButtonTagChanged();
     void clearButtonTagChanged();
 
 private:
@@ -156,6 +171,7 @@ private:
     QString m_tapDateTag;
     QString m_brewDateTag;
     QString m_finalGravityTag;
+    QString m_saveButtonTag;
     QString m_clearButtonTag;
 };
 

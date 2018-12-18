@@ -29,6 +29,7 @@ ColumnLayout {
     property string finalGravity
     property string finalGravityTag
     property string clearButtonTag
+    property string saveButtonTag
     property bool buttonsVisible
 
     Layout.minimumWidth: tapWidth
@@ -96,7 +97,7 @@ ColumnLayout {
 
     RowLayout {
         Button {
-            text: qsTr(clearButtonTag)
+            text: qsTr(saveButtonTag)
             font.pixelSize: textSize
 
             onClicked: {

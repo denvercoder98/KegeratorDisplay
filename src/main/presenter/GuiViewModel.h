@@ -68,6 +68,7 @@ public:
     std::string fgTag = "FG: ";
 
     std::string clearButtonTag = "Clear";
+    std::string saveButtonTag = "Save";
 
     bool operator==(const GuiViewModel& other) const
     {

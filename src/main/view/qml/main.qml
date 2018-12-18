@@ -110,6 +110,7 @@ ApplicationWindow
                 tapDateTag: tapTags.tapDateTag
                 finalGravity: leftTap.finalGravity
                 finalGravityTag: tapTags.finalGravityTag
+                saveButtonTag: tapTags.saveButtonTag
                 clearButtonTag: tapTags.clearButtonTag
                 buttonsVisible: leftTap.buttonsVisible
                 
@@ -138,6 +139,7 @@ ApplicationWindow
                 tapDateTag: tapTags.tapDateTag
                 finalGravity: rightTap.finalGravity
                 finalGravityTag: tapTags.finalGravityTag
+                saveButtonTag: tapTags.saveButtonTag
                 clearButtonTag: tapTags.clearButtonTag
                 buttonsVisible: rightTap.buttonsVisible
                                 
