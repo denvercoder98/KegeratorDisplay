@@ -22,6 +22,7 @@ public:
     virtual ~UserInputControllerImpl();
 
     void clearTap(const std::string& side);
+    void saveTap(const std::string& side) {};
     void screenTouched();
 
 private:

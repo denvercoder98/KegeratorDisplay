@@ -18,13 +18,14 @@ public:
     }
 
 public slots:
-    void clearTap(const QString &msg)
+    void clearTap(const QString &side)
     {
-        m_userInputController.clearTap(msg.toStdString());
+        m_userInputController.clearTap(side.toStdString());
     }
 
-    void editTap(const QString &msg)
+    void saveTap(const QString &side)
     {
+        m_userInputController.saveTap(side.toStdString());
     }
 
     void screenTouched()

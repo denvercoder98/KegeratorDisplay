@@ -94,14 +94,26 @@ ColumnLayout {
         edit: buttonsVisible
     }
 
-    Button {
-        text: qsTr(clearButtonTag)
-        font.pixelSize: textSize
+    RowLayout {
+        Button {
+            text: qsTr(clearButtonTag)
+            font.pixelSize: textSize
 
-        onClicked: {
-            buttonHandler.clearTap(side)
+            onClicked: {
+                buttonHandler.saveTap(side)
+            }
+            visible: buttonsVisible
         }
-        visible: buttonsVisible
+        
+        Button {
+            text: qsTr(clearButtonTag)
+            font.pixelSize: textSize
+
+            onClicked: {
+                buttonHandler.clearTap(side)
+            }
+            visible: buttonsVisible
+        }
     }
 
 }

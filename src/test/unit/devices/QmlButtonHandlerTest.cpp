@@ -51,4 +51,20 @@ TEST_F(QmlButtonHandlerTest, ScreenTouched)
     handler.screenTouched();
 }
 
+TEST_F(QmlButtonHandlerTest, CanCallSaveLeftTap)
+{
+    NiceMock<UserInputControllerMock> controller;
+    QmlButtonHandler handler(controller);
+    handler.saveTap("left");
+}
+
+TEST_F(QmlButtonHandlerTest, SaveLeftTapCallsController)
+{
+    NiceMock<UserInputControllerMock> controller;
+    QmlButtonHandler handler(controller);
+    EXPECT_CALL(controller, saveTap("left"))
+        .Times(1);
+    handler.saveTap("left");
+}
+
 }
