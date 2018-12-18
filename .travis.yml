@@ -30,7 +30,7 @@ install:
   - gem install coveralls-lcov
 
 after_success:
-   - cd build && jag
+   - cd build &&
      mkdir -p coverage &&
      lcov -c -i -d CMakeFiles -o coverage/app_base.info &&
      bin/kegeratorDisplayUnitTest &&
