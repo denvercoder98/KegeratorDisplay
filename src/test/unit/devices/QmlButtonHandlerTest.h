@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include "view/qobjects/QTap.h"
 
 namespace KegeratorDisplay {
 
@@ -11,6 +12,10 @@ class QmlButtonHandlerTest : public testing::Test
 public:
     QmlButtonHandlerTest();
     virtual ~QmlButtonHandlerTest();
+
+protected:
+    QTap m_leftTap;
+    QTap m_rightTap;
 };
 
 }

@@ -6,13 +6,16 @@
 
 namespace KegeratorDisplay {
 
-QtGuiView::QtGuiView(QApplication& qApplication, QQmlApplicationEngine& qQmlApplicationEngine) :
+QtGuiView::QtGuiView(QApplication& qApplication,
+                     QQmlApplicationEngine& qQmlApplicationEngine,
+                     QTap& leftTap,
+                     QTap& rightTap) :
     m_qApplication(qApplication),
     m_qEngine(qQmlApplicationEngine),
     m_temperature(),
     m_pressure(),
-    m_leftTap(),
-    m_rightTap()
+    m_leftTap(leftTap),
+    m_rightTap(rightTap)
 {
 }
 

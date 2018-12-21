@@ -59,7 +59,9 @@ int main(int argc, char** argv)
         //View
         QApplication qApplication(argc, argv);
         QQmlApplicationEngine qEngine;
-        QtGuiView view(qApplication, qEngine);
+        QTap leftTap;
+        QTap rightTap;
+        QtGuiView view(qApplication, qEngine, leftTap, rightTap);
 
         //Presenter
         GuiViewModel* viewModel = new GuiViewModel();
@@ -93,7 +95,7 @@ int main(int argc, char** argv)
         sensorSampler->addSensorController(temperatureSensorController);
 
         //Devices
-        QmlButtonHandler buttonHandler(userInputController);
+        QmlButtonHandler buttonHandler(userInputController, leftTap, rightTap);
         QmlContextPropertyRegistratorImpl contextPropertyRegistrator(qEngine);
         contextPropertyRegistrator.setContextProperty("buttonHandler", &buttonHandler);
 

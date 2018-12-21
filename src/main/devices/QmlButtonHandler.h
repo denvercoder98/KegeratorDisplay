@@ -3,7 +3,7 @@
 
 #include <controller/UserInputControllerImpl.h>
 #include <QtCore/qobject.h>
-#include <iostream>
+#include "view/qobjects/QTap.h"
 
 namespace KegeratorDisplay {
 
@@ -11,7 +11,10 @@ class QmlButtonHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit QmlButtonHandler(UserInputController& userInputController, QObject *parent = 0) :
+    explicit QmlButtonHandler(UserInputController& userInputController,
+                              QTap& leftTap,
+                              QTap& rightTap,
+                              QObject *parent = 0) :
         QObject(parent),
         m_userInputController(userInputController)
     {
