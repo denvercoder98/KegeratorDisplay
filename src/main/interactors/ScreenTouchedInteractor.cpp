@@ -12,6 +12,7 @@ ScreenTouchedInteractor::ScreenTouchedInteractor(unsigned int doubleTapWindowSec
                                                  Presenter& presenter) :
     m_timer(timer),
     m_tappedOnce(false),
+    m_activated(false),
     m_presenter(presenter)
 {
     if (m_timer == NULL) {
@@ -26,17 +27,33 @@ ScreenTouchedInteractor::~ScreenTouchedInteractor()
 
 void ScreenTouchedInteractor::handleRequest(const ScreenTouchedRequest& request)
 {
-    if (m_tappedOnce) {
-        m_timer->cancel();
-        m_tappedOnce = false;
-        ScreenTouchedResponse response(true);
-        m_presenter.screenTouched(response);
+    if (isTappedOnce()) {
+        handleSecondTapWithinTimeFrame();
     }
     else {
-        m_tappedOnce = true;
-        m_timer->asyncWaitSeconds(boost::posix_time::seconds(1),
-                                  boost::bind(&ScreenTouchedInteractor::stuffHappened, this, boost::asio::placeholders::error));
+        handleFirstTap();
     }
+}
+
+bool ScreenTouchedInteractor::isTappedOnce() const
+{
+    return m_tappedOnce;
+}
+
+void ScreenTouchedInteractor::handleSecondTapWithinTimeFrame()
+{
+    m_timer->cancel();
+    m_tappedOnce = false;
+    m_activated = !m_activated;
+    ScreenTouchedResponse response(m_activated);
+    m_presenter.screenTouched(response);
+}
+
+void ScreenTouchedInteractor::handleFirstTap()
+{
+    m_tappedOnce = true;
+    m_timer->asyncWaitSeconds(boost::posix_time::seconds(1),
+                              boost::bind(&ScreenTouchedInteractor::stuffHappened, this, boost::asio::placeholders::error));
 }
 
 void ScreenTouchedInteractor::stuffHappened(const boost::system::error_code& error)

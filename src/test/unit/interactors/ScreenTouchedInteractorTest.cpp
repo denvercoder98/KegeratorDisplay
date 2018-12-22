@@ -87,4 +87,16 @@ TEST_F(ScreenTouchedInteractorTest, ClickAfterTimeoutDoesNotNotify)
     m_interactor->handleRequest(request);
 }
 
+TEST_F(ScreenTouchedInteractorTest, DoubleDoubleTapNotifiesPresenter)
+{
+    ScreenTouchedRequest request;
+    m_interactor->handleRequest(request);
+    m_interactor->handleRequest(request);
+    m_interactor->handleRequest(request);
+    ScreenTouchedResponse response(false);
+    EXPECT_CALL(*m_presenter, screenTouched(response))
+        .Times(1);
+    m_interactor->handleRequest(request);
+}
+
 }

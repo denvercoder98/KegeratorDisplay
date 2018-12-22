@@ -25,6 +25,13 @@ public:
         return m_buttonsEnabled == other.m_buttonsEnabled;
     }
 
+    friend std::ostream& operator<<(std::ostream& stream, ScreenTouchedResponse const& update)
+    {
+        return stream << "["
+                      << "buttonsEnabled: " << update.m_buttonsEnabled
+                      << "]";
+    }
+
 private:
     bool m_buttonsEnabled;
 };

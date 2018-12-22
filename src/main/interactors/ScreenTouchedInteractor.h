@@ -22,8 +22,13 @@ public:
     void stuffHappened(const boost::system::error_code& error);
 
 private:
+    bool isTappedOnce() const;
+    void handleSecondTapWithinTimeFrame();
+    void handleFirstTap();
+
     DeadlineTimer* m_timer;
     bool m_tappedOnce;
+    bool m_activated;
     Presenter& m_presenter;
 };
 
