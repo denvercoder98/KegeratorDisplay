@@ -5,6 +5,10 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/split_member.hpp>
+#include <boost/archive/impl/basic_text_oarchive.ipp>
+#include <boost/archive/impl/text_oarchive_impl.ipp>
+#include <boost/archive/impl/basic_text_iarchive.ipp>
+#include <boost/archive/impl/text_iarchive_impl.ipp>
 
 #include <string>
 
