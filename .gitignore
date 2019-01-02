@@ -1,1 +1,4 @@
 build/
+lib/cucumber-cpp-0.5/install/
+lib/googletest-release-1.8.1/install/
+:main.qmlc
