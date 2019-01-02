@@ -59,7 +59,7 @@ void QtGuiView::updateTapTags(const GuiViewModel& view)
     m_tapTags.setSaveButtonTag(QString(view.saveButtonTag.c_str()));
 }
 
-void QtGuiView::updateTap(const GuiViewModel& view)
+void QtGuiView::updateTap(const TapViewModel& view)
 {
     m_leftTap.setSide(QString(view.leftTap.side.c_str()));
     m_leftTap.setName(QString(view.leftTap.beerName.c_str()));
@@ -93,7 +93,6 @@ void QtGuiView::updateView(const GuiViewModel& view)
     updateKegerator(view);
     updatePressure(view);
     updateTapTags(view);
-    updateTap(view);
     updateButtons(view);
 }
 

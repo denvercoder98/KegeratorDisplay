@@ -67,7 +67,8 @@ int main(int argc, char** argv)
         //Presenter
         GuiViewModel* viewModel = new GuiViewModel();
         GuiViewTemperatureModel* temperatureModel = new GuiViewTemperatureModel();
-        GuiPresenter presenter(view, viewModel, temperatureModel);
+        TapViewModel* tapModel = new TapViewModel();
+        GuiPresenter presenter(view, viewModel, temperatureModel, tapModel);
 
         //Storage
         FileWriter* fileWriter = new FileWriterImpl();

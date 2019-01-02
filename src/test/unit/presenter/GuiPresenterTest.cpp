@@ -14,6 +14,7 @@ namespace KegeratorDisplay {
 GuiPresenterTest::GuiPresenterTest() :
     m_viewModel(NULL),
     m_temperatureModel(NULL),
+    m_tapModel(NULL),
     m_view(NULL),
     m_presenter(NULL)
 {
@@ -27,13 +28,15 @@ void GuiPresenterTest::SetUp()
 {
     m_viewModel = new GuiViewModel();
     m_temperatureModel = new GuiViewTemperatureModel();
+    m_tapModel = new TapViewModel();
     m_view = new NiceMock<GuiViewMock>();
-    m_presenter = new GuiPresenter(*m_view, m_viewModel, m_temperatureModel);
+    m_presenter = new GuiPresenter(*m_view, m_viewModel, m_temperatureModel, m_tapModel);
 }
 
 void GuiPresenterTest::TearDown()
 {
     delete m_presenter;
+    delete m_tapModel;
     delete m_temperatureModel;
     delete m_view;
 }
@@ -62,7 +65,7 @@ TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModelValue)
 
 TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 {
-    EXPECT_CALL(*m_view, updateView(_))
+    EXPECT_CALL(*m_view, updateTap(_))
         .Times(1);
     BeerUpdateResponse beerUpdate("A",
                           "B",
@@ -76,7 +79,7 @@ TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 
 TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 {
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.leftTap.side = "Left tap";
     expectedViewModel.leftTap.beerName = "A";
     expectedViewModel.leftTap.brewerName = "B";
@@ -87,8 +90,8 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
     expectedViewModel.leftTap.fg = "1.010";
     expectedViewModel.rightTap.side = "Right tap";
 
-    GuiViewModel viewModel;
-    ON_CALL(*m_view, updateView(_))
+    TapViewModel viewModel;
+    ON_CALL(*m_view, updateTap(_))
         .WillByDefault( SaveArg<0>(&viewModel) );
 
     BeerUpdateResponse beerUpdate("A",
@@ -105,7 +108,7 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 
 TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 {
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.rightTap.side = "Right tap";
     expectedViewModel.rightTap.beerName = "A";
     expectedViewModel.rightTap.brewerName = "B";
@@ -116,8 +119,8 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     expectedViewModel.rightTap.fg = "1.010";
     expectedViewModel.leftTap.side = "Left tap";
 
-    GuiViewModel viewModel;
-    ON_CALL(*m_view, updateView(_))
+    TapViewModel viewModel;
+    ON_CALL(*m_view, updateTap(_))
         .WillByDefault( SaveArg<0>(&viewModel) );
 
     BeerUpdateResponse beerUpdate("A",
@@ -134,22 +137,22 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 
 TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 {
-    m_viewModel->leftTap.beerName = "A";
-    m_viewModel->leftTap.brewerName = "B";
-    m_viewModel->leftTap.abv = "4,1";
-    m_viewModel->leftTap.ibu = "30";
-    m_viewModel->leftTap.brewDate = "2018-01-01";
-    m_viewModel->leftTap.tapDate = "2018-01-14";
-    m_viewModel->leftTap.fg = "1.010";
+    m_tapModel->leftTap.beerName = "A";
+    m_tapModel->leftTap.brewerName = "B";
+    m_tapModel->leftTap.abv = "4,1";
+    m_tapModel->leftTap.ibu = "30";
+    m_tapModel->leftTap.brewDate = "2018-01-01";
+    m_tapModel->leftTap.tapDate = "2018-01-14";
+    m_tapModel->leftTap.fg = "1.010";
 
-    m_viewModel->rightTap.abv = "5,0";
+    m_tapModel->rightTap.abv = "5,0";
 
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.leftTap.empty = true;
     expectedViewModel.leftTap.side = "Left tap";
 
-    GuiViewModel receivedViewModel;
-    EXPECT_CALL(*m_view, updateView(_))
+    TapViewModel receivedViewModel;
+    EXPECT_CALL(*m_view, updateTap(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
     m_presenter->clearTap(TapClearResponse(TAP_LEFT));
@@ -158,22 +161,22 @@ TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 
 TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
 {
-    m_viewModel->rightTap.beerName = "A";
-    m_viewModel->rightTap.brewerName = "B";
-    m_viewModel->rightTap.abv = "4,1";
-    m_viewModel->rightTap.ibu = "30";
-    m_viewModel->rightTap.brewDate = "2018-01-01";
-    m_viewModel->rightTap.tapDate = "2018-01-14";
-    m_viewModel->rightTap.fg = "1.010";
+    m_tapModel->rightTap.beerName = "A";
+    m_tapModel->rightTap.brewerName = "B";
+    m_tapModel->rightTap.abv = "4,1";
+    m_tapModel->rightTap.ibu = "30";
+    m_tapModel->rightTap.brewDate = "2018-01-01";
+    m_tapModel->rightTap.tapDate = "2018-01-14";
+    m_tapModel->rightTap.fg = "1.010";
 
-    m_viewModel->leftTap.abv = "5,0";
+    m_tapModel->leftTap.abv = "5,0";
 
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.rightTap.empty = true;
     expectedViewModel.rightTap.side = "Right tap";
 
-    GuiViewModel receivedViewModel;
-    EXPECT_CALL(*m_view, updateView(_))
+    TapViewModel receivedViewModel;
+    EXPECT_CALL(*m_view, updateTap(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
     m_presenter->clearTap(TapClearResponse(TAP_RIGHT));
@@ -182,23 +185,23 @@ TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
 
 TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
 {
-    m_viewModel->leftTap.empty = false;
-    m_viewModel->leftTap.beerName = "A";
-    m_viewModel->leftTap.brewerName = "B";
-    m_viewModel->leftTap.abv = "4,1";
-    m_viewModel->leftTap.ibu = "30";
-    m_viewModel->leftTap.brewDate = "2018-01-01";
-    m_viewModel->leftTap.tapDate = "2018-01-14";
-    m_viewModel->leftTap.fg = "1.010";
+    m_tapModel->leftTap.empty = false;
+    m_tapModel->leftTap.beerName = "A";
+    m_tapModel->leftTap.brewerName = "B";
+    m_tapModel->leftTap.abv = "4,1";
+    m_tapModel->leftTap.ibu = "30";
+    m_tapModel->leftTap.brewDate = "2018-01-01";
+    m_tapModel->leftTap.tapDate = "2018-01-14";
+    m_tapModel->leftTap.fg = "1.010";
 
-    m_viewModel->rightTap.abv = "5,0";
+    m_tapModel->rightTap.abv = "5,0";
 
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.leftTap.side = "Left tap";
     expectedViewModel.leftTap.empty = true;
     expectedViewModel.rightTap.abv = "5,0";
     expectedViewModel.rightTap.side = "Right tap";
-    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+    EXPECT_CALL(*m_view, updateTap(expectedViewModel))
         .Times(1);
 
     BeerUpdateResponse emptyBeerUpdate("",
@@ -214,23 +217,23 @@ TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
 
 TEST_F(GuiPresenterTest, EmptyRightTapClearsViewModel)
 {
-    m_viewModel->rightTap.empty = false;
-    m_viewModel->rightTap.beerName = "A";
-    m_viewModel->rightTap.brewerName = "B";
-    m_viewModel->rightTap.abv = "4,1";
-    m_viewModel->rightTap.ibu = "30";
-    m_viewModel->rightTap.brewDate = "2018-01-01";
-    m_viewModel->rightTap.tapDate = "2018-01-14";
-    m_viewModel->rightTap.fg = "1.010";
+    m_tapModel->rightTap.empty = false;
+    m_tapModel->rightTap.beerName = "A";
+    m_tapModel->rightTap.brewerName = "B";
+    m_tapModel->rightTap.abv = "4,1";
+    m_tapModel->rightTap.ibu = "30";
+    m_tapModel->rightTap.brewDate = "2018-01-01";
+    m_tapModel->rightTap.tapDate = "2018-01-14";
+    m_tapModel->rightTap.fg = "1.010";
 
-    m_viewModel->leftTap.abv = "5,0";
+    m_tapModel->leftTap.abv = "5,0";
 
-    GuiViewModel expectedViewModel;
+    TapViewModel expectedViewModel;
     expectedViewModel.rightTap.side = "Right tap";
     expectedViewModel.rightTap.empty = true;
     expectedViewModel.leftTap.abv = "5,0";
     expectedViewModel.leftTap.side = "Left tap";
-    EXPECT_CALL(*m_view, updateView(expectedViewModel))
+    EXPECT_CALL(*m_view, updateTap(expectedViewModel))
         .Times(1);
 
     BeerUpdateResponse emptyBeerUpdate("",
@@ -258,23 +261,25 @@ TEST_F(GuiPresenterTest, ViewUpdatedWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
     NiceMock<GuiViewMock> view;
     EXPECT_CALL(view, updateView(_))
         .Times(1);
-    GuiPresenter presenter(view, viewModel, tempModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
 }
 
 TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
     EXPECT_EQ("Name: ", receivedViewModel.beerNameTag);
     EXPECT_EQ("Brewer Name: ", receivedViewModel.brewerNameTag);
     EXPECT_EQ("ABV: ", receivedViewModel.abvTag);
@@ -288,13 +293,14 @@ TEST_F(GuiPresenterTest, HeadingSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
     EXPECT_EQ("Kegerator Status", receivedViewModel.heading);
 }
 
@@ -302,13 +308,14 @@ TEST_F(GuiPresenterTest, ClearButtonTagSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
     EXPECT_EQ("Clear", receivedViewModel.clearButtonTag);
 }
 
@@ -316,13 +323,14 @@ TEST_F(GuiPresenterTest, SaveButtonTagSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
     EXPECT_EQ("Save", receivedViewModel.saveButtonTag);
 }
 

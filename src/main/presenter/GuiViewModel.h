@@ -9,51 +9,8 @@ namespace KegeratorDisplay {
 class GuiViewModel
 {
 public:
-    class TapViewModel {
-    public:
-        bool empty = false;
-        std::string side = "";
-        std::string beerName = "";
-        std::string brewerName = "";
-        std::string abv = "";
-        std::string ibu = "";
-        std::string brewDate = "";
-        std::string tapDate = "";
-        std::string fg = "";
-
-        bool operator==(const TapViewModel& other) const
-        {
-            return empty == other.empty &&
-                side == other.side &&
-                beerName == other.beerName &&
-                brewerName == other.brewerName &&
-                abv == other.abv &&
-                ibu == other.ibu &&
-                brewDate == other.brewDate &&
-                tapDate == other.tapDate &&
-                fg == other.fg;
-        }
-
-        friend std::ostream& operator<<(std::ostream& stream, const TapViewModel& model)
-        {
-            return stream << "["
-                          << "empty: " << model.empty << ", "
-                          << "side: " << model.side << ", "
-                          << "name: '" << model.beerName << "', "
-                          << "brewerName: '" << model.brewerName << "', "
-                          << "abv: '" << model.abv << "', "
-                          << "ibu: '" << model.ibu << "', "
-                          << "brewDate: '" << model.brewDate << "', "
-                          << "tapDate: '" << model.tapDate << "', "
-                          << "fg: '" << model.fg << "'"
-                          << "]";
-        }
-    };
-
     std::string heading = "Kegerator Status";
     std::string pressureTag = "Pressure: ";
-    TapViewModel leftTap;
-    TapViewModel rightTap;
     bool buttonsVisible = false;
 
     std::string beerNameTag = "Name: ";
@@ -73,8 +30,6 @@ public:
         return
             heading == other.heading &&
             pressureTag == other.pressureTag &&
-            leftTap == other.leftTap &&
-            rightTap == other.rightTap &&
             buttonsVisible == other.buttonsVisible &&
             beerNameTag == other.beerNameTag &&
             brewerNameTag == other.brewerNameTag &&
@@ -89,8 +44,6 @@ public:
     friend std::ostream& operator<<(std::ostream& stream, const GuiViewModel& model)
     {
         return stream << "["
-                      << "leftTap: " << model.leftTap << ", "
-                      << "rightTap: " << model.rightTap << ", "
                       << "buttonsVisible: '" << model.buttonsVisible << "'"
                       << "]";
     }

@@ -7,13 +7,17 @@
 
 namespace KegeratorDisplay {
 
-GuiPresenter::GuiPresenter(GuiView& view, GuiViewModel* viewModel, GuiViewTemperatureModel* temperatureModel) :
+GuiPresenter::GuiPresenter(GuiView& view,
+                           GuiViewModel* viewModel,
+                           GuiViewTemperatureModel* temperatureModel,
+                           TapViewModel* tapModel) :
     m_view(view),
     m_viewModel(viewModel),
-    m_temperatureModel(temperatureModel)
+    m_temperatureModel(temperatureModel),
+    m_tapModel(tapModel)
 {
-    m_viewModel->leftTap.side = "Left tap";
-    m_viewModel->rightTap.side = "Right tap";
+    m_tapModel->leftTap.side = "Left tap";
+    m_tapModel->rightTap.side = "Right tap";
     m_view.updateView(*m_viewModel);
 }
 
@@ -33,7 +37,7 @@ void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperatur
 void GuiPresenter::updateTap(const TapUpdateResponse& tap)
 {
     BeerUpdateResponse beer = tap.beer();
-    GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
+    TapViewModel::Tap* tapViewModel = getTapViewModelForSide(tap.side());
 
     if (tap.empty()) {
         clearTapData(tapViewModel);
@@ -48,16 +52,16 @@ void GuiPresenter::updateTap(const TapUpdateResponse& tap)
         tapViewModel->fg = beer.finalGravity();
     }
 
-    m_view.updateView(*m_viewModel);
+    m_view.updateTap(*m_tapModel);
 }
 
 void GuiPresenter::clearTap(const TapClearResponse& tap) {
-    GuiViewModel::TapViewModel* tapViewModel = getTapViewModelForSide(tap.side());
+    TapViewModel::Tap* tapViewModel = getTapViewModelForSide(tap.side());
     clearTapData(tapViewModel);
-    m_view.updateView(*m_viewModel);
+    m_view.updateTap(*m_tapModel);
 }
 
-void GuiPresenter::clearTapData(GuiViewModel::TapViewModel* tapViewModel)
+void GuiPresenter::clearTapData(TapViewModel::Tap* tapViewModel)
 {
     tapViewModel->empty = true;
     tapViewModel->beerName = "";
@@ -69,15 +73,15 @@ void GuiPresenter::clearTapData(GuiViewModel::TapViewModel* tapViewModel)
     tapViewModel->fg =  "";
 }
 
-GuiViewModel::TapViewModel* GuiPresenter::getTapViewModelForSide(const TapSide side)
+TapViewModel::Tap* GuiPresenter::getTapViewModelForSide(const TapSide side)
 {
-    GuiViewModel::TapViewModel* tapViewModel;
+    TapViewModel::Tap* tapViewModel;
     if (side == TAP_LEFT)
     {
-        tapViewModel = &m_viewModel->leftTap;
+        tapViewModel = &m_tapModel->leftTap;
     } else if (side == TAP_RIGHT)
     {
-        tapViewModel = &m_viewModel->rightTap;
+        tapViewModel = &m_tapModel->rightTap;
     }
 
     return tapViewModel;
