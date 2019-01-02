@@ -18,7 +18,8 @@ public:
     QtGuiView(QApplication& qApplication,
               QQmlApplicationEngine& qQmlApplicationEngine,
               QTap& leftTap,
-              QTap& rightTap);
+              QTap& rightTap,
+              QTapTags& tapTags);
     virtual ~QtGuiView();
 
     void updateView(const GuiViewModel& view);
@@ -38,7 +39,7 @@ private:
     QKegerator m_kegerator;
     QTemperature m_temperature;
     QPressure m_pressure;
-    QTapTags m_tapTags;
+    QTapTags& m_tapTags;
     QTap& m_leftTap;
     QTap& m_rightTap;
 };

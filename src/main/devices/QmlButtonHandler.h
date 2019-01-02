@@ -16,7 +16,8 @@ public:
                               QTap& rightTap,
                               QObject *parent = 0) :
         QObject(parent),
-        m_userInputController(userInputController)
+        m_userInputController(userInputController),
+        m_leftTap(leftTap)
     {
     }
 
@@ -38,6 +39,7 @@ public slots:
 
 private:
     UserInputController& m_userInputController;
+    QTap& m_leftTap;
 
 };
 

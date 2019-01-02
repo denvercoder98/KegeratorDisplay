@@ -9,11 +9,13 @@ namespace KegeratorDisplay {
 QtGuiView::QtGuiView(QApplication& qApplication,
                      QQmlApplicationEngine& qQmlApplicationEngine,
                      QTap& leftTap,
-                     QTap& rightTap) :
+                     QTap& rightTap,
+                     QTapTags& tapTags) :
     m_qApplication(qApplication),
     m_qEngine(qQmlApplicationEngine),
     m_temperature(),
     m_pressure(),
+    m_tapTags(tapTags),
     m_leftTap(leftTap),
     m_rightTap(rightTap)
 {
@@ -107,8 +109,8 @@ void QtGuiView::run()
     m_qEngine.rootContext()->setContextProperty("rightTap", &m_rightTap);
 
     qmlRegisterType<QTap>("se.kj.CppInterface", 1, 0, "QTap");
+    qmlRegisterType<QTapTags>("se.kj.CppInterface", 1, 0, "QTapTags");
 
-    m_qEngine.load(QUrl(QStringLiteral("qrc:/TapDataRow.qml")));
     m_qEngine.load(QUrl(QStringLiteral("qrc:/Tap.qml")));
     m_qEngine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

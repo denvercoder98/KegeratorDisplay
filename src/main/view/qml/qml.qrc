@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>TapDataRow.qml</file>
         <file>Tap.qml</file>
         <file>main.qml</file>
     </qresource>

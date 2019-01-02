@@ -78,7 +78,7 @@ ApplicationWindow
         }
         
         RowLayout {
-            id: tapInformation            
+            id: tapInformation
             anchors.top: generalInformation.bottom
             anchors.topMargin: main.topMargin
             
@@ -91,62 +91,20 @@ ApplicationWindow
             }
             
             Tap {
-                id: left
-                
-                side: leftTap.side                
-                name: leftTap.name
-                nameTag: tapTags.nameTag
-                estVolume: leftTap.estVolume
-                estVolumeTag: tapTags.estVolumeTag
-                brewer: leftTap.brewer
-                brewerTag: tapTags.brewerTag
-                abv: leftTap.abv
-                abvTag: tapTags.abvTag
-                ibu: leftTap.ibu
-                ibuTag: tapTags.ibuTag
-                brewDate: leftTap.brewDate
-                brewDateTag: tapTags.brewDateTag
-                tapDate: leftTap.tapDate
-                tapDateTag: tapTags.tapDateTag
-                finalGravity: leftTap.finalGravity
-                finalGravityTag: tapTags.finalGravityTag
-                saveButtonTag: tapTags.saveButtonTag
-                clearButtonTag: tapTags.clearButtonTag
-                buttonsVisible: leftTap.buttonsVisible
-                
+                tap: leftTap
                 headerSize: main.headerSize
                 tapWidth: main.tapWidth
                 textSize: main.textSize
             }
             
             Tap {
-                id: right
-                
-                side: rightTap.side  
-                name: rightTap.name
-                nameTag: tapTags.nameTag
-                estVolume: rightTap.estVolume
-                estVolumeTag: tapTags.estVolumeTag
-                brewer: rightTap.brewer
-                brewerTag: tapTags.brewerTag
-                abv: rightTap.abv
-                abvTag: tapTags.abvTag
-                ibu: rightTap.ibu
-                ibuTag: tapTags.ibuTag
-                brewDate: rightTap.brewDate
-                brewDateTag: tapTags.brewDateTag
-                tapDate: rightTap.tapDate
-                tapDateTag: tapTags.tapDateTag
-                finalGravity: rightTap.finalGravity
-                finalGravityTag: tapTags.finalGravityTag
-                saveButtonTag: tapTags.saveButtonTag
-                clearButtonTag: tapTags.clearButtonTag
-                buttonsVisible: rightTap.buttonsVisible
-                                
+                tap: rightTap
                 headerSize: main.headerSize
                 tapWidth: main.tapWidth
                 textSize: main.textSize                
             }
         }
+    
     }
+
 }

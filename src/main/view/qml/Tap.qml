@@ -7,113 +7,157 @@ import se.kj.CppInterface 1.0
 ColumnLayout {
     spacing: 1
     property string side
-    property bool edit
     property int tapWidth
     property int headerSize
     property int textSize
     
-    property string name
-    property string nameTag
-    property string brewer
-    property string brewerTag
-    property string estVolume
-    property string estVolumeTag
-    property string abv
-    property string abvTag
-    property string ibu
-    property string ibuTag
-    property string brewDate
-    property string brewDateTag
-    property string tapDate
-    property string tapDateTag
-    property string finalGravity
-    property string finalGravityTag
-    property string clearButtonTag
-    property string saveButtonTag
-    property bool buttonsVisible
+    property QTap tap: QTap {}
 
     Layout.minimumWidth: tapWidth
     Layout.maximumWidth: tapWidth
     Layout.fillHeight: false
-         
+
     Text {
-        text: qsTr(side)
+        text: qsTr(tap.side)
         font.pixelSize: headerSize
     }
     
-    TapDataRow {
-        tag: nameTag
-        value: name
-        textSize: textSize
-        edit: buttonsVisible
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.nameTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.name
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.name = text
+        }
     }
-
+    
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.brewerTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.brewer
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.brewer = text
+        }
+    }
+    
     Text {
-        text: qsTr(estVolumeTag) + estVolume
+        text: qsTr(tapTags.estVolumeTag) + tap.estVolume
         font.pixelSize: textSize
     }
     
-    TapDataRow {
-        tag: brewerTag
-        value: brewer
-        textSize: parent.textSize
-        edit: buttonsVisible
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.abvTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.abv
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.abv = text
+        }
     }
     
-    TapDataRow {
-        tag: brewDateTag
-        value: brewDate
-        textSize: parent.textSize
-        edit: buttonsVisible
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.ibuTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.ibu
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.ibu = text
+        }
+    }    
+    
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.brewDateTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.brewDate
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.brewDate = text
+        }
     }
     
-    TapDataRow {
-        tag: tapDateTag
-        value: tapDate
-        textSize: parent.textSize
-        edit: buttonsVisible
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.tapDateTag)
+            font.pixelSize: textSize
+        }
+    
+        TextField {
+            text: tap.tapDate
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.tapDate = text
+        }
     }
     
-    TapDataRow {
-        tag: abvTag
-        value: abv
-        textSize: parent.textSize
-        edit: buttonsVisible
-    }
+    RowLayout {
+        Text {
+            text: qsTr(tapTags.finalGravityTag)
+            font.pixelSize: textSize
+        }
     
-    TapDataRow {
-        tag: ibuTag
-        value: ibu
-        textSize: parent.textSize
-        edit: buttonsVisible
-    }
+        TextField {
+            text: tap.finalGravity
+            font.pixelSize: textSize
+            Layout.fillWidth: true
+            Layout.minimumHeight: 30
+            Layout.maximumHeight: 30
+            onEditingFinished: tap.finalGravity = text
+        }
+    }    
     
-    TapDataRow {
-        tag: finalGravityTag
-        value: finalGravity
-        textSize: parent.textSize
-        edit: buttonsVisible
-    }
-
     RowLayout {
         Button {
-            text: qsTr(saveButtonTag)
+            text: qsTr(tapTags.saveButtonTag)
             font.pixelSize: textSize
 
             onClicked: {
                 buttonHandler.saveTap(side)
             }
-            visible: buttonsVisible
+            visible: tap.buttonsVisible
         }
         
         Button {
-            text: qsTr(clearButtonTag)
+            text: qsTr(tapTags.clearButtonTag)
             font.pixelSize: textSize
 
             onClicked: {
                 buttonHandler.clearTap(side)
             }
-            visible: buttonsVisible
+            visible: tap.buttonsVisible
         }
     }
 

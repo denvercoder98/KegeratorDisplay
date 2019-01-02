@@ -61,7 +61,8 @@ int main(int argc, char** argv)
         QQmlApplicationEngine qEngine;
         QTap leftTap;
         QTap rightTap;
-        QtGuiView view(qApplication, qEngine, leftTap, rightTap);
+        QTapTags tapTags;
+        QtGuiView view(qApplication, qEngine, leftTap, rightTap, tapTags);
 
         //Presenter
         GuiViewModel* viewModel = new GuiViewModel();
@@ -98,6 +99,9 @@ int main(int argc, char** argv)
         QmlButtonHandler buttonHandler(userInputController, leftTap, rightTap);
         QmlContextPropertyRegistratorImpl contextPropertyRegistrator(qEngine);
         contextPropertyRegistrator.setContextProperty("buttonHandler", &buttonHandler);
+        contextPropertyRegistrator.setContextProperty("leftTap", &leftTap);
+        contextPropertyRegistrator.setContextProperty("rightTap", &rightTap);
+        contextPropertyRegistrator.setContextProperty("tapTags", &tapTags);
 
         GuiKegerator kegerator(view, sensorSampler, ioService, thread);
         kegerator.startAndRun(argc, argv);
