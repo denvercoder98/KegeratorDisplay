@@ -37,14 +37,13 @@ void QtGuiView::updatePressure(const GuiViewModel& view)
     m_pressure.setUnit(" bar");
 }
 
-void QtGuiView::updateTemperature(const GuiViewModel& view)
+void QtGuiView::updateTemperature(const GuiViewTemperatureModel& view)
 {
     std::string t = view.temperature;
     m_temperature.setTag(QString(view.temperatureTag.c_str()));
     m_temperature.setTemperature(QString(t.c_str()));
     m_temperature.setUnit(" C"); //TODO
 }
-
 
 void QtGuiView::updateTapTags(const GuiViewModel& view)
 {
@@ -92,7 +91,6 @@ void QtGuiView::updateButtons(const GuiViewModel& view)
 void QtGuiView::updateView(const GuiViewModel& view)
 {
     updateKegerator(view);
-    updateTemperature(view);
     updatePressure(view);
     updateTapTags(view);
     updateTap(view);

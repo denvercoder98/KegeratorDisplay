@@ -23,13 +23,13 @@ public:
     virtual ~QtGuiView();
 
     void updateView(const GuiViewModel& view);
+    void updateTemperature(const GuiViewTemperatureModel& view);
     void run();
 
 private:
     void runApplication();
     void updateKegerator(const GuiViewModel& view);
     void updatePressure(const GuiViewModel& view);
-    void updateTemperature(const GuiViewModel& view);
     void updateTapTags(const GuiViewModel& view);
     void updateTap(const GuiViewModel& view);
     void updateButtons(const GuiViewModel& view);

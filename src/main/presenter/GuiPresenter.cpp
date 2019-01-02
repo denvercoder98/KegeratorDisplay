@@ -1,14 +1,16 @@
 #include "GuiPresenter.h"
 #include "GuiView.h"
+#include "GuiViewTemperatureModel.h"
 
 #include <sstream>
 #include <string>
 
 namespace KegeratorDisplay {
 
-GuiPresenter::GuiPresenter(GuiView& view, GuiViewModel* viewModel) :
+GuiPresenter::GuiPresenter(GuiView& view, GuiViewModel* viewModel, GuiViewTemperatureModel* temperatureModel) :
     m_view(view),
-    m_viewModel(viewModel)
+    m_viewModel(viewModel),
+    m_temperatureModel(temperatureModel)
 {
     m_viewModel->leftTap.side = "Left tap";
     m_viewModel->rightTap.side = "Right tap";
@@ -24,8 +26,8 @@ void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperatur
 {
     std::stringstream ss;
     ss << temperature.value();
-    m_viewModel->temperature = ss.str();
-    m_view.updateView(*m_viewModel);
+    m_temperatureModel->temperature = ss.str();
+    m_view.updateTemperature(*m_temperatureModel);
 }
 
 void GuiPresenter::updateTap(const TapUpdateResponse& tap)

@@ -13,6 +13,7 @@ namespace KegeratorDisplay {
 
 GuiPresenterTest::GuiPresenterTest() :
     m_viewModel(NULL),
+    m_temperatureModel(NULL),
     m_view(NULL),
     m_presenter(NULL)
 {
@@ -25,13 +26,15 @@ GuiPresenterTest::~GuiPresenterTest()
 void GuiPresenterTest::SetUp()
 {
     m_viewModel = new GuiViewModel();
+    m_temperatureModel = new GuiViewTemperatureModel();
     m_view = new NiceMock<GuiViewMock>();
-    m_presenter = new GuiPresenter(*m_view, m_viewModel);
+    m_presenter = new GuiPresenter(*m_view, m_viewModel, m_temperatureModel);
 }
 
 void GuiPresenterTest::TearDown()
 {
     delete m_presenter;
+    delete m_temperatureModel;
     delete m_view;
 }
 
@@ -41,7 +44,7 @@ TEST_F(GuiPresenterTest, Create)
 
 TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModel)
 {
-    EXPECT_CALL(*m_view, updateView(_))
+    EXPECT_CALL(*m_view, updateTemperature(_))
         .Times(1);
     m_presenter->updateTemperature(TemperatureUpdateResponse(11));
 }
@@ -49,12 +52,12 @@ TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModel)
 
 TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModelValue)
 {
-    GuiViewModel viewModel;
-    ON_CALL(*m_view, updateView(_))
-        .WillByDefault( SaveArg<0>(&viewModel) );
+    GuiViewTemperatureModel tempModel;
+    ON_CALL(*m_view, updateTemperature(_))
+        .WillByDefault( SaveArg<0>(&tempModel) );
     m_presenter->updateTemperature(TemperatureUpdateResponse(11));
 
-    EXPECT_EQ("11", viewModel.temperature);
+    EXPECT_EQ("11", tempModel.temperature);
 }
 
 TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
@@ -254,22 +257,24 @@ TEST_F(GuiPresenterTest, ScreenTouchedUpdatesViewModel)
 TEST_F(GuiPresenterTest, ViewUpdatedWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     NiceMock<GuiViewMock> view;
     EXPECT_CALL(view, updateView(_))
         .Times(1);
-    GuiPresenter presenter(view, viewModel);
+    GuiPresenter presenter(view, viewModel, tempModel);
 }
 
 TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel);
+    GuiPresenter presenter(view, viewModel, tempModel);
     EXPECT_EQ("Name: ", receivedViewModel.beerNameTag);
     EXPECT_EQ("Brewer Name: ", receivedViewModel.brewerNameTag);
     EXPECT_EQ("ABV: ", receivedViewModel.abvTag);
@@ -282,39 +287,42 @@ TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
 TEST_F(GuiPresenterTest, HeadingSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel);
+    GuiPresenter presenter(view, viewModel, tempModel);
     EXPECT_EQ("Kegerator Status", receivedViewModel.heading);
 }
 
 TEST_F(GuiPresenterTest, ClearButtonTagSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel);
+    GuiPresenter presenter(view, viewModel, tempModel);
     EXPECT_EQ("Clear", receivedViewModel.clearButtonTag);
 }
 
 TEST_F(GuiPresenterTest, SaveButtonTagSetWhenPresenterCreated)
 {
     GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel);
+    GuiPresenter presenter(view, viewModel, tempModel);
     EXPECT_EQ("Save", receivedViewModel.saveButtonTag);
 }
 

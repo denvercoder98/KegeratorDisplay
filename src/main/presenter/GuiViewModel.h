@@ -51,8 +51,6 @@ public:
     };
 
     std::string heading = "Kegerator Status";
-    std::string temperatureTag = "Temperature: ";
-    std::string temperature = "";
     std::string pressureTag = "Pressure: ";
     TapViewModel leftTap;
     TapViewModel rightTap;
@@ -74,8 +72,6 @@ public:
     {
         return
             heading == other.heading &&
-            temperature == other.temperature &&
-            temperatureTag == other.temperatureTag &&
             pressureTag == other.pressureTag &&
             leftTap == other.leftTap &&
             rightTap == other.rightTap &&
@@ -93,7 +89,6 @@ public:
     friend std::ostream& operator<<(std::ostream& stream, const GuiViewModel& model)
     {
         return stream << "["
-                      << "temperature: '" << model.temperature << "', "
                       << "leftTap: " << model.leftTap << ", "
                       << "rightTap: " << model.rightTap << ", "
                       << "buttonsVisible: '" << model.buttonsVisible << "'"

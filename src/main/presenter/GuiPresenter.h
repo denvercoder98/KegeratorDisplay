@@ -7,11 +7,14 @@
 namespace KegeratorDisplay {
 
 class GuiView;
+class GuiViewTemperatureModel;
 
 class GuiPresenter : public Presenter
 {
 public:
-    GuiPresenter(GuiView& view, GuiViewModel* viewModel);
+    GuiPresenter(GuiView& view,
+                 GuiViewModel* viewModel,
+                 GuiViewTemperatureModel* temperatureModel);
     virtual ~GuiPresenter();
 
     void updateTemperature(const TemperatureUpdateResponse& response);
@@ -25,6 +28,7 @@ private:
 
     GuiView& m_view;
     GuiViewModel* m_viewModel;
+    GuiViewTemperatureModel* m_temperatureModel;
 };
 
 }

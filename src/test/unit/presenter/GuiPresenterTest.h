@@ -2,6 +2,7 @@
 #define SRC_TEST_PRESENTER_GUIPRESENTERTEST_H_
 
 #include "presenter/GuiViewModel.h"
+#include "presenter/GuiViewTemperatureModel.h"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -21,6 +22,7 @@ protected:
     void TearDown();
 
     GuiViewModel* m_viewModel;
+    GuiViewTemperatureModel* m_temperatureModel;
     GuiViewMock* m_view;
     GuiPresenter* m_presenter;
 };
