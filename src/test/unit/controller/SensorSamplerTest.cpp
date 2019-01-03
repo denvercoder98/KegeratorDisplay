@@ -54,6 +54,11 @@ void noop(boost::posix_time::seconds seconds,
 {
 }
 
+void throwException()
+{
+    throw std::runtime_error("test");
+}
+
 TEST_F(SensorSamplerTest, MissingDeadlineTimerThrows)
 {
     MutexMock* mutex = new NiceMock<MutexMock>();
@@ -119,6 +124,19 @@ TEST_F(SensorSamplerTest, AddControllerProcessMutexLockedUnlocked)
 
     SensorControllerMock* anotherSensorController = new NiceMock<SensorControllerMock>();
     m_sampler->addSensorController(anotherSensorController);
+}
+
+TEST_F(SensorSamplerTest, ControllerProcessExceptionCaught)
+{
+    EXPECT_CALL(*m_timer, asyncWaitSeconds(_, _))
+        .WillOnce(Invoke(&runCallback))
+        .WillRepeatedly(Invoke(&noop));
+
+    EXPECT_CALL(*m_sensorController, process())
+        .WillOnce( Invoke(&throwException) );
+
+    EXPECT_NO_THROW(m_sampler->start());
+    m_sampler->stop();
 }
 
 }

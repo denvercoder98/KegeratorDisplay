@@ -60,11 +60,7 @@ void SensorSampler::run(const boost::system::error_code& error)
 void SensorSampler::sample()
 {
     ScopedMutex lock(m_mutex);
-    std::vector<SensorController*>::iterator i;
-    for (i = m_sensors.begin(); i != m_sensors.end(); ++i) {
-        SensorController* controller = *i;
-        controller->process();
-    }
+    sampleControllers();
     scheduleNextSample();
 }
 
@@ -72,6 +68,24 @@ void SensorSampler::scheduleNextSample()
 {
     m_timer->asyncWaitSeconds(boost::posix_time::seconds(1),
                               boost::bind(&SensorSampler::run, this, boost::asio::placeholders::error));
+}
+
+void SensorSampler::sampleControllers()
+{
+    std::vector<SensorController*>::iterator controller;
+    for (controller = m_sensors.begin(); controller != m_sensors.end(); ++controller) {
+        sampleController(*controller);
+    }
+}
+
+void SensorSampler::sampleController(SensorController* controller)
+{
+    try {
+        controller->process();
+    }
+    catch (std::exception& ex) {
+        std::cout << "Failed to process controller: " << ex.what() << std::endl;
+    }
 }
 
 }

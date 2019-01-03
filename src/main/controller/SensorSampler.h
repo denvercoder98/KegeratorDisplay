@@ -26,6 +26,8 @@ public:
 private:
     void sample();
     void scheduleNextSample();
+    void sampleControllers();
+    void sampleController(SensorController* controller);
 
     unsigned int m_sampleRateSeconds;
     DeadlineTimer* const m_timer;

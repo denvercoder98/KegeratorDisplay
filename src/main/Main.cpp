@@ -46,6 +46,7 @@ void workerThread()
     }
     catch (std::exception& e) {
         std::cout << "exception: " << e.what() << std::endl;
+        exit(1);
     }
 }
 
@@ -88,7 +89,8 @@ int main(int argc, char** argv)
         //Devices
         FileReader* fileReader2 = new FileReaderImpl();
         std::string ds18b20device = "/sys/bus/w1/devices/28-0517912576ff/w1_slave";
-        DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderImpl(ds18b20device, fileReader2);
+        //DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderImpl(ds18b20device, fileReader2);
+        DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
         TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
 
         //Controllers
