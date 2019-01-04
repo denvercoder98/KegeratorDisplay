@@ -11,19 +11,22 @@ class GuiViewTemperatureModel
 public:
     std::string temperatureTag = "Temperature: ";
     std::string temperature = "";
+    std::string temperatureUnit = "";
 
     bool operator==(const GuiViewTemperatureModel& other) const
     {
         return
             temperature == other.temperature &&
-            temperatureTag == other.temperatureTag;
+            temperatureTag == other.temperatureTag &&
+            temperatureUnit == other.temperatureUnit;
     }
 
     friend std::ostream& operator<<(std::ostream& stream, const GuiViewTemperatureModel& model)
     {
         return stream << "["
                       << "temperature: '" << model.temperature << "', "
-                      << "temperatureTag: '" << model.temperatureTag << "'"
+                      << "temperatureTag: '" << model.temperatureTag << "', "
+                      << "temperatureUnit: '" << model.temperatureUnit << "'"
                       << "]";
     }
 };

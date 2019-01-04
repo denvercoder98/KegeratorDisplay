@@ -24,7 +24,7 @@ void TemperatureSensorControllerTest::SetUp()
 {
     m_sensor = new NiceMock<TemperatureSensorMock>();
     m_observer = new NiceMock<TemperatureReadingObserverMock>();
-    m_controller = new TemperatureSensorController(m_sensor, *m_observer);
+    m_controller = new TemperatureSensorController(m_sensor, *m_observer, "C");
 }
 
 void TemperatureSensorControllerTest::TearDown()
@@ -61,7 +61,7 @@ TEST_F(TemperatureSensorControllerTest, ProcessUpdatesTemperatureSensorObserverW
     ON_CALL(*m_sensor, read())
         .WillByDefault(Return(10));
 
-    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(10)))
+    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(10, "C")))
         .Times(1);
 
     m_controller->process();
@@ -72,7 +72,18 @@ TEST_F(TemperatureSensorControllerTest, ProcessUpdatesTemperatureSensorObserverW
     ON_CALL(*m_sensor, read())
         .WillByDefault(Return(11));
 
-    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(11)))
+    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(11, "C")))
+        .Times(1);
+
+    m_controller->process();
+}
+
+TEST_F(TemperatureSensorControllerTest, ProcessUpdatesTemperatureSensorObserverWithCorrectUnit)
+{
+    ON_CALL(*m_sensor, read())
+        .WillByDefault(Return(11));
+
+    EXPECT_CALL(*m_observer, receiveTemperatureReading(TemperatureUpdateRequest(11, "C")))
         .Times(1);
 
     m_controller->process();

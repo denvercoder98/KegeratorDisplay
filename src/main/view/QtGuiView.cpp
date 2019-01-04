@@ -39,10 +39,9 @@ void QtGuiView::updatePressure(const GuiViewModel& view)
 
 void QtGuiView::updateTemperature(const GuiViewTemperatureModel& view)
 {
-    std::string t = view.temperature;
     m_temperature.setTag(QString(view.temperatureTag.c_str()));
-    m_temperature.setTemperature(QString(t.c_str()));
-    m_temperature.setUnit(" C"); //TODO
+    m_temperature.setTemperature(QString(view.temperature.c_str()));
+    m_temperature.setUnit(view.temperatureUnit.c_str());
 }
 
 void QtGuiView::updateTapTags(const GuiViewModel& view)

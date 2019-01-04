@@ -31,6 +31,7 @@ void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperatur
     std::stringstream ss;
     ss << temperature.value();
     m_temperatureModel->temperature = ss.str();
+    m_temperatureModel->temperatureUnit = temperature.unit();
     m_view.updateTemperature(*m_temperatureModel);
 }
 

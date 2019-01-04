@@ -10,7 +10,7 @@ using ::testing::_;
 using ::testing::SaveArg;
 using ::testing::Return;
 
-#define EXPECTED_SERIALIZED_TEMP "22 serialization::archive 12 0 0 6 0 3 2 1 0 0 0"
+#define EXPECTED_SERIALIZED_TEMP "22 serialization::archive 12 0 0 6 0 3 2 1 0 0 0 1 F"
 #define EXPECTED_SERIALIZED_TAP "22 serialization::archive 12 0 0 0 0 0 4 Beer 5 Kalle 0 0 3 4,0 0 0 20 0 0 2015 2 13 2015 2 13 0 0 5 1.010"
 
 namespace KegeratorDisplay {
@@ -50,6 +50,7 @@ TEST_F(BoostSerializationFileStorageTest, WriteTemperatureWritesToFile)
     originalTemperature.addReading(1);
     originalTemperature.addReading(2);
     originalTemperature.addReading(3);
+    originalTemperature.setUnit("F");
 
     EXPECT_CALL(*m_writer, truncateAndWrite("file", _))
         .Times(1);
@@ -71,6 +72,7 @@ TEST_F(BoostSerializationFileStorageTest, WriteTemperatureCorrect)
     originalTemperature.addReading(3);
     originalTemperature.addReading(2);
     originalTemperature.addReading(1);
+    originalTemperature.setUnit("F");
 
     EXPECT_CALL(*m_writer, truncateAndWrite("file", EXPECTED_SERIALIZED_TEMP))
         .Times(1);
@@ -85,6 +87,7 @@ TEST_F(BoostSerializationFileStorageTest, ReadTemperatureCorrect)
     originalTemperature.addReading(3);
     originalTemperature.addReading(2);
     originalTemperature.addReading(1);
+    originalTemperature.setUnit("F");
 
     ON_CALL(*m_reader, read("file"))
         .WillByDefault(Return(EXPECTED_SERIALIZED_TEMP));

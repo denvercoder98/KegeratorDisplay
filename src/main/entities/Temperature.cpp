@@ -2,12 +2,11 @@
 
 namespace KegeratorDisplay {
 
-#define NUMBER_OF_READINGS 3
-
 Temperature::Temperature() :
-    m_lastReadings(NUMBER_OF_READINGS)
+    m_lastReadings(m_numberOfReadings),
+    m_unit("")
 {
-    for (int i=0; i<NUMBER_OF_READINGS; i++) {
+    for (int i=0; i<m_numberOfReadings; i++) {
         m_lastReadings.push_back(0);
     }
 }
@@ -15,24 +14,35 @@ Temperature::Temperature() :
 int Temperature::value() const
 {
     int sum = 0;
-    for (int i=0; i<NUMBER_OF_READINGS; ++i) {
+    for (int i=0; i<m_numberOfReadings; ++i) {
         sum += m_lastReadings[i];
     }
-    int average = sum / NUMBER_OF_READINGS;
+    int average = sum / m_numberOfReadings;
     return average;
 }
 
 void Temperature::addReading(const int value)
 {
-    for (int i=0; i<NUMBER_OF_READINGS - 1; ++i) {
+    for (int i=0; i<m_numberOfReadings - 1; ++i) {
         m_lastReadings[i] = m_lastReadings[i + 1];
     }
-    m_lastReadings[NUMBER_OF_READINGS - 1] = value;
+    m_lastReadings[m_numberOfReadings - 1] = value;
+}
+
+void Temperature::setUnit(const std::string& unit)
+{
+    m_unit = unit;
+}
+
+std::string Temperature::unit() const
+{
+    return m_unit;
 }
 
 bool Temperature::operator==(const Temperature& other) const
 {
-    return m_lastReadings == other.m_lastReadings;
+    return m_lastReadings == other.m_lastReadings &&
+        m_unit == other.m_unit;
 }
 
 std::vector<int> Temperature::getReadings() const

@@ -49,18 +49,27 @@ TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModel)
 {
     EXPECT_CALL(*m_view, updateTemperature(_))
         .Times(1);
-    m_presenter->updateTemperature(TemperatureUpdateResponse(11));
+    m_presenter->updateTemperature(TemperatureUpdateResponse(11, "C"));
 }
-
 
 TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModelValue)
 {
     GuiViewTemperatureModel tempModel;
     ON_CALL(*m_view, updateTemperature(_))
         .WillByDefault( SaveArg<0>(&tempModel) );
-    m_presenter->updateTemperature(TemperatureUpdateResponse(11));
+    m_presenter->updateTemperature(TemperatureUpdateResponse(11, "C"));
 
     EXPECT_EQ("11", tempModel.temperature);
+}
+
+TEST_F(GuiPresenterTest, UpdateTemperatureUpdatesViewModelValueUnit)
+{
+    GuiViewTemperatureModel tempModel;
+    ON_CALL(*m_view, updateTemperature(_))
+        .WillByDefault( SaveArg<0>(&tempModel) );
+    m_presenter->updateTemperature(TemperatureUpdateResponse(11, "C"));
+
+    EXPECT_EQ("C", tempModel.temperatureUnit);
 }
 
 TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)

@@ -36,7 +36,7 @@ TEST_F(TemperatureUpdateInteractorTest, ReadTemperatureFromStorage)
     NiceMock<PresenterMock> kegerator;
     NiceMock<StorageMock> storage;
 
-    TemperatureUpdateResponse expectedUpdate(5);
+    TemperatureUpdateResponse expectedUpdate(5, "C");
     EXPECT_CALL(storage, readTemperature())
         .Times(1)
         .WillRepeatedly(Return(temperature));
@@ -46,7 +46,7 @@ TEST_F(TemperatureUpdateInteractorTest, ReadTemperatureFromStorage)
 
 TEST_F(TemperatureUpdateInteractorTest, ReceiveTemperature)
 {
-    TemperatureUpdateRequest reading(5);
+    TemperatureUpdateRequest reading(5, "C");
     NiceMock<PresenterMock> kegerator;
     NiceMock<StorageMock> storage;
     ON_CALL(storage, readTemperature())
@@ -54,6 +54,20 @@ TEST_F(TemperatureUpdateInteractorTest, ReceiveTemperature)
    
     TemperatureUpdateInteractor interactor(kegerator, storage);
     interactor.receiveTemperatureReading(reading);
+}
+
+TEST_F(TemperatureUpdateInteractorTest, ReceiveTemperatureSetsUnit)
+{
+    TemperatureUpdateRequest reading(5, "F");
+    NiceMock<PresenterMock> kegerator;
+    NiceMock<StorageMock> storage;
+    Temperature* temperature = new Temperature();
+    ON_CALL(storage, readTemperature())
+        .WillByDefault(Return(temperature));
+
+    TemperatureUpdateInteractor interactor(kegerator, storage);
+    interactor.receiveTemperatureReading(reading);
+    EXPECT_EQ("F", temperature->unit());
 }
 
 TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureNotifiesObserver)
@@ -65,7 +79,7 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureNotifiesObserver)
         .WillByDefault(Return(new Temperature()));
 
     TemperatureUpdateInteractor interactor(kegerator, storage);
-    TemperatureUpdateRequest reading(3);
+    TemperatureUpdateRequest reading(3, "C");
 
     EXPECT_CALL(kegerator, updateTemperature(_));
     interactor.receiveTemperatureReading(reading);
@@ -76,13 +90,15 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureNotifiesObserverCorrect
     NiceMock<PresenterMock> kegerator;
 
     NiceMock<StorageMock> storage;
+    Temperature* temperature = new Temperature();
+    temperature->setUnit("C");
     ON_CALL(storage, readTemperature())
-        .WillByDefault(Return(new Temperature()));
+        .WillByDefault(Return(temperature));
 
     TemperatureUpdateInteractor interactor(kegerator, storage);
-    TemperatureUpdateRequest reading(3);
+    TemperatureUpdateRequest reading(3, "C");
 
-    TemperatureUpdateResponse expectedUpdate(1);
+    TemperatureUpdateResponse expectedUpdate(1, "C");
     EXPECT_CALL(kegerator, updateTemperature(Eq(expectedUpdate)));
     interactor.receiveTemperatureReading(reading);
 }
@@ -96,7 +112,7 @@ TEST_F(TemperatureUpdateInteractorTest, UpdateTemperatureWritesToStorage)
         .WillByDefault(Return(new Temperature()));
 
     TemperatureUpdateInteractor interactor(kegerator, storage);
-    TemperatureUpdateRequest reading(3);
+    TemperatureUpdateRequest reading(3, "C");
 
     EXPECT_CALL(storage, writeTemperature(_));
     interactor.receiveTemperatureReading(reading);

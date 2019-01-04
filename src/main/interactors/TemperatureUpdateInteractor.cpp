@@ -29,7 +29,8 @@ void TemperatureUpdateInteractor::receiveTemperatureReading(const TemperatureUpd
 void TemperatureUpdateInteractor::updatePresenter()
 {
     int updatedValue = m_temperature->value();
-    TemperatureUpdateResponse temperatureUpdate(updatedValue);
+    const std::string unit = m_temperature->unit();
+    TemperatureUpdateResponse temperatureUpdate(updatedValue, unit);
     m_presenter.updateTemperature(temperatureUpdate);
 }
 
@@ -40,8 +41,8 @@ void TemperatureUpdateInteractor::updateStorage()
 
 void TemperatureUpdateInteractor::addTemperatureReading(const TemperatureUpdateRequest& request)
 {
-    int value = request.value();
-    m_temperature->addReading(value);
+    m_temperature->addReading(request.value());
+    m_temperature->setUnit(request.unit());
 }
 
 }

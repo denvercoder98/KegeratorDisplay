@@ -94,7 +94,9 @@ int main(int argc, char** argv)
         TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
 
         //Controllers
-        TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor, temperatureUpdateInteractor);
+        TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor,
+                                                                                                   temperatureUpdateInteractor,
+                                                                                                   "C");
         UserInputControllerImpl userInputController(applicationThread, tapClearInteractor, screenTouchedInteractor);
         boost::asio::deadline_timer* sensorSamplerBoostDeadlineTimer = new boost::asio::deadline_timer(ioService);
         DeadlineTimer* sensorSamplerTimer = new BoostDeadlineTimer(sensorSamplerBoostDeadlineTimer);

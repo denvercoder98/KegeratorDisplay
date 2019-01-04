@@ -28,6 +28,8 @@ void save(Archive & ar, const KegeratorDisplay::Temperature& t, const unsigned i
 {
     std::vector<int> readings = t.getReadings();
     ar & readings;
+    std::string unit = t.unit();
+    ar & unit;
 }
 
 template<class Archive>
@@ -36,6 +38,9 @@ void load(Archive & ar, KegeratorDisplay::Temperature& t, const unsigned int ver
     std::vector<int> readings;
     ar & readings;
     t.setReadings(readings);
+    std::string unit;
+    ar & unit;
+    t.setUnit(unit);
 }
 
 template<class Archive>

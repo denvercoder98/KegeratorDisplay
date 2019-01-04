@@ -6,9 +6,11 @@
 namespace KegeratorDisplay {
 
 TemperatureSensorController::TemperatureSensorController(TemperatureSensor* const sensor,
-                                                         TemperatureUpdateRequestObserver& observer) :
+                                                         TemperatureUpdateRequestObserver& observer,
+                                                         const std::string& unit) :
     m_sensor(sensor),
-    m_observer(observer)
+    m_observer(observer),
+    m_unit(unit)
 {
     //TODO throw if missing sensor
 }
@@ -21,7 +23,7 @@ TemperatureSensorController::~TemperatureSensorController()
 void TemperatureSensorController::process()
 {
     int temperatureInteger = readSensor();
-    notifyObserver(temperatureInteger);
+    notifyObserver(temperatureInteger, m_unit);
 }
 
 int TemperatureSensorController::readSensor()
@@ -29,9 +31,9 @@ int TemperatureSensorController::readSensor()
     return m_sensor->read();
 }
 
-void TemperatureSensorController::notifyObserver(int temperature)
+void TemperatureSensorController::notifyObserver(int temperature, const std::string& unit)
 {
-    m_observer.receiveTemperatureReading(TemperatureUpdateRequest(temperature));
+    m_observer.receiveTemperatureReading(TemperatureUpdateRequest(temperature, unit));
 }
 
 }
