@@ -37,4 +37,5 @@ after_success:
      lcov -c -d CMakeFiles -o coverage/app_cov.info &&
      lcov -a coverage/app_base.info -a coverage/app_cov.info -o coverage/app_total.info &&
      lcov -e coverage/app_total.info *main* -o coverage/app_main_only.info &&
-     coveralls-lcov coverage/app_main_only.info
+     lcov --remove coverage/app_main_only.info Main.cpp -o coverage/app_src_only.info &&
+     coveralls-lcov coverage/app_src_only.info
