@@ -5,6 +5,7 @@
 #include "TapClearResponse.h"
 #include "ScreenTouchedResponse.h"
 #include "TemperatureUpdateResponse.h"
+#include "PressureUpdateResponse.h"
 
 namespace KegeratorDisplay {
 
@@ -17,6 +18,8 @@ public:
     virtual void screenTouched(const ScreenTouchedResponse& response) = 0;
 
     virtual void updateTemperature(const TemperatureUpdateResponse& response) = 0;
+
+    virtual void updatePressure(const PressureUpdateResponse& response) = 0;
 };
 
 }

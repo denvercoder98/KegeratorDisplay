@@ -14,6 +14,7 @@ public:
     MOCK_METHOD1(updateTap, void(const TapUpdateResponse& response));
     MOCK_METHOD1(clearTap, void(const TapClearResponse& response));
     MOCK_METHOD1(screenTouched, void(const ScreenTouchedResponse& response));
+    MOCK_METHOD1(updatePressure, void(const PressureUpdateResponse& response));
 };
 
 }

@@ -20,6 +20,7 @@ public:
     virtual ~GuiPresenter();
 
     void updateTemperature(const TemperatureUpdateResponse& response);
+    void updatePressure(const PressureUpdateResponse& response) {};
     void updateTap(const TapUpdateResponse& response);
     void clearTap(const TapClearResponse& response);
     void screenTouched(const ScreenTouchedResponse& response);

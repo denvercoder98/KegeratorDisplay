@@ -91,7 +91,6 @@ TapViewModel::Tap* GuiPresenter::getTapViewModelForSide(const TapSide side)
 void GuiPresenter::screenTouched(const ScreenTouchedResponse& response)
 {
     m_viewModel->buttonsVisible = response.buttonsEnabled();
-    //m_viewModel->leftTap.beerName = "kiss-juice123";
     m_view.updateView(*m_viewModel);
 }
 
