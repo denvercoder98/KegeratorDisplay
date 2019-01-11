@@ -1,7 +1,7 @@
+#include <controllers/TemperatureSensor.h>
+#include <controllers/TemperatureSensorController.h>
 #include <interactors/TemperatureUpdateRequest.h>
 #include <interactors/TemperatureUpdateRequestObserver.h>
-#include "TemperatureSensorController.h"
-#include "TemperatureSensor.h"
 
 namespace KegeratorDisplay {
 

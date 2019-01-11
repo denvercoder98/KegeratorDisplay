@@ -1,6 +1,6 @@
-#include "controller/AnalogDigitalConverterSensor.h"
-#include "controller/AnalogDigitalConverterSensorController.h"
-#include "controller/InvalidAnalogDigitalConverterSensorControllerArgumentException.h"
+#include <controllers/AnalogDigitalConverterSensor.h>
+#include <controllers/AnalogDigitalConverterSensorController.h>
+#include <controllers/InvalidAnalogDigitalConverterSensorControllerArgumentException.h>
 #include "interactors/AnalogDigitalConverterUpdateRequestObserver.h"
 
 namespace KegeratorDisplay {

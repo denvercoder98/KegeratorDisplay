@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_UNIT_CONTROLLER_ANALOGDIGITALCONVERTERSENSORMOCK_H_
 #define SRC_TEST_UNIT_CONTROLLER_ANALOGDIGITALCONVERTERSENSORMOCK_H_
 
-#include <controller/AnalogDigitalConverterSensor.h>
+#include <controllers/AnalogDigitalConverterSensor.h>
 
 #include <gmock/gmock.h>
 

@@ -1,6 +1,6 @@
 #include "UserInputControllerImplTest.h"
 
-#include <controller/UserInputControllerImpl.h>
+#include <controllers/UserInputControllerImpl.h>
 
 #include "unit/thread/ApplicationThreadFake.h"
 #include "unit/interactors/TapClearRequestObserverMock.h"

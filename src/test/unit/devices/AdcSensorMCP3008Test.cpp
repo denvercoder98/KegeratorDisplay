@@ -1,8 +1,9 @@
 #include "AdcSensorMCP3008Test.h"
+
+#include "controllers/AnalogDigitalConverterSensorController.h"
 #include "devices/AdcSensorMCP3008.h"
 #include "devices/InvalidAdcSensorMCP3008ArgumentException.h"
 #include "devices/InvalidAdcSensorReadingException.h"
-#include "controller/AnalogDigitalConverterSensorController.h"
 #include "unit/interactors/AnalogDigitalConverterUpdateRequestObserverMock.h"
 #include "unit/devices/SpiReaderMock.h"
 

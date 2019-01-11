@@ -1,7 +1,7 @@
-#include "SensorSampler.h"
-#include "TemperatureSensorController.h"
-#include "InvalidSensorSamplerArgumentException.h"
 #include <boost/bind.hpp>
+#include <controllers/InvalidSensorSamplerArgumentException.h>
+#include <controllers/SensorSampler.h>
+#include <controllers/TemperatureSensorController.h>
 #include <thread/DeadlineTimer.h>
 #include <thread/Mutex.h>
 #include <thread/ScopedMutex.h>

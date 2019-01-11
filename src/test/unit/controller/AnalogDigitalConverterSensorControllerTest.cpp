@@ -1,9 +1,8 @@
 #include "AnalogDigitalConverterSensorControllerTest.h"
 
-#include "controller/AnalogDigitalConverterSensorController.h"
-#include "controller/InvalidAnalogDigitalConverterSensorControllerArgumentException.h"
-
-#include "controller/SensorSampler.h"
+#include <controllers/AnalogDigitalConverterSensorController.h>
+#include <controllers/InvalidAnalogDigitalConverterSensorControllerArgumentException.h>
+#include <controllers/SensorSampler.h>
 
 #include "unit/interactors/AnalogDigitalConverterUpdateRequestObserverMock.h"
 #include "AnalogDigitalConverterSensorMock.h"

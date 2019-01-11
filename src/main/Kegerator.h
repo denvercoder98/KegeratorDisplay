@@ -1,10 +1,9 @@
 #ifndef SRC_MAIN_KEGERATOR_H_
 #define SRC_MAIN_KEGERATOR_H_
 
-#include "controller/SensorSampler.h"
-
 #include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
+#include <controllers/SensorSampler.h>
 
 namespace KegeratorDisplay {
 

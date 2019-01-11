@@ -1,7 +1,8 @@
 #ifndef SRC_TEST_CONTROLLER_TEMPERATURESENSORMOCK_H_
 #define SRC_TEST_CONTROLLER_TEMPERATURESENSORMOCK_H_
 
-#include "controller/TemperatureSensor.h"
+#include <controllers/TemperatureSensor.h>
+
 #include "gmock/gmock.h"
 
 namespace KegeratorDisplay {

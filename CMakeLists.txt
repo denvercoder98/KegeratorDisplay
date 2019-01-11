@@ -14,7 +14,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/view/qobjects/*.h"
 	"src/main/view/*.cpp"
 	"src/main/storage/*.cpp"
-	"src/main/controller/*.cpp"
+	"src/main/controllers/*.cpp"
 	"src/main/devices/*.cpp"
 	"src/main/devices/Qml*.h"
 	"src/main/thread/*.cpp")
@@ -24,7 +24,7 @@ file(GLOB UNITTEST_SOURCES
 	"src/test/unit/entities/*.cpp"
 	"src/test/unit/interactors/*.cpp"
 	"src/test/unit/presenter/*.cpp"
-	"src/test/unit/controller/*.cpp"
+	"src/test/unit/controllers/*.cpp"
 	"src/test/unit/thread/*.cpp"
 	"src/test/unit/view/*.cpp"
 	"src/test/unit/view/qobjects/*.cpp"

@@ -1,7 +1,8 @@
 #ifndef SRC_TEST_UNIT_CONTROLLER_USERINPUTCONTROLLERMOCK_H_
 #define SRC_TEST_UNIT_CONTROLLER_USERINPUTCONTROLLERMOCK_H_
 
-#include "controller/UserInputController.h"
+#include <controllers/UserInputController.h>
+
 #include <gmock/gmock.h>
 
 namespace KegeratorDisplay {

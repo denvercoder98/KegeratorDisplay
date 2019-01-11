@@ -1,4 +1,6 @@
-#include <controller/UserInputControllerImpl.h>
+#include <controllers/SensorSampler.h>
+#include <controllers/TemperatureSensor.h>
+#include <controllers/UserInputControllerImpl.h>
 #include "Kegerator.h"
 
 #include "presenter/GuiPresenter.h"
@@ -11,9 +13,6 @@
 
 #include "devices/DS18B20SensorReaderStaticValue.h"
 #include "devices/DS18B20Sensor.h"
-#include "controller/TemperatureSensor.h"
-#include "controller/SensorSampler.h"
-
 #include "interactors/Presenter.h"
 
 #include <iostream>
