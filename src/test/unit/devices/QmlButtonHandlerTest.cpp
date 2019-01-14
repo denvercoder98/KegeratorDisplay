@@ -1,7 +1,7 @@
 #include "QmlButtonHandlerTest.h"
 #include "devices/QmlButtonHandler.h"
 
-#include "unit/controller/UserInputControllerMock.h"
+#include "unit/controllers/UserInputControllerMock.h"
 
 using testing::NiceMock;
 

@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_UNIT_INTERACTORS_ANALOGDIGITALCONVERTERUPDATEREQUESTOBSERVERMOCK_H_
 #define SRC_TEST_UNIT_INTERACTORS_ANALOGDIGITALCONVERTERUPDATEREQUESTOBSERVERMOCK_H_
 
-#include <interactors/AnalogDigitalConverterUpdateRequestObserver.h>
+#include "interactors/AnalogDigitalConverterUpdateRequestObserver.h"
 
 #include <gmock/gmock.h>
 

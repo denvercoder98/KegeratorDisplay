@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_ENTITIES_INVALIDSPECIFICGRAVITYEXCEPTION_H_
 #define SRC_MAIN_ENTITIES_INVALIDSPECIFICGRAVITYEXCEPTION_H_
 
-#include <entities/EntityException.h>
+#include "EntityException.h"
 
 namespace KegeratorDisplay {
 

@@ -2,7 +2,7 @@
 #define SRC_MAIN_INTERACTORS_SCREENTOUCHEDINTERACTOR_H_
 
 #include "ScreenTouchedRequestObserver.h"
-#include <thread/DeadlineTimer.h>
+#include "thread/DeadlineTimer.h"
 
 namespace KegeratorDisplay {
 

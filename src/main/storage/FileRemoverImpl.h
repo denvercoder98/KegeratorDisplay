@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_STORAGE_FILEREMOVERIMPL_H_
 #define SRC_MAIN_STORAGE_FILEREMOVERIMPL_H_
 
-#include <storage/FileRemover.h>
+#include "FileRemover.h"
 
 namespace KegeratorDisplay {
 

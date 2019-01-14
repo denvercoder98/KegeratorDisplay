@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_STORAGE_FILEWRITERIMPL_H_
 #define SRC_MAIN_STORAGE_FILEWRITERIMPL_H_
 
-#include <storage/FileWriter.h>
+#include "FileWriter.h"
 
 namespace KegeratorDisplay {
 

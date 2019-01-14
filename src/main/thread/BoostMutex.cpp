@@ -1,4 +1,4 @@
-#include <thread/BoostMutex.h>
+#include "BoostMutex.h"
 
 namespace KegeratorDisplay {
 

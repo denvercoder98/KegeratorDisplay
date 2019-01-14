@@ -1,4 +1,4 @@
-#include "interactors/TemperatureUpdateRequest.h"
+#include "TemperatureUpdateRequest.h"
 
 namespace KegeratorDisplay {
 

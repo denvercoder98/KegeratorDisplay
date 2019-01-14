@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_CONTROLLERS_USERINPUTCONTROLLERIMPL_H_
 #define SRC_MAIN_CONTROLLERS_USERINPUTCONTROLLERIMPL_H_
 
-#include <controllers/UserInputController.h>
+#include "UserInputController.h"
 #include <string>
 #include <iostream>
 

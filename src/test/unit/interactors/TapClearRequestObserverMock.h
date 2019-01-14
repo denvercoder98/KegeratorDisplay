@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_INTERACTORS_TAPCLEARREQUESTOBSERVERMOCK_H_
 #define SRC_TEST_INTERACTORS_TAPCLEARREQUESTOBSERVERMOCK_H_
 
-#include <interactors/TapClearRequestObserver.h>
+#include "interactors/TapClearRequestObserver.h"
 
 namespace KegeratorDisplay {
 

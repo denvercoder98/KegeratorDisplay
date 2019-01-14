@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_DEVICES_INVALIDADCSENSORMCP3008ARGUMENTEXCEPTION_H_
 #define SRC_MAIN_DEVICES_INVALIDADCSENSORMCP3008ARGUMENTEXCEPTION_H_
 
-#include "devices/DeviceException.h"
+#include "DeviceException.h"
 
 namespace KegeratorDisplay {
 

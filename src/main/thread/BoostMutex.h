@@ -1,8 +1,8 @@
 #ifndef SRC_MAIN_THREAD_BOOSTMUTEX_H_
 #define SRC_MAIN_THREAD_BOOSTMUTEX_H_
 
+#include "Mutex.h"
 #include <boost/thread/mutex.hpp>
-#include <thread/Mutex.h>
 
 namespace KegeratorDisplay {
 

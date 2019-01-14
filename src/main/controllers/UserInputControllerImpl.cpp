@@ -1,8 +1,8 @@
+#include "UserInputControllerImpl.h"
 #include "thread/ApplicationThread.h"
 #include "interactors/TapClearRequestObserver.h"
 #include "interactors/ScreenTouchedRequestObserver.h"
 #include <boost/bind.hpp>
-#include <controllers/UserInputControllerImpl.h>
 
 namespace KegeratorDisplay {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_INTERACTORS_INVALIDSCREENTOUCHEDINTERACTORARGUMENTEXCEPTION_H_
 #define SRC_MAIN_INTERACTORS_INVALIDSCREENTOUCHEDINTERACTORARGUMENTEXCEPTION_H_
 
-#include "interactors/InteractorException.h"
+#include "InteractorException.h"
 
 namespace KegeratorDisplay {
 

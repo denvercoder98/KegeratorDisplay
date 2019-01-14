@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_CONTROLLERS_INVALIDSENSORSAMPLERARGUMENTEXCEPTION_H_
 #define SRC_MAIN_CONTROLLERS_INVALIDSENSORSAMPLERARGUMENTEXCEPTION_H_
 
-#include <controllers/ControllerException.h>
+#include "ControllerException.h"
 
 namespace KegeratorDisplay {
 

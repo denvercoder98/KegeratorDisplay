@@ -1,7 +1,7 @@
 #ifndef SRC_TEST_CONTROLLER_SENSORCONTROLLERMOCK_H_
 #define SRC_TEST_CONTROLLER_SENSORCONTROLLERMOCK_H_
 
-#include <controllers/SensorController.h>
+#include "controllers/SensorController.h"
 
 #include "gmock/gmock.h"
 

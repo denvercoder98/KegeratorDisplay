@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_CONTROLLER_INVALIDDS18B20SENSORREADINGEXCEPTION_H_
 #define SRC_MAIN_CONTROLLER_INVALIDDS18B20SENSORREADINGEXCEPTION_H_
 
-#include <devices/DeviceException.h>
+#include "DeviceException.h"
 
 namespace KegeratorDisplay {
 

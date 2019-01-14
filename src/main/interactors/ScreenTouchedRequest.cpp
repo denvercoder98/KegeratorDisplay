@@ -1,4 +1,4 @@
-#include "interactors/ScreenTouchedRequest.h"
+#include "ScreenTouchedRequest.h"
 
 namespace KegeratorDisplay {
 

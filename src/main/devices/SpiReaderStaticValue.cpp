@@ -1,4 +1,4 @@
-#include <devices/SpiReaderStaticValue.h>
+#include "SpiReaderStaticValue.h"
 #include <cstring>
 
 namespace KegeratorDisplay {

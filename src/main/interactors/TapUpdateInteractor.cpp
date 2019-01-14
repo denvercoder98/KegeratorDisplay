@@ -1,7 +1,7 @@
-#include <interactors/Presenter.h>
-#include <interactors/Storage.h>
-#include <interactors/TapUpdateInteractor.h>
-#include <interactors/TapUpdateResponse.h>
+#include "Presenter.h"
+#include "Storage.h"
+#include "TapUpdateInteractor.h"
+#include "TapUpdateResponse.h"
 #include "entities/Beer.h"
 
 namespace KegeratorDisplay {

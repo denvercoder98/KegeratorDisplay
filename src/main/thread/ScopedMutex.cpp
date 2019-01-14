@@ -1,5 +1,5 @@
-#include <thread/Mutex.h>
-#include <thread/ScopedMutex.h>
+#include "Mutex.h"
+#include "ScopedMutex.h"
 
 namespace KegeratorDisplay {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_VIEW_QBUTTONHANDLER_H_
 #define SRC_MAIN_VIEW_QBUTTONHANDLER_H_
 
-#include <controllers/UserInputControllerImpl.h>
+#include "controllers/UserInputController.h"
 #include <QtCore/qobject.h>
 #include "view/qobjects/QTap.h"
 

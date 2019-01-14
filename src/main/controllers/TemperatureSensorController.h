@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_CONTROLLERS_TEMPERATURESENSORCONTROLLER_H_
 #define SRC_MAIN_CONTROLLERS_TEMPERATURESENSORCONTROLLER_H_
 
-#include "controllers/SensorController.h"
+#include "SensorController.h"
 #include <string>
 
 namespace KegeratorDisplay {

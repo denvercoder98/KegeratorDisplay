@@ -1,6 +1,6 @@
 #include "GuiPresenterTest.h"
 
-#include <interactors/BeerUpdateResponse.h>
+#include "interactors/BeerUpdateResponse.h"
 
 #include "GuiViewMock.h"
 #include "presenter/GuiPresenter.h"

@@ -3,7 +3,7 @@
 
 #include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
-#include <controllers/SensorSampler.h>
+#include "controllers/SensorSampler.h"
 
 namespace KegeratorDisplay {
 

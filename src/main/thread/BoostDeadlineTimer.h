@@ -1,8 +1,8 @@
 #ifndef SRC_MAIN_THREAD_BOOSTDEADLINETIMER_H_
 #define SRC_MAIN_THREAD_BOOSTDEADLINETIMER_H_
 
+#include "DeadlineTimer.h"
 #include <boost/asio.hpp>
-#include <thread/DeadlineTimer.h>
 
 namespace KegeratorDisplay {
 

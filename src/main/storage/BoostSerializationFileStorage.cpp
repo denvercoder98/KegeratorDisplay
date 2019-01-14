@@ -1,8 +1,8 @@
-#include "storage/FileWriter.h"
-#include "storage/FileReader.h"
-#include "storage/FileRemover.h"
-#include "storage/BoostSerializationFileStorage.h"
-#include "storage/BoostSerializer.h"
+#include "FileWriter.h"
+#include "FileReader.h"
+#include "FileRemover.h"
+#include "BoostSerializationFileStorage.h"
+#include "BoostSerializer.h"
 #include "entities/Tap.h"
 #include "entities/Temperature.h"
 

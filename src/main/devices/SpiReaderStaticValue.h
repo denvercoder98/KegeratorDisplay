@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_DEVICES_SPIREADERSTATICVALUE_H_
 #define SRC_MAIN_DEVICES_SPIREADERSTATICVALUE_H_
 
-#include "devices/SpiReader.h"
+#include "SpiReader.h"
 
 namespace KegeratorDisplay {
 

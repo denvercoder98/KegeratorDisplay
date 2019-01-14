@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_STORAGE_FILEREADERIMPL_H_
 #define SRC_MAIN_STORAGE_FILEREADERIMPL_H_
 
-#include <storage/FileReader.h>
+#include "FileReader.h"
 
 namespace KegeratorDisplay {
 

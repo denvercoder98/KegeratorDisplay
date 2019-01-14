@@ -1,4 +1,4 @@
-#include <devices/QmlContextPropertyRegistratorImpl.h>
+#include "QmlContextPropertyRegistratorImpl.h"
 #include <QtQml/qqmlcontext.h>
 
 namespace KegeratorDisplay {

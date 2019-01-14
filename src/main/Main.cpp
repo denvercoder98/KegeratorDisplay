@@ -1,5 +1,3 @@
-#include <controllers/TemperatureSensorController.h>
-#include <controllers/UserInputControllerImpl.h>
 #include "GuiKegerator.h"
 
 #include "view/QtGuiView.h"
@@ -16,6 +14,9 @@
 #include "interactors/TapUpdateInteractor.h"
 #include "interactors/TapClearInteractor.h"
 #include "interactors/ScreenTouchedInteractor.h"
+
+#include "controllers/TemperatureSensorController.h"
+#include "controllers/UserInputControllerImpl.h"
 
 #include "devices/DS18B20SensorReaderStaticValue.h"
 #include "devices/DS18B20SensorReaderImpl.h"

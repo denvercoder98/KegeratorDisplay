@@ -1,7 +1,7 @@
 #ifndef SRC_MAIN_DEVICES_ADCSENSORMCP3008_H_
 #define SRC_MAIN_DEVICES_ADCSENSORMCP3008_H_
 
-#include <controllers/AnalogDigitalConverterSensor.h>
+#include "controllers/AnalogDigitalConverterSensor.h"
 
 namespace KegeratorDisplay {
 

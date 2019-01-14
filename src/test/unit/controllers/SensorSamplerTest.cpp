@@ -1,7 +1,7 @@
 #include "SensorSamplerTest.h"
 
-#include <controllers/InvalidSensorSamplerArgumentException.h>
-#include <controllers/SensorSampler.h>
+#include "controllers/InvalidSensorSamplerArgumentException.h"
+#include "controllers/SensorSampler.h"
 
 #include "SensorControllerMock.h"
 #include "unit/thread/DeadlineTimerMock.h"
