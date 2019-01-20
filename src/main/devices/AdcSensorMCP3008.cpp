@@ -41,7 +41,6 @@ unsigned int AdcSensorMCP3008::convertReadingToUnsignedInt(unsigned char* buffer
 {
     std::ostringstream ss;
     ss << buffer;
-    std::cout << ss.str() << std::endl;
     unsigned int value = std::stoi(ss.str());
     return value;
 }

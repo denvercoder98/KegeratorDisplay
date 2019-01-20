@@ -4,6 +4,7 @@
 #include "interactors/Presenter.h"
 #include "GuiViewModel.h"
 #include "TapViewModel.h"
+#include "PressureViewModel.h"
 
 namespace KegeratorDisplay {
 
@@ -16,12 +17,13 @@ public:
     GuiPresenter(GuiView& view,
                  GuiViewModel* viewModel,
                  GuiViewTemperatureModel* temperatureModel,
-                 TapViewModel* tapViewModel);
+                 TapViewModel* tapViewModel,
+                 PressureViewModel* pressureViewModel);
     virtual ~GuiPresenter();
 
     void updateTemperature(const TemperatureUpdateResponse& response);
-    void updatePressure(const PressureUpdateResponse& response) {};
     void updateTap(const TapUpdateResponse& response);
+    void updatePressure(const PressureUpdateResponse& response);
     void clearTap(const TapClearResponse& response);
     void screenTouched(const ScreenTouchedResponse& response);
 
@@ -33,6 +35,7 @@ private:
     GuiViewModel* m_viewModel;
     GuiViewTemperatureModel* m_temperatureModel;
     TapViewModel* m_tapModel;
+    PressureViewModel* m_pressureModel;
 };
 
 }

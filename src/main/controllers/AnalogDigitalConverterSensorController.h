@@ -24,7 +24,7 @@ public:
     AnalogDigitalConverterSensorController(Bits bits,
                                            Channel channel,
                                            AnalogDigitalConverterSensor* sensor,
-                                           AnalogDigitalConverterUpdateRequestObserver* observer);
+                                           AnalogDigitalConverterUpdateRequestObserver& observer);
     virtual ~AnalogDigitalConverterSensorController();
 
     void process();
@@ -32,7 +32,7 @@ public:
 private:
     Channel m_channel;
     AnalogDigitalConverterSensor* m_sensor;
-    AnalogDigitalConverterUpdateRequestObserver* m_observer;
+    AnalogDigitalConverterUpdateRequestObserver& m_observer;
 };
 
 }

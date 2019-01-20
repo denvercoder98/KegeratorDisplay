@@ -4,6 +4,7 @@
 #include "presenter/GuiViewModel.h"
 #include "presenter/GuiViewTemperatureModel.h"
 #include "presenter/TapViewModel.h"
+#include "presenter/PressureViewModel.h"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -25,6 +26,7 @@ protected:
     GuiViewModel* m_viewModel;
     GuiViewTemperatureModel* m_temperatureModel;
     TapViewModel* m_tapModel;
+    PressureViewModel* m_pressureModel;
     GuiViewMock* m_view;
     GuiPresenter* m_presenter;
 };

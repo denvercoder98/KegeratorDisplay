@@ -1,14 +1,14 @@
 #ifndef SRC_MAIN_INTERACTORS_PRESSUREUPDATERESPONSE_H_
 #define SRC_MAIN_INTERACTORS_PRESSUREUPDATERESPONSE_H_
 
-#include "entities/RelativePressureBar.h"
+#include "entities/Bar.h"
 
 namespace KegeratorDisplay {
 
 class PressureUpdateResponse
 {
 public:
-    PressureUpdateResponse(RelativePressureBar pressure) :
+    PressureUpdateResponse(Bar pressure) :
         m_pressure(pressure)
     {
     }
@@ -17,7 +17,7 @@ public:
     {
     }
 
-    RelativePressureBar pressure() const
+    Bar pressure() const
     {
         return m_pressure;
     }
@@ -35,7 +35,7 @@ public:
     }
 
 private:
-    RelativePressureBar m_pressure;
+    Bar m_pressure;
 };
 
 }

@@ -27,7 +27,7 @@ TEST_F(SpiReaderStaticValueTest, ReadStaticValue512)
 {
     SpiReaderStaticValue spi;
     const unsigned int bufferLength = 4;
-    unsigned char expected[bufferLength] = "512";
+    unsigned char expected[bufferLength] = "210";
     unsigned char buffer[bufferLength];
     spi.read(buffer, bufferLength);
     EXPECT_EQ(*expected, *buffer);

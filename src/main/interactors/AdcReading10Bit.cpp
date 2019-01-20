@@ -23,4 +23,9 @@ bool AdcReading10Bit::operator==(const AdcReading10Bit& other) const
     return m_value == other.m_value;
 }
 
+unsigned int AdcReading10Bit::value() const
+{
+    return m_value;
+}
+
 }

@@ -12,6 +12,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
 	"src/main/view/qobjects/*.h"
+	"src/main/view/qobjects/*.cpp"
 	"src/main/view/*.cpp"
 	"src/main/storage/*.cpp"
 	"src/main/controllers/*.cpp"

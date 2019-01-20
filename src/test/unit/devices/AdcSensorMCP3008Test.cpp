@@ -45,7 +45,7 @@ TEST_F(AdcSensorMCP3008Test, CanBeUsedByController)
 {
     NiceMock<SpiReaderMock> *spiReader = new NiceMock<SpiReaderMock>();
     AdcSensorMCP3008* sensor = new AdcSensorMCP3008(spiReader);
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,

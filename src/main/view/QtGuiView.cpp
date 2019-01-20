@@ -30,11 +30,11 @@ void QtGuiView::updateKegerator(const GuiViewModel& view)
     m_kegerator.setHeading(QString(view.heading.c_str()));
 }
 
-void QtGuiView::updatePressure(const GuiViewModel& view)
+void QtGuiView::updatePressure(const PressureViewModel& view)
 {
-    m_pressure.setTag(QString(view.pressureTag.c_str()));
-    m_pressure.setPressure("0,8");
-    m_pressure.setUnit(" bar");
+    m_pressure.setTag(QString(view.tag.c_str()));
+    m_pressure.setPressure(QString(view.pressure.c_str()));
+    m_pressure.setUnit(QString(view.unit.c_str()));
 }
 
 void QtGuiView::updateTemperature(const GuiViewTemperatureModel& view)
@@ -90,7 +90,6 @@ void QtGuiView::updateButtons(const GuiViewModel& view)
 void QtGuiView::updateView(const GuiViewModel& view)
 {
     updateKegerator(view);
-    updatePressure(view);
     updateTapTags(view);
     updateButtons(view);
 }

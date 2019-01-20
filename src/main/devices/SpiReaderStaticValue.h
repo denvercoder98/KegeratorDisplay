@@ -13,6 +13,9 @@ public:
 
     void initialize() {};
     void read(unsigned char* buffer, unsigned int bufferLength);
+
+private:
+    int m_cnt;
 };
 
 }

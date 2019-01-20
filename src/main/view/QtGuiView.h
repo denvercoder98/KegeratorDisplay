@@ -25,6 +25,7 @@ public:
     void updateView(const GuiViewModel& view);
     void updateTemperature(const GuiViewTemperatureModel& view);
     void updateTap(const TapViewModel& view);
+    void updatePressure(const PressureViewModel& view);
     void run();
 
 private:

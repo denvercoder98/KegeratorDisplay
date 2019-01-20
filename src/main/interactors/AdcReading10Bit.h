@@ -17,6 +17,8 @@ public:
         return stream << "[value: '" << update.m_value << "']";
     }
 
+    unsigned int value() const;
+
 private:
     unsigned int m_value;
 };

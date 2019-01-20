@@ -12,6 +12,9 @@ public:
     virtual ~DS18B20SensorReaderStaticValue();
 
     virtual std::string read();
+
+private:
+    int m_cnt;
 };
 
 }

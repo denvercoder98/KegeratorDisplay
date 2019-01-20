@@ -10,20 +10,27 @@ namespace KegeratorDisplay {
 GuiPresenter::GuiPresenter(GuiView& view,
                            GuiViewModel* viewModel,
                            GuiViewTemperatureModel* temperatureModel,
-                           TapViewModel* tapModel) :
+                           TapViewModel* tapModel,
+                           PressureViewModel* pressureModel) :
     m_view(view),
     m_viewModel(viewModel),
     m_temperatureModel(temperatureModel),
-    m_tapModel(tapModel)
+    m_tapModel(tapModel),
+    m_pressureModel(pressureModel)
 {
     m_tapModel->leftTap.side = "Left tap";
     m_tapModel->rightTap.side = "Right tap";
     m_view.updateView(*m_viewModel);
+
+    m_view.updatePressure(*m_pressureModel);
 }
 
 GuiPresenter::~GuiPresenter()
 {
     delete m_viewModel;
+    delete m_temperatureModel;
+    delete m_tapModel;
+    delete m_pressureModel;
 }
 
 void GuiPresenter::updateTemperature(const TemperatureUpdateResponse& temperature)
@@ -54,6 +61,14 @@ void GuiPresenter::updateTap(const TapUpdateResponse& tap)
     }
 
     m_view.updateTap(*m_tapModel);
+}
+
+void GuiPresenter::updatePressure(const PressureUpdateResponse& response)
+{
+    Bar pressure = response.pressure();
+    m_pressureModel->unit = pressure.unit();
+    m_pressureModel->pressure = pressure.value();
+    m_view.updatePressure(*m_pressureModel);
 }
 
 void GuiPresenter::clearTap(const TapClearResponse& tap) {

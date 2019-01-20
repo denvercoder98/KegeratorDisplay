@@ -14,7 +14,9 @@
 #include "interactors/TapUpdateInteractor.h"
 #include "interactors/TapClearInteractor.h"
 #include "interactors/ScreenTouchedInteractor.h"
+#include "interactors/PressureUpdateInteractor.h"
 
+#include "controllers/AnalogDigitalConverterSensorController.h"
 #include "controllers/TemperatureSensorController.h"
 #include "controllers/UserInputControllerImpl.h"
 
@@ -23,6 +25,8 @@
 #include "devices/DS18B20Sensor.h"
 #include "devices/QmlButtonHandler.h"
 #include "devices/QmlContextPropertyRegistratorImpl.h"
+#include "devices/AdcSensorMCP3008.h"
+#include "devices/SpiReaderStaticValue.h"
 
 #include "thread/ApplicationThreadImpl.h"
 #include "thread/BoostDeadlineTimer.h"
@@ -70,7 +74,8 @@ int main(int argc, char** argv)
         GuiViewModel* viewModel = new GuiViewModel();
         GuiViewTemperatureModel* temperatureModel = new GuiViewTemperatureModel();
         TapViewModel* tapModel = new TapViewModel();
-        GuiPresenter presenter(view, viewModel, temperatureModel, tapModel);
+        PressureViewModel* pressureModel = new PressureViewModel();
+        GuiPresenter presenter(view, viewModel, temperatureModel, tapModel, pressureModel);
 
         //Storage
         FileWriter* fileWriter = new FileWriterImpl();
@@ -85,6 +90,7 @@ int main(int argc, char** argv)
         TemperatureUpdateInteractor temperatureUpdateInteractor(presenter, storage);
         TapUpdateInteractor tapUpdateInteractor(presenter, storage);
         TapClearInteractor tapClearInteractor(presenter, storage);
+        PressureUpdateInteractor pressureUpdateInteractor(presenter);
 
         //Devices
         FileReader* fileReader2 = new FileReaderImpl();
@@ -93,7 +99,15 @@ int main(int argc, char** argv)
         DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
         TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
 
+        SpiReader* spiReader = new SpiReaderStaticValue();
+        AdcSensorMCP3008* adcSensor = new AdcSensorMCP3008(spiReader);
+
         //Controllers
+        AnalogDigitalConverterSensorController* adcSensorController = new AnalogDigitalConverterSensorController(
+            AnalogDigitalConverterSensorController::ADC_10BITS,
+            AnalogDigitalConverterSensorController::ADC_CHANNEL0,
+            adcSensor,
+            pressureUpdateInteractor);
         TemperatureSensorController* temperatureSensorController = new TemperatureSensorController(temperatureSensor,
                                                                                                    temperatureUpdateInteractor,
                                                                                                    "C");
@@ -103,6 +117,7 @@ int main(int argc, char** argv)
         Mutex* mutex = new BoostMutex();
         SensorSampler* sensorSampler = new SensorSampler(1, sensorSamplerTimer, mutex);
         sensorSampler->addSensorController(temperatureSensorController);
+        sensorSampler->addSensorController(adcSensorController);
 
         //Devices
         QmlButtonHandler buttonHandler(userInputController, leftTap, rightTap);
@@ -117,6 +132,7 @@ int main(int argc, char** argv)
         return 0;
     }
     catch (std::exception& ex) {
+        std::cerr << ex.what() << std::endl;
         std::cerr << "Error in application, terminating" << std::endl;
         return 1;
     }

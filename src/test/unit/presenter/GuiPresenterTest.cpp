@@ -4,6 +4,7 @@
 
 #include "GuiViewMock.h"
 #include "presenter/GuiPresenter.h"
+#include "presenter/PressureViewModel.h"
 
 using testing::NiceMock;
 using testing::_;
@@ -29,15 +30,14 @@ void GuiPresenterTest::SetUp()
     m_viewModel = new GuiViewModel();
     m_temperatureModel = new GuiViewTemperatureModel();
     m_tapModel = new TapViewModel();
+    m_pressureModel = new PressureViewModel();
     m_view = new NiceMock<GuiViewMock>();
-    m_presenter = new GuiPresenter(*m_view, m_viewModel, m_temperatureModel, m_tapModel);
+    m_presenter = new GuiPresenter(*m_view, m_viewModel, m_temperatureModel, m_tapModel, m_pressureModel);
 }
 
 void GuiPresenterTest::TearDown()
 {
     delete m_presenter;
-    delete m_tapModel;
-    delete m_temperatureModel;
     delete m_view;
 }
 
@@ -271,10 +271,11 @@ TEST_F(GuiPresenterTest, ViewUpdatedWhenPresenterCreated)
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
     NiceMock<GuiViewMock> view;
     EXPECT_CALL(view, updateView(_))
         .Times(1);
-    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
 }
 
 TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
@@ -282,13 +283,14 @@ TEST_F(GuiPresenterTest, TagNamesSetWhenPresenterCreated)
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
     EXPECT_EQ("Name: ", receivedViewModel.beerNameTag);
     EXPECT_EQ("Brewer Name: ", receivedViewModel.brewerNameTag);
     EXPECT_EQ("ABV: ", receivedViewModel.abvTag);
@@ -303,13 +305,14 @@ TEST_F(GuiPresenterTest, HeadingSetWhenPresenterCreated)
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
     EXPECT_EQ("Kegerator Status", receivedViewModel.heading);
 }
 
@@ -318,13 +321,14 @@ TEST_F(GuiPresenterTest, ClearButtonTagSetWhenPresenterCreated)
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
     EXPECT_EQ("Clear", receivedViewModel.clearButtonTag);
 }
 
@@ -333,14 +337,49 @@ TEST_F(GuiPresenterTest, SaveButtonTagSetWhenPresenterCreated)
     GuiViewModel* viewModel = new GuiViewModel();
     GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
     TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
     NiceMock<GuiViewMock> view;
 
     GuiViewModel receivedViewModel;
     EXPECT_CALL(view, updateView(_))
         .WillOnce(SaveArg<0>(&receivedViewModel));
 
-    GuiPresenter presenter(view, viewModel, tempModel, tapModel);
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
     EXPECT_EQ("Save", receivedViewModel.saveButtonTag);
+}
+
+TEST_F(GuiPresenterTest, PressureUpdateUpdatesView)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
+    NiceMock<GuiViewMock> view;
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
+
+    PressureViewModel receivedViewModel;
+    EXPECT_CALL(view, updatePressure(_))
+        .WillOnce(SaveArg<0>(&receivedViewModel));
+
+    PressureUpdateResponse update(Bar(1.0));
+    presenter.updatePressure(update);
+
+    EXPECT_EQ("1.0", receivedViewModel.pressure);
+    EXPECT_EQ("bar", receivedViewModel.unit);
+}
+
+TEST_F(GuiPresenterTest, PressureSetWhenPresenterCreated)
+{
+    GuiViewModel* viewModel = new GuiViewModel();
+    GuiViewTemperatureModel* tempModel = new GuiViewTemperatureModel();
+    TapViewModel* tapModel = new TapViewModel();
+    PressureViewModel* pressureModel = new PressureViewModel();
+    NiceMock<GuiViewMock> view;
+
+    EXPECT_CALL(view, updatePressure(_))
+        .Times(1);
+
+    GuiPresenter presenter(view, viewModel, tempModel, tapModel, pressureModel);
 }
 
 }

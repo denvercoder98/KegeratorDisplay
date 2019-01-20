@@ -41,15 +41,38 @@ TEST_F(PressureUpdateInteractorTest, UpdateResponseOnUpdateRequest)
     interactor.updateValue(value);
 }
 
-TEST_F(PressureUpdateInteractorTest, UpdateResponseOnUpdateRequestValue)
+TEST_F(PressureUpdateInteractorTest, UpdateResponseOnUpdateRequestTranslatesToPressure100PsiMax)
 {
     NiceMock<PresenterMock> presenter;
     PressureUpdateInteractor interactor(presenter);
 
-    EXPECT_CALL(presenter, updatePressure(PressureUpdateResponse(RelativePressureBar(1))))
+    EXPECT_CALL(presenter, updatePressure(PressureUpdateResponse(Bar(6.9))))
         .Times(1);
-    AdcReading10Bit value(42);
+    AdcReading10Bit value(930);
     interactor.updateValue(value);
 }
+
+TEST_F(PressureUpdateInteractorTest, UpdateResponseOnUpdateRequestTranslatesToPressure100PsiMin)
+{
+    NiceMock<PresenterMock> presenter;
+    PressureUpdateInteractor interactor(presenter);
+
+    EXPECT_CALL(presenter, updatePressure(PressureUpdateResponse(Bar(0))))
+        .Times(1);
+    AdcReading10Bit value(102);
+    interactor.updateValue(value);
+}
+
+TEST_F(PressureUpdateInteractorTest, UpdateResponseOnUpdateRequestTranslatesToPressure100Psi50Psi)
+{
+    NiceMock<PresenterMock> presenter;
+    PressureUpdateInteractor interactor(presenter);
+
+    EXPECT_CALL(presenter, updatePressure(PressureUpdateResponse(Bar(3.5))))
+        .Times(1);
+    AdcReading10Bit value(527);
+    interactor.updateValue(value);
+}
+
 
 }

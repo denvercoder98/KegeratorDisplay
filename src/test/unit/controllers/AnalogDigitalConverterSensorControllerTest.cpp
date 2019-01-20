@@ -26,7 +26,7 @@ AnalogDigitalConverterSensorControllerTest::~AnalogDigitalConverterSensorControl
 TEST_F(AnalogDigitalConverterSensorControllerTest, Create)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -36,7 +36,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, Create)
 
 TEST_F(AnalogDigitalConverterSensorControllerTest, MissingSensorThrows)
 {
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     EXPECT_THROW(AnalogDigitalConverterSensorController(
                     AnalogDigitalConverterSensorController::ADC_10BITS,
                     AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -45,21 +45,10 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, MissingSensorThrows)
                  InvalidAnalogDigitalConverterSensorControllerArgumentException);
 }
 
-TEST_F(AnalogDigitalConverterSensorControllerTest, MissingObserverThrows)
-{
-    NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    EXPECT_THROW(AnalogDigitalConverterSensorController(
-                    AnalogDigitalConverterSensorController::ADC_10BITS,
-                    AnalogDigitalConverterSensorController::ADC_CHANNEL0,
-                    sensor,
-                    NULL),
-                 InvalidAnalogDigitalConverterSensorControllerArgumentException);
-}
-
 TEST_F(AnalogDigitalConverterSensorControllerTest, CanAddToSensorSampler)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController* controller = new AnalogDigitalConverterSensorController(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -74,7 +63,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, CanAddToSensorSampler)
 TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessReadsFromSensor)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -89,7 +78,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessReadsFromSensor)
 TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessReadsFromCorrectSensorChannel)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL6,
@@ -104,14 +93,14 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessReadsFromCorrectSensor
 TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalConverterUpdateRequestObserver)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
         sensor,
         observer);
 
-    EXPECT_CALL(*observer, updateValue(_))
+    EXPECT_CALL(observer, updateValue(_))
         .Times(1);
     controller.process();
 }
@@ -119,7 +108,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalC
 TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalConverterUpdateRequestObserverZeroValue)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -129,7 +118,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalC
     AdcReading10Bit expected(0);
     ON_CALL(*sensor, readChannel(_))
         .WillByDefault( Return(0) );
-    EXPECT_CALL(*observer, updateValue(expected))
+    EXPECT_CALL(observer, updateValue(expected))
         .Times(1);
     controller.process();
 }
@@ -137,7 +126,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalC
 TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalConverterUpdateRequestObserverValue)
 {
     NiceMock<AnalogDigitalConverterSensorMock>* sensor = new NiceMock<AnalogDigitalConverterSensorMock>();
-    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>* observer = new NiceMock<AnalogDigitalConverterUpdateRequestObserverMock>();
+    NiceMock<AnalogDigitalConverterUpdateRequestObserverMock> observer;
     AnalogDigitalConverterSensorController controller(
         AnalogDigitalConverterSensorController::ADC_10BITS,
         AnalogDigitalConverterSensorController::ADC_CHANNEL0,
@@ -147,7 +136,7 @@ TEST_F(AnalogDigitalConverterSensorControllerTest, ProcessNotifiesAnalogDigitalC
     ON_CALL(*sensor, readChannel(_))
         .WillByDefault( Return(512) );
     AdcReading10Bit expected(512);
-    EXPECT_CALL(*observer, updateValue(expected))
+    EXPECT_CALL(observer, updateValue(expected))
         .Times(1);
     controller.process();
 }
