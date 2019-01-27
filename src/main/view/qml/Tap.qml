@@ -19,7 +19,7 @@ ColumnLayout {
     Layout.fillHeight: false
 
     Text {
-        text: qsTr(tap.side)
+        text: qsTr(tap.sideName)
         font.pixelSize: headerSize
     }
     
@@ -153,7 +153,7 @@ ColumnLayout {
             font.pixelSize: textSize
 
             onClicked: {
-                buttonHandler.saveTap(side)
+                buttonHandler.saveTap(tap.side)
             }
             visible: tap.buttonsVisible
         }
@@ -163,7 +163,7 @@ ColumnLayout {
             font.pixelSize: textSize
 
             onClicked: {
-                buttonHandler.clearTap(side)
+                buttonHandler.clearTap(tap.side)
             }
             visible: tap.buttonsVisible
         }

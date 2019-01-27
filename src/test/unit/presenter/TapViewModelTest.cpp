@@ -22,6 +22,7 @@ TEST_F(TapViewModelTest, Equal)
     m.leftTap.fg = "3";
     m.leftTap.ibu = "4";
     m.leftTap.side = "left";
+    m.leftTap.sideName = "left tap";
     m.leftTap.tapDate = "5";
 
     m.rightTap.abv = "12";
@@ -32,6 +33,7 @@ TEST_F(TapViewModelTest, Equal)
     m.rightTap.fg = "32";
     m.rightTap.ibu = "42";
     m.rightTap.side = "right";
+    m.rightTap.sideName = "right tap";
     m.rightTap.tapDate = "52";
 
     TapViewModel expected;
@@ -43,6 +45,7 @@ TEST_F(TapViewModelTest, Equal)
     expected.leftTap.fg = "3";
     expected.leftTap.ibu = "4";
     expected.leftTap.side = "left";
+    expected.leftTap.sideName = "left tap";
     expected.leftTap.tapDate = "5";
 
     expected.rightTap.abv = "12";
@@ -53,6 +56,7 @@ TEST_F(TapViewModelTest, Equal)
     expected.rightTap.fg = "32";
     expected.rightTap.ibu = "42";
     expected.rightTap.side = "right";
+    expected.rightTap.sideName = "right tap";
     expected.rightTap.tapDate = "52";
 
     EXPECT_TRUE(expected == m);
@@ -69,6 +73,7 @@ TEST_F(TapViewModelTest, NotEqual)
     m.leftTap.fg = "3";
     m.leftTap.ibu = "4";
     m.leftTap.side = "left";
+    m.leftTap.sideName = "left tap";
     m.leftTap.tapDate = "51";
 
     m.rightTap.abv = "12";
@@ -79,6 +84,7 @@ TEST_F(TapViewModelTest, NotEqual)
     m.rightTap.fg = "32";
     m.rightTap.ibu = "42";
     m.rightTap.side = "right";
+    m.rightTap.sideName = "right tap";
     m.rightTap.tapDate = "52";
 
     TapViewModel expected;
@@ -90,6 +96,7 @@ TEST_F(TapViewModelTest, NotEqual)
     expected.leftTap.fg = "3";
     expected.leftTap.ibu = "4";
     expected.leftTap.side = "left";
+    expected.leftTap.sideName = "left tap";
     expected.leftTap.tapDate = "5";
 
     expected.rightTap.abv = "12";
@@ -100,6 +107,7 @@ TEST_F(TapViewModelTest, NotEqual)
     expected.rightTap.fg = "32";
     expected.rightTap.ibu = "42";
     expected.rightTap.side = "right";
+    expected.rightTap.sideName = "right tap";
     expected.rightTap.tapDate = "52";
 
     EXPECT_FALSE(expected == m);
@@ -116,6 +124,7 @@ TEST_F(TapViewModelTest, Stream)
     m.leftTap.fg = "3";
     m.leftTap.ibu = "4";
     m.leftTap.side = "left";
+    m.leftTap.sideName = "left tap";
     m.leftTap.tapDate = "5";
 
     m.rightTap.abv = "12";
@@ -126,11 +135,12 @@ TEST_F(TapViewModelTest, Stream)
     m.rightTap.fg = "32";
     m.rightTap.ibu = "42";
     m.rightTap.side = "right";
+    m.rightTap.sideName = "right tap";
     m.rightTap.tapDate = "52";
 
     std::ostringstream str;
     str << m;
-    std::string expected = "[leftTap: [empty: 0, side: left, name: 'abc', brewerName: '123', abv: '1', ibu: '4', brewDate: '2', tapDate: '5', fg: '3'], rightTap: [empty: 0, side: right, name: 'abc2', brewerName: '1232', abv: '12', ibu: '42', brewDate: '22', tapDate: '52', fg: '32']]";
+    std::string expected = "[leftTap: [empty: 0, side: left, sideName: 'left tap', name: 'abc', brewerName: '123', abv: '1', ibu: '4', brewDate: '2', tapDate: '5', fg: '3'], rightTap: [empty: 0, side: right, sideName: 'right tap', name: 'abc2', brewerName: '1232', abv: '12', ibu: '42', brewDate: '22', tapDate: '52', fg: '32']]";
     EXPECT_EQ(expected, str.str());
 }
 

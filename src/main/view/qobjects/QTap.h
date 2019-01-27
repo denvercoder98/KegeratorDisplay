@@ -8,6 +8,7 @@ namespace KegeratorDisplay {
 class QTap : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString sideName READ sideName WRITE setSideName NOTIFY sideNameChanged)
     Q_PROPERTY(QString side READ side WRITE setSide NOTIFY sideChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString estVolume READ estVolume WRITE setEstVolume NOTIFY estVolumeChanged)
@@ -20,6 +21,19 @@ class QTap : public QObject
     Q_PROPERTY(bool buttonsVisible READ buttonsVisible WRITE setButtonsVisible NOTIFY buttonsVisibleChanged)
 
 public:
+    void setSideName(const QString &a)
+    {
+        if (a != m_sideName) {
+            m_sideName = a;
+            emit sideNameChanged();
+        }
+    }
+
+    QString sideName() const
+    {
+        return m_sideName;
+    }
+
     void setSide(const QString &a)
     {
         if (a != m_side) {
@@ -151,6 +165,7 @@ public:
     }
 
 signals:
+    void sideNameChanged();
     void sideChanged();
     void nameChanged();
     void estVolumeChanged();
@@ -163,6 +178,7 @@ signals:
     void buttonsVisibleChanged();
 
 private:
+    QString m_sideName;
     QString m_side;
     QString m_name;
     QString m_estVolume;

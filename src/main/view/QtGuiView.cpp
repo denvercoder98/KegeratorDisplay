@@ -60,6 +60,7 @@ void QtGuiView::updateTapTags(const GuiViewModel& view)
 
 void QtGuiView::updateTap(const TapViewModel& view)
 {
+    m_leftTap.setSideName(QString(view.leftTap.sideName.c_str()));
     m_leftTap.setSide(QString(view.leftTap.side.c_str()));
     m_leftTap.setName(QString(view.leftTap.beerName.c_str()));
     m_leftTap.setEstVolume(QString("12"));
@@ -70,6 +71,7 @@ void QtGuiView::updateTap(const TapViewModel& view)
     m_leftTap.setTapDate(QString(view.leftTap.tapDate.c_str()));
     m_leftTap.setFinalGravity(QString(view.leftTap.fg.c_str()));
 
+    m_rightTap.setSideName(QString(view.rightTap.sideName.c_str()));
     m_rightTap.setSide(QString(view.rightTap.side.c_str()));
     m_rightTap.setName(QString(view.rightTap.beerName.c_str()));
     m_rightTap.setEstVolume(QString("12"));

@@ -26,8 +26,8 @@ AdcSensorMCP3008::~AdcSensorMCP3008()
 unsigned int AdcSensorMCP3008::readChannel(unsigned int channel)
 {
     //TODO buffer size
-    unsigned char buffer[512];
-    m_reader->read(buffer, 512);
+    unsigned char buffer[3];
+    m_reader->read(buffer, 3);
 
     try {
         return convertReadingToUnsignedInt(buffer, 512);

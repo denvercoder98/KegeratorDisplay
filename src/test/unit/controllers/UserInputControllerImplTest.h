@@ -9,6 +9,7 @@ namespace KegeratorDisplay {
 class ApplicationThreadFake;
 class TapClearRequestObserverMock;
 class ScreenTouchedRequestObserverMock;
+class TapUpdateRequestObserverMock;
 
 class UserInputControllerImplTest : public testing::Test
 {
@@ -23,6 +24,7 @@ protected:
     ApplicationThreadFake* m_thread;
     TapClearRequestObserverMock* m_clearObserver;
     ScreenTouchedRequestObserverMock* m_screenTouchedObserver;
+    TapUpdateRequestObserverMock* m_updateObserver;
 };
 
 }

@@ -2,8 +2,9 @@
 #define SRC_MAIN_VIEW_QBUTTONHANDLER_H_
 
 #include "controllers/UserInputController.h"
-#include <QtCore/qobject.h>
 #include "view/qobjects/QTap.h"
+#include <QtCore/qobject.h>
+#include <iostream>
 
 namespace KegeratorDisplay {
 
@@ -17,7 +18,8 @@ public:
                               QObject *parent = 0) :
         QObject(parent),
         m_userInputController(userInputController),
-        m_leftTap(leftTap)
+        m_leftTap(leftTap),
+        m_rightTap(rightTap)
     {
     }
 
@@ -29,7 +31,27 @@ public slots:
 
     void saveTap(const QString &side)
     {
-        m_userInputController.saveTap(side.toStdString());
+        QTap* qTap;
+        if (side == "left") {
+            qTap = &m_leftTap;
+        }
+        else if (side == "right") {
+            qTap = &m_rightTap;
+        }
+        else {
+            return;
+        }
+
+        DeviceTapData tapData(
+            qTap->name().toStdString(),
+            qTap->estVolume().toStdString(),
+            qTap->brewer().toStdString(),
+            qTap->abv().toStdString(),
+            qTap->ibu().toStdString(),
+            qTap->brewDate().toStdString(),
+            qTap->tapDate().toStdString(),
+            qTap->finalGravity().toStdString());
+        m_userInputController.saveTap(side.toStdString(), tapData);
     }
 
     void screenTouched()
@@ -40,6 +62,7 @@ public slots:
 private:
     UserInputController& m_userInputController;
     QTap& m_leftTap;
+    QTap& m_rightTap;
 
 };
 

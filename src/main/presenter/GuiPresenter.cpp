@@ -18,8 +18,10 @@ GuiPresenter::GuiPresenter(GuiView& view,
     m_tapModel(tapModel),
     m_pressureModel(pressureModel)
 {
-    m_tapModel->leftTap.side = "Left tap";
-    m_tapModel->rightTap.side = "Right tap";
+    m_tapModel->leftTap.sideName = "Left tap";
+    m_tapModel->leftTap.side = "left";
+    m_tapModel->rightTap.sideName = "Right tap";
+    m_tapModel->rightTap.side = "right";
     m_view.updateView(*m_viewModel);
 
     m_view.updatePressure(*m_pressureModel);

@@ -3,6 +3,7 @@
 #include "TapUpdateInteractor.h"
 #include "TapUpdateResponse.h"
 #include "entities/Beer.h"
+#include <iostream>
 
 namespace KegeratorDisplay {
 
@@ -20,6 +21,7 @@ TapUpdateInteractor::~TapUpdateInteractor()
 
 void TapUpdateInteractor::updateTap(const TapUpdateRequest& request)
 {
+    std::cout << request << std::endl;
 }
 
 void TapUpdateInteractor::readAndUpdateTap(const TapSide side)

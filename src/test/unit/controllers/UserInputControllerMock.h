@@ -11,7 +11,7 @@ class UserInputControllerMock : public UserInputController
 {
 public:
     MOCK_METHOD1(clearTap, void(const std::string&));
-    MOCK_METHOD1(saveTap, void(const std::string&));
+    MOCK_METHOD2(saveTap, void(const std::string&, DeviceTapData data));
     MOCK_METHOD0(screenTouched, void());
 };
 

@@ -2,6 +2,7 @@
 #include "thread/ApplicationThread.h"
 #include "interactors/TapClearRequestObserver.h"
 #include "interactors/ScreenTouchedRequestObserver.h"
+#include "interactors/TapUpdateRequestObserver.h"
 #include <boost/bind.hpp>
 
 namespace KegeratorDisplay {
@@ -9,10 +10,12 @@ namespace KegeratorDisplay {
 UserInputControllerImpl::UserInputControllerImpl(
     ApplicationThread& appThread,
     TapClearRequestObserver& tapClearObserver,
-    ScreenTouchedRequestObserver& screenTouchedObserver) :
+    ScreenTouchedRequestObserver& screenTouchedObserver,
+    TapUpdateRequestObserver& updateObserver) :
         m_appThread(appThread),
         m_tapClearObserver(tapClearObserver),
-        m_screenTouchedObserver(screenTouchedObserver)
+        m_screenTouchedObserver(screenTouchedObserver),
+        m_updateObserver(updateObserver)
 {
 }
 
@@ -31,6 +34,27 @@ void UserInputControllerImpl::clearTap(const std::string& side)
         TapClearRequest request(TAP_RIGHT);
         notifyTapClearRequestObserver(request);
    }
+}
+
+void UserInputControllerImpl::saveTap(const std::string& side, DeviceTapData data)
+{
+    TapSide tapSide;
+    if (side == "left") {
+        tapSide = TapSide::TAP_LEFT;
+    }
+    else {
+        tapSide = TapSide::TAP_RIGHT;
+    }
+    TapUpdateRequest request(tapSide,
+                             data.name,
+                             data.estVolume,
+                             data.brewer,
+                             data.abv,
+                             data.ibu,
+                             data.brewDate,
+                             data.tapDate,
+                             data.finalGravity);
+    m_appThread.post(boost::bind(&TapUpdateRequestObserver::updateTap, &m_updateObserver, request));
 }
 
 void UserInputControllerImpl::notifyTapClearRequestObserver(const TapClearRequest& request)

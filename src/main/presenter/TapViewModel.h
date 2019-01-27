@@ -14,6 +14,7 @@ public:
     public:
         bool empty = false;
         std::string side = "";
+        std::string sideName = "";
         std::string beerName = "";
         std::string brewerName = "";
         std::string abv = "";
@@ -26,6 +27,7 @@ public:
         {
             return empty == other.empty &&
                 side == other.side &&
+                sideName == other.sideName &&
                 beerName == other.beerName &&
                 brewerName == other.brewerName &&
                 abv == other.abv &&
@@ -40,6 +42,7 @@ public:
             return stream << "["
                           << "empty: " << model.empty << ", "
                           << "side: " << model.side << ", "
+                          << "sideName: '" << model.sideName << "', "
                           << "name: '" << model.beerName << "', "
                           << "brewerName: '" << model.brewerName << "', "
                           << "abv: '" << model.abv << "', "

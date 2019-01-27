@@ -16,6 +16,7 @@ GuiPresenterTest::GuiPresenterTest() :
     m_viewModel(NULL),
     m_temperatureModel(NULL),
     m_tapModel(NULL),
+    m_pressureModel(NULL),
     m_view(NULL),
     m_presenter(NULL)
 {
@@ -89,7 +90,8 @@ TEST_F(GuiPresenterTest, UpdateTapUpdatesViewModel)
 TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 {
     TapViewModel expectedViewModel;
-    expectedViewModel.leftTap.side = "Left tap";
+    expectedViewModel.leftTap.side = "left";
+    expectedViewModel.leftTap.sideName = "Left tap";
     expectedViewModel.leftTap.beerName = "A";
     expectedViewModel.leftTap.brewerName = "B";
     expectedViewModel.leftTap.abv = "4,1";
@@ -97,7 +99,8 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
     expectedViewModel.leftTap.brewDate = "2018-01-01";
     expectedViewModel.leftTap.tapDate = "2018-01-14";
     expectedViewModel.leftTap.fg = "1.010";
-    expectedViewModel.rightTap.side = "Right tap";
+    expectedViewModel.rightTap.side = "right";
+    expectedViewModel.rightTap.sideName = "Right tap";
 
     TapViewModel viewModel;
     ON_CALL(*m_view, updateTap(_))
@@ -118,7 +121,8 @@ TEST_F(GuiPresenterTest, UpdateTapLeftUpdatesViewModelValue)
 TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
 {
     TapViewModel expectedViewModel;
-    expectedViewModel.rightTap.side = "Right tap";
+    expectedViewModel.rightTap.side = "right";
+    expectedViewModel.rightTap.sideName = "Right tap";
     expectedViewModel.rightTap.beerName = "A";
     expectedViewModel.rightTap.brewerName = "B";
     expectedViewModel.rightTap.abv = "4,1";
@@ -126,7 +130,8 @@ TEST_F(GuiPresenterTest, UpdateTapRightUpdatesViewModelValue)
     expectedViewModel.rightTap.brewDate = "2018-01-01";
     expectedViewModel.rightTap.tapDate = "2018-01-14";
     expectedViewModel.rightTap.fg = "1.010";
-    expectedViewModel.leftTap.side = "Left tap";
+    expectedViewModel.leftTap.side = "left";
+    expectedViewModel.leftTap.sideName = "Left tap";
 
     TapViewModel viewModel;
     ON_CALL(*m_view, updateTap(_))
@@ -158,7 +163,8 @@ TEST_F(GuiPresenterTest, ClearLeftTapClearsViewModel)
 
     TapViewModel expectedViewModel;
     expectedViewModel.leftTap.empty = true;
-    expectedViewModel.leftTap.side = "Left tap";
+    expectedViewModel.leftTap.side = "left";
+    expectedViewModel.leftTap.sideName = "Left tap";
 
     TapViewModel receivedViewModel;
     EXPECT_CALL(*m_view, updateTap(_))
@@ -182,7 +188,8 @@ TEST_F(GuiPresenterTest, ClearRightTapClearsViewModel)
 
     TapViewModel expectedViewModel;
     expectedViewModel.rightTap.empty = true;
-    expectedViewModel.rightTap.side = "Right tap";
+    expectedViewModel.rightTap.side = "right";
+    expectedViewModel.rightTap.sideName = "Right tap";
 
     TapViewModel receivedViewModel;
     EXPECT_CALL(*m_view, updateTap(_))
@@ -206,10 +213,12 @@ TEST_F(GuiPresenterTest, EmptyLeftTapClearsViewModel)
     m_tapModel->rightTap.abv = "5,0";
 
     TapViewModel expectedViewModel;
-    expectedViewModel.leftTap.side = "Left tap";
+    expectedViewModel.leftTap.side = "left";
+    expectedViewModel.leftTap.sideName = "Left tap";
     expectedViewModel.leftTap.empty = true;
     expectedViewModel.rightTap.abv = "5,0";
-    expectedViewModel.rightTap.side = "Right tap";
+    expectedViewModel.rightTap.side = "right";
+    expectedViewModel.rightTap.sideName = "Right tap";
     EXPECT_CALL(*m_view, updateTap(expectedViewModel))
         .Times(1);
 
@@ -238,10 +247,12 @@ TEST_F(GuiPresenterTest, EmptyRightTapClearsViewModel)
     m_tapModel->leftTap.abv = "5,0";
 
     TapViewModel expectedViewModel;
-    expectedViewModel.rightTap.side = "Right tap";
+    expectedViewModel.rightTap.side = "right";
+    expectedViewModel.rightTap.sideName = "Right tap";
     expectedViewModel.rightTap.empty = true;
     expectedViewModel.leftTap.abv = "5,0";
-    expectedViewModel.leftTap.side = "Left tap";
+    expectedViewModel.leftTap.side = "left";
+    expectedViewModel.leftTap.sideName = "Left tap";
     EXPECT_CALL(*m_view, updateTap(expectedViewModel))
         .Times(1);
 
