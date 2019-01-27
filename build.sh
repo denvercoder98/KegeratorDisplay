@@ -35,5 +35,9 @@ QT5_DIR_DEFINE=""
 if [ ! -z "$QT5_DIR" ]; then
 	QT5_DIR_DEFINE="-DQt5_DIR:PATH=/opt/Qt5.10.0/5.10.0/gcc_64/lib/cmake/Qt5"
 fi
-cmake -E chdir build cmake $QT5_DIR_DEFINE ..
+BUILD_DEVELOP_DEFINE=""
+if [ ! -z "$BUILD_TARGET" ] && [ "$BUILD_TARGET" = "DEVELOP" ]; then
+	BUILD_DEVELOP_DEFINE="-DBUILD_DEVELOP=ON"
+fi
+cmake -E chdir build cmake $QT5_DIR_DEFINE $BUILD_DEVELOP_DEFINE ..
 cmake --build build -- "$@"

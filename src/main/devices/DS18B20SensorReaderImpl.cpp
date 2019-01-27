@@ -25,4 +25,9 @@ std::string DS18B20SensorReaderImpl::read()
     return m_reader->read(m_device);
 }
 
+std::string DS18B20SensorReaderImpl::getDeviceName() const
+{
+    return m_device;
+}
+
 }

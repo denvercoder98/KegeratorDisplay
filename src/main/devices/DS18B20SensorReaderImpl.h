@@ -14,6 +14,7 @@ public:
     virtual ~DS18B20SensorReaderImpl();
 
     std::string read();
+    std::string getDeviceName() const;
 
 private:
     const std::string m_device;

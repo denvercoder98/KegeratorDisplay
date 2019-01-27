@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(KegeratorDisplay)
 
+option(BUILD_DEVELOP "Build develop for desktop" OFF)
+if(BUILD_DEVELOP)
+	add_definitions(-DBUILD_DEVELOP)
+endif(BUILD_DEVELOP)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -ggdb -O0 -g --coverage -fPIC -fprofile-arcs -ftest-coverage")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -8,6 +13,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TARGET_SOURCES
 	"src/main/Kegerator.cpp"
+	"src/main/TargetSpecificDependencyFactory.cpp"
 	"src/main/entities/*.cpp"
 	"src/main/interactors/*.cpp"
 	"src/main/presenter/*.cpp"
@@ -20,7 +26,7 @@ file(GLOB TARGET_SOURCES
 	"src/main/devices/Qml*.h"
 	"src/main/thread/*.cpp")
 file(GLOB UNITTEST_SOURCES
-	"src/test/unit/TestRunner.cpp"
+	"src/test/unit/*.cpp"
 	"src/test/unit/devices/*.cpp"
 	"src/test/unit/entities/*.cpp"
 	"src/test/unit/interactors/*.cpp"

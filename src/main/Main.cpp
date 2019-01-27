@@ -1,4 +1,5 @@
 #include "GuiKegerator.h"
+#include "TargetSpecificDependencyFactory.h"
 
 #include "view/QtGuiView.h"
 
@@ -57,6 +58,13 @@ void workerThread()
 int main(int argc, char** argv)
 {
     try {
+#ifdef BUILD_DEVELOP
+        TargetSpecificDependencyFactory factory(TargetSpecificDependencyFactory::DEVELOP);
+#else
+        TargetSpecificDependencyFactory factory(TargetSpecificDependencyFactory::TARGET);
+#endif
+
+
         //Application thread
         boost::asio::io_service::work work(ioService);
         boost::thread thread(&workerThread);
@@ -93,10 +101,8 @@ int main(int argc, char** argv)
         PressureUpdateInteractor pressureUpdateInteractor(presenter);
 
         //Devices
-        FileReader* fileReader2 = new FileReaderImpl();
         std::string ds18b20device = "/sys/bus/w1/devices/28-0517912576ff/w1_slave";
-        //DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderImpl(ds18b20device, fileReader2);
-        DS18B20SensorReader* ds18bSensorReader = new DS18B20SensorReaderStaticValue();
+        DS18B20SensorReader* ds18bSensorReader = factory.createDS18B20SensorReader(ds18b20device);
         TemperatureSensor* temperatureSensor = new DS18B20Sensor(ds18bSensorReader);
 
         SpiReader* spiReader = new SpiReaderStaticValue();
