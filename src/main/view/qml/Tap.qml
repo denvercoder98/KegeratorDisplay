@@ -12,6 +12,7 @@ ColumnLayout {
     property int textSize
     
     property QTap tap: QTap {}
+    property bool editing : tap.buttonsVisible
 
     Layout.minimumWidth: tapWidth
     Layout.maximumWidth: tapWidth
@@ -35,6 +36,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.name = text
+            readOnly: !editing
         }
     }
     
@@ -51,6 +53,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.brewer = text
+            readOnly: !editing
         }
     }
     
@@ -72,6 +75,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.abv = text
+            readOnly: !editing
         }
     }
     
@@ -88,6 +92,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.ibu = text
+            readOnly: !editing
         }
     }    
     
@@ -104,6 +109,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.brewDate = text
+            readOnly: !editing
         }
     }
     
@@ -120,6 +126,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.tapDate = text
+            readOnly: !editing
         }
     }
     
@@ -136,6 +143,7 @@ ColumnLayout {
             Layout.minimumHeight: 30
             Layout.maximumHeight: 30
             onEditingFinished: tap.finalGravity = text
+            readOnly: !editing
         }
     }    
     
